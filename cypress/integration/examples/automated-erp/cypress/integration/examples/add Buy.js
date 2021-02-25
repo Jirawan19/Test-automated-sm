@@ -11,6 +11,7 @@ context("add-buy-Tax", () => {
         cy.get('.box-add-product > .row > :nth-child(2) > .btn').click()
         cy.get('#atp > .form-group > .form-control').type("ล้อ")
         cy.get(':nth-child(1) > td > .btn').click()
+        cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
 
     })
 })
