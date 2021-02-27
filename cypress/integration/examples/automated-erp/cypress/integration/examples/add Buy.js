@@ -18,5 +18,6 @@ context("add-buy-Tax", () => {
 
 const login = (username, password) => {
     cy.get('#input_username').type(username)
-    cy.get('#input_password').type(password + "{enter}")
+    cy.get('#input_password').type(password)
+    cy.get('.btn').click()
 }
