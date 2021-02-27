@@ -12,7 +12,7 @@ context("add-customer-tax", () => {
         cy.get(':nth-child(5) > .col-12').click({ timeout: 900000 })
         const paymentTypes = ["เงินสด", "โอน", "เช็ค"]
         paymentTypes.map(paymentType => {
-            cy.get('#customerdesk > .d-flex > .col-lg-12 > a > .btn').click()
+            cy.get('#customerdesk > .d-flex > .col-lg-12 > a > .btn').click({ force: true })
             cy.get(':nth-child(2) > .row > :nth-child(1) > .form-control').type("jirawan 1.1")
             cy.get(':nth-child(3) > .row > :nth-child(1) > .form-control').type("phahon 54 168/106")
             cy.get(':nth-child(3) > .row > :nth-child(2) > .form-control').type("0888888888")
@@ -26,8 +26,8 @@ context("add-customer-tax", () => {
     })
     it("customer-Notax-เครดิตเทอม", () => {
         login("retail-CRR", "password")
-        cy.get(':nth-child(5) > .col-12').click()
-        cy.get('#customerdesk > .d-flex > .col-lg-12 > a > .btn').click()
+        cy.get(':nth-child(5) > .col-12').click({ force: true })
+        cy.get('#customerdesk > .d-flex > .col-lg-12 > a > .btn').click({ force: true })
         cy.get(':nth-child(2) > .row > :nth-child(1) > .form-control').type("jirawan 1.1")
         cy.get(':nth-child(3) > .row > :nth-child(1) > .form-control').type("phahon 54 168/106")
         cy.get(':nth-child(3) > .row > :nth-child(2) > .form-control').type("0888888888")
