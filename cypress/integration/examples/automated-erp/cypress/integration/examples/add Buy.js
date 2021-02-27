@@ -37,6 +37,7 @@ const AddBuy = () => {
     cy.get('.text-right > .btn-confirm').click()
 }
 
+
 const Dats = () => { 
     cy.get('#products-0 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner').clear().type("3")
     cy.get('#products-0 > [style="width: 200px;"] > :nth-child(1) > .text-left > .form-control').type("5")
