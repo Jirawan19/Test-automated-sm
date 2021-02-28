@@ -1,37 +1,71 @@
 /// <reference types="cypress" />
 
 // const { without } = require("cypress/types/lodash")
+let textNo
 
-Cypress.config('defaultCommandTimeout', 10000)
+Cypress.config('defaultCommandTimeout', 999999)
 context("add-buy-Tax", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
-    it("Add-Buy-Tax", () => {
+    it("getLatestTaxNo", () => {
+        getLatestTaxNo()
+    })
+
+    it("Add-Buy-Tax case tax no dub", () => {
         login("retail-CRR", "password")
         cy.get(':nth-child(2) > .col-12 > .mt-4').click()
+        cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
         cy.get(':nth-child(2) > .form-group > a > .btn').click()
-        cy.get('.box-add-product > .row > :nth-child(2) > .btn').click()
+        cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
         cy.get('#atp > .form-group > .form-control').type("11", { force: true })
         cy.get(':nth-child(1) > td > .btn').click({ force: true })
         cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
         AddBuy()
         Data()
-        tax()
+        tax(textNo)
+        cy.get(':nth-child(1) > .text-price').should("contain.text", "เลขใบกำกับภาษีนี้มีในระบบแล้ว")
+    })
+
+    it("Add-Buy-Tax", () => {
+        login("retail-CRR", "password")
+        cy.get(':nth-child(2) > .col-12 > .mt-4').click()
+        cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
+        cy.get(':nth-child(2) > .form-group > a > .btn').click()
+        cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
+        cy.get('#atp > .form-group > .form-control').type("11", { force: true })
+        cy.get(':nth-child(1) > td > .btn').click({ force: true })
+        cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
+        AddBuy()
+        Data()
+        tax(getRandomArbitrary(1,99999999999999999))
+        cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
+        cy.get('.el-switch__core').click()
+        cy.get('.pt-3 > div > .btn').click()
+        cy.get('.swal2-confirm').click()
     })
 })
+const getLatestTaxNo = () => {
+    login("retail-CRR", "password")
+    cy.get(':nth-child(2) > .col-12 > .mt-4').click()
+    cy.get('#orders-0 > :nth-child(1) > a').click()
+    cy.get(':nth-child(1) > :nth-child(4) > .form-control').invoke('val')
+        .then(sometext => {
+            textNo = sometext
+        });
+}
 
 // วิธีเช็ค
 const exampleExpect = () => {
-    
+
     // cy.get('strong').then(rs => {
     //     // console.log(rs);
     //     expect(rs[0].outerHTML)
     //         .eq('<strong data-v-9fea38fc="">สำหรับ Retailer และ Supplier</strong>')
     // })
-    
+
     // cy.get('strong').contains("สำหรับ Retailer และ Supplier")
-    
+
     // cy.get('strong').should("contain.text", "สำหรับ Retailer และ Supplier")
     // const customer = {
     //     name: "in",
@@ -88,6 +122,7 @@ const Data = () => {
     cy.get('#products-1 > [style="width: 200px;"] > :nth-child(2) > .text-left > .form-control').type(products[1].percentage2)
     cy.get('#products-1 > [style="width: 150px;"] > .el-input > .el-input__inner').type(products[1].price)
     cy.get('.col-md-5').click({ force: true })
+    // cy.get('.el-switch__core').click({ force: true }) 
 
     // วิธีหาผลลัพธ์ ราคาและเปอร์เซ็น
     let totalPrice = 0
@@ -97,16 +132,29 @@ const Data = () => {
     // วิธีเช็ค 
     totalPrice = totalPrice.toFixed(2)
     // แบบที่1
-    // cy.get(':nth-child(1) > .row > .text-right > h5').should("contain.text", totalPrice)
-    
-    // แบบที่2
-    cy.get(':nth-child(1) > .row > .text-right > h5').should(rs => {
-        expect(rs[0].outerHTML).eq('<h5 data-v-43e18a8c=""> '+ totalPrice +' บาท</h5>')
-    })
+    cy.get(':nth-child(1) > .row > .text-right > h5').should("contain.text", totalPrice)
+
+    // แบบที่2 (แนะนำ วิธีนี้ใช้ run in test)
+    // cy.get(':nth-child(1) > .row > .text-right > h5').should(rs => {
+    //     expect(rs[0].outerHTML).eq('<h5 data-v-43e18a8c=""> ' + totalPrice + ' บาท</h5>')
+    // })
 }
 
-const tax = () => {
+const tax = (tax) => {
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control').clear()
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner').click()
         .type("{downarrow}{downarrow}{enter}")
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control')
+        .type(tax)
+    cy.get('#products-0 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner')
+        .click()
+
 }
+
+const getRandomArbitrary = (min, max) => {
+    return Math.random() * (max - min) + min;
+}
+
+
+
 
