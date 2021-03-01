@@ -3,8 +3,8 @@
 // const { without } = require("cypress/types/lodash")
 let textNo
 
-Cypress.config('defaultCommandTimeout', 999999)
-context("add-buy-Tax", () => {
+Cypress.config('defaultCommandTimeout', 100000)
+context("add-buy-Tax-cash", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
@@ -151,7 +151,7 @@ const tax = (tax) => {
 
 }
 
-const getRandomArbitrary = (min, max) => {
+const getRandomArbitrary = (min, max) => {1,99999999999999999
     return Math.random() * (max - min) + min;
 }
 
