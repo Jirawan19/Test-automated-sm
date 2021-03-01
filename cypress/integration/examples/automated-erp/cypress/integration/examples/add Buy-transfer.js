@@ -39,7 +39,7 @@ context("add-buy-Tax-transfer", () => {
         cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
         cy.get('.el-switch__core').click()
         cy.get('.pt-3 > div > .btn').click()
-        cy.get('.box-price > .row > :nth-child(2) > .btn'). click()
+        cy.get('.box-price > .row > :nth-child(2) > .btn').click()
         cy.get('.swal2-confirm').click()
     })
 })

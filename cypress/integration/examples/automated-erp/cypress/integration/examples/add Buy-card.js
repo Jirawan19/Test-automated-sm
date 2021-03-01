@@ -24,24 +24,24 @@ context("add-buy-Tax-transfer", () => {
         tax(textNo)
         cy.get(':nth-child(1) > .text-price').should("contain.text", "เลขใบกำกับภาษีนี้มีในระบบแล้ว")
     })
-    // it("Add-Buy-card", () => {
-    //     login("retail-CRR", "password")
-    //     cy.get(':nth-child(2) > .col-12 > .mt-4').click()
-    //     cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
-    //     cy.get(':nth-child(2) > .form-group > a > .btn').click()
-    //     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
-    //     cy.get('#atp > .form-group > .form-control').type("11", { force: true })
-    //     cy.get(':nth-child(1) > td > .btn').click({ force: true })
-    //     cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
-    //     AddBuy()
-    //     Datatransfer()
-    //     tax(getRandomArbitrary(1,99999999999999999))
-    //     cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
-    //     cy.get('.el-switch__core').click()
-    //     cy.get('.pt-3 > div > .btn').click()
-    //     cy.get('.row > :nth-child(3) > .btn').click()
-    //     cy.get('.swal2-confirm').click()
-    // })
+    it("Add-Buy-card", () => {
+        login("retail-CRR", "password")
+        cy.get(':nth-child(2) > .col-12 > .mt-4').click()
+        cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
+        cy.get(':nth-child(2) > .form-group > a > .btn').click()
+        cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
+        cy.get('#atp > .form-group > .form-control').type("11", { force: true })
+        cy.get(':nth-child(1) > td > .btn').click({ force: true })
+        cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
+        AddBuy()
+        Datatransfer()
+        tax(getRandomArbitrary(1,100000))
+        cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
+        cy.get('.el-switch__core').click()
+        cy.get('.pt-3 > div > .btn').click()
+        cy.get('.row > :nth-child(3) > .btn').click()
+        cy.get('.swal2-confirm').click()
+    })
 })
 const tax = (textNo) => {
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control').clear()
@@ -126,6 +126,6 @@ const AddBuy = () => {
     cy.get('.text-right > .btn-confirm').click()
 }
 
-const getRandomArbitrary = (min, max) => {1,99999999999999999
+const getRandomArbitrary = (min, max) => {1,100000
     return Math.random() * (max - min) + min;
 }

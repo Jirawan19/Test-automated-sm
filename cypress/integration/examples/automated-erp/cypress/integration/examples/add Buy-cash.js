@@ -35,7 +35,7 @@ context("add-buy-Tax", () => {
         cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
         cy.get('#atp > .form-group > .form-control').type("11", { force: true })
         cy.get(':nth-child(1) > td > .btn').click({ force: true })
-        cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
+        // cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
         AddBuy()
         Data()
         tax(getRandomArbitrary(1,99999999999999999))
