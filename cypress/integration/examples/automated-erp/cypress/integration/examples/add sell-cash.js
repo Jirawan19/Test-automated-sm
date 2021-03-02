@@ -3,20 +3,27 @@
 let textNo
 
 Cypress.config('defaultCommandTimeout', 100000)
-context("add-buy-Tax-transfer", () => {
+context("AddsellTax-Cash", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
     // it("getLatestTaxNo", () => {
     //     getLatestTaxNo()
     // })
-    it("Add-Buy-Tax case tax no dub", () => {
+
+    // ราคารวมภาษี
+    it("AddsellTax-Cash", () => {
         login("retail-CRR", "password")
         sell()
         sell1()
-        selltex()
-        cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset').click()      // tax(textNo)
-        // cy.get(':nth-child(1) > .text-price').should("contain.text", "เลขใบกำกับภาษีนี้มีในระบบแล้ว")
+        selltexCash()
+    })
+    // ราคาไม่รวมภาษี
+    it("AddsellTax-Cash1", () => {
+        login("retail-CRR", "password")
+        sell()
+        sell1()
+        selltexCash1()
     })
 })
 
@@ -59,7 +66,7 @@ const sell1 = () => {
     cy.get('#products-0 > [style="width: 150px;"] > :nth-child(2) > .el-input__inner')
         .clear().type(products[0].qty)
 
-    
+
 
     let totalPrice = 0
     products.map(product => {
@@ -68,8 +75,8 @@ const sell1 = () => {
     cy.get(':nth-child(1) > .row > .text-right > h5').should("contain.text", totalPrice)
 
 }
-// ข้อมูลลูกค้าและภาษี
-const selltex = () => {
+// // ข้อมูลลูกค้าและราคารวมภาษี
+const selltexCash = () => {
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{enter}")
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
@@ -81,6 +88,26 @@ const selltex = () => {
     cy.get('.col-8 > .number-box > h1').click({ force: true })
     cy.get(':nth-child(3) > :nth-child(1) > .number-box > h1').click()
     cy.get('.swal2-confirm').click()
+    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
+        .click()
+}
+
+// ข้อมูลลูกค้าและราคาไม่รวมภาษี
+const selltexCash1 = () => {
+    cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
+        .click().type("{downarrow}{downarrow}{enter}")
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(2) > .btn').click()
+    cy.get('.box-price > .row > :nth-child(1) > .btn').click()
+    cy.get(':nth-child(8) > .number-box > h1').click({ force: true })
+    cy.get('.col-8 > .number-box > h1').click({ force: true })
+    cy.get('.col-8 > .number-box > h1').click({ force: true })
+    cy.get('.col-8 > .number-box > h1').click({ force: true })
+    cy.get(':nth-child(3) > :nth-child(1) > .number-box > h1').click()
+    cy.get('.swal2-confirm').click()
+    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
+        .click() 
+
 }
 
 const tax = (textNo) => {

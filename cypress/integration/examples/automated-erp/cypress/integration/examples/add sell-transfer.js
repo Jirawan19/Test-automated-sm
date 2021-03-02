@@ -1,20 +1,27 @@
 /// <reference types="cypress" />
 
-let textNo
+// let textNo
 
 Cypress.config('defaultCommandTimeout', 100000)
-context("add-buy-Tax-transfer", () => {
+context("AddsellTax-transfer", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
     // it("getLatestTaxNo", () => {
     //     getLatestTaxNo()
     // })
-    it("Add-Buy-Tax case tax no dub", () => {
+    it("AddsellTax-transfer", () => {
         login("retail-CRR", "password")
         sell()
         sell1()
-        selltex()
+        selltexTransfer()
+    })
+
+    it("AddsellTax-transfer1", () => {
+        login("retail-CRR", "password")
+        sell()
+        sell1()
+        selltexTransfer1()
     })
 })
 
@@ -57,15 +64,7 @@ const sell1 = () => {
     cy.get('#products-0 > [style="width: 150px;"] > :nth-child(2) > .el-input__inner')
         .clear().type(products[0].qty)
 
-    // cy.get('#products-1 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner')
-    //     .clear().type(products[1].price)
-    // cy.get('#products-1 > [style="width: 200px;"] > :nth-child(1) > .text-left > .form-control')
-    //     .clear().type(products[1].percentage1)
-    // cy.get('#products-1 > [style="width: 200px;"] > :nth-child(2) > .text-left > .form-control')
-    //     .clear().type(products[1].percentage2)
-    // cy.get('#products-1 > [style="width: 150px;"] > :nth-child(2) > .el-input__inner')
-    //     .clear().type(products[1].qty)
-
+    // วิธีเช็คจำนวนเงินของสินค้า
     let totalPrice = 0
     products.map(product => {
         totalPrice += product.qty * product.price
@@ -73,12 +72,11 @@ const sell1 = () => {
     cy.get(':nth-child(1) > .row > .text-right > h5').should("contain.text", totalPrice)
 
 }
-// ข้อมูลลูกค้าและภาษี
-const selltex = () => {
+// ข้อมูลลูกค้าและราคาสินค้ารวมภาษี
+const selltexTransfer = () => {
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{enter}")
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
-    // cy.get('.el-switch__core').click()
     cy.get('.box-price > .row > :nth-child(2) > .btn').click()
     cy.get('.payment-box > img').click()
     cy.get('#paymentModal > .modal-dialog > .modal-content > .modal-footer > .btn-confirm').click()
@@ -86,16 +84,21 @@ const selltex = () => {
     cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset').click()
 }
 
-const tax = (textNo) => {
-    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control').clear()
-    cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner').click()
-        .type("{downarrow}{downarrow}{enter}")
-    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control')
-        .type(textNo)
-    cy.get('#products-0 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner')
-        .click()
-
+// ข้อมูลลูกค้าและราคาสินค้าไม่รวมภาษี
+const selltexTransfer1 = () => {
+    cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
+        .click().type("{downarrow}{downarrow}{enter}")
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(2) > .btn').click()
+    cy.get('.box-price > .row > :nth-child(2) > .btn').click()
+    cy.get('.payment-box > img').click()
+    cy.get('#paymentModal > .modal-dialog > .modal-content > .modal-footer > .btn-confirm').click()
+    cy.get('.swal2-confirm').click()
+    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset').click()
 }
+
+
+
 
 const login = (username, password) => {
     // exampleExpect()
@@ -104,32 +107,14 @@ const login = (username, password) => {
     cy.get('.btn').click()
 }
 
-const AddBuyTransfer = () => {
-    cy.get('.box-add-product > .row > :nth-child(2) > .btn').click()
-    cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab').click()
-    cy.get('.mb-2 > :nth-child(1) > .el-autocomplete > .el-input > .el-input__inner')
-        .type("ผ้าดิสเบรค").tab().type("{downarrow}{downarrow}{enter}")
-    cy.get('.mt-3 > :nth-child(1) > .el-autocomplete > .el-input > .el-input__inner').type("BENDIX")
-    cy.get('.form-group > .mt-2 > .el-input__inner').type("1111").tab()
-    cy.get('.inline-input > .el-input__inner').type("1150").tab().type("{downarrow}{downarrow}{enter}")
-    cy.get('.text-right > .btn-confirm').click()
-    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset').click()
-}
+// const getLatestTaxNo = () => {
+//     login("retail-CRR", "password")
+//     cy.get(':nth-child(2) > .col-12 > .mt-4').click()
+//     cy.get('#orders-0 > :nth-child(1) > a').click()
+//     cy.get(':nth-child(1) > :nth-child(4) > .form-control').invoke('val')
+//         .then(sometext => {
+//             textNo = sometext
+//         });
+// }
 
 
-const getLatestTaxNo = () => {
-    login("retail-CRR", "password")
-    cy.get(':nth-child(2) > .col-12 > .mt-4').click()
-    cy.get('#orders-0 > :nth-child(1) > a').click()
-    cy.get(':nth-child(1) > :nth-child(4) > .form-control').invoke('val')
-        .then(sometext => {
-            textNo = sometext
-        });
-}
-
-
-
-const getRandomArbitrary = (min, max) => {
-    1, 99999999999999999
-    return Math.random() * (max - min) + min;
-}
