@@ -22,6 +22,13 @@ context("add-buy-Tax-transfer", () => {
 const sell = () => {
     cy.get(':nth-child(1) > .col-12 > .mt-4').click()
     cy.get(':nth-child(2) > .form-group > a > .btn').click()
+    // cy.get('.box-add-product > .row > :nth-child(1) > .btn').click()
+    // cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
+    //     .click()
+    // cy.get('#inventory > .form-group > .form-control')
+    //     .type("ยาง")
+    // cy.get(':nth-child(1) > td > .btn').click()
+    // cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close > span').click({ force: true })
     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
     cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
         .click()
@@ -57,14 +64,6 @@ const sell1 = () => {
     cy.get('#products-0 > [style="width: 150px;"] > :nth-child(2) > .el-input__inner')
         .clear().type(products[0].qty)
 
-    // cy.get('#products-1 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner')
-    //     .clear().type(products[1].price)
-    // cy.get('#products-1 > [style="width: 200px;"] > :nth-child(1) > .text-left > .form-control')
-    //     .clear().type(products[1].percentage1)
-    // cy.get('#products-1 > [style="width: 200px;"] > :nth-child(2) > .text-left > .form-control')
-    //     .clear().type(products[1].percentage2)
-    // cy.get('#products-1 > [style="width: 150px;"] > :nth-child(2) > .el-input__inner')
-    //     .clear().type(products[1].qty)
 
     let totalPrice = 0
     products.map(product => {
@@ -79,11 +78,11 @@ const selltex = () => {
         .click().type("{downarrow}{downarrow}{enter}")
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
     // cy.get('.el-switch__core').click()
-    cy.get('.box-price > .row > :nth-child(2) > .btn').click()
-    cy.get('.payment-box > img').click()
-    cy.get('#paymentModal > .modal-dialog > .modal-content > .modal-footer > .btn-confirm').click()
+    cy.get('.row > :nth-child(3) > .btn').click()
+    cy.get('[style="padding-bottom: 70px;"] > .btn').click()
     cy.get('.swal2-confirm').click()
-    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset').click()
+    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
+    .click()
 }
 
 const tax = (textNo) => {
