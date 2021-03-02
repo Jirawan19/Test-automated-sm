@@ -10,6 +10,7 @@ context("add-buy-Tax-transfer", () => {
     it("getLatestTaxNo", () => {
         getLatestTaxNo()
     })
+    // เช็คเลขกำกับภาษีที่มีในระบบ
     it("Add-Buy-Tax case tax no dub", () => {
         login("retail-CRR", "password")
         cy.get(':nth-child(2) > .col-12 > .mt-4').click()
@@ -24,7 +25,8 @@ context("add-buy-Tax-transfer", () => {
         tax(textNo)
         cy.get(':nth-child(1) > .text-price').should("contain.text", "เลขใบกำกับภาษีนี้มีในระบบแล้ว")
     })
-    it("Add-Buy-card", () => {
+    // สินค้าและราคาแบบรวมภาษี
+    it("Add-Buy-tax/card", () => {
         login("retail-CRR", "password")
         cy.get(':nth-child(2) > .col-12 > .mt-4').click()
         cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
@@ -37,6 +39,27 @@ context("add-buy-Tax-transfer", () => {
         Datatransfer()
         tax(getRandomArbitrary(1,100000))
         cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
+        cy.get('.el-switch__core').click()
+        cy.get('.pt-3 > div > .btn').click()
+        cy.get('.row > :nth-child(3) > .btn').click()
+        cy.get('.swal2-confirm').click()
+    })
+
+     // สินค้าและราคาแบบไม่รวมภาษี
+    it("Add-Buy-Notax/card", () => {
+        login("retail-CRR", "password")
+        cy.get(':nth-child(2) > .col-12 > .mt-4').click()
+        cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
+        cy.get(':nth-child(2) > .form-group > a > .btn').click()
+        cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
+        cy.get('#atp > .form-group > .form-control').type("11", { force: true })
+        cy.get(':nth-child(1) > td > .btn').click({ force: true })
+        cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
+        AddBuy()
+        Datatransfer()
+        tax(getRandomArbitrary(1,100000))
+        cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
+        cy.get(':nth-child(3) > .row > :nth-child(2) > .btn').click()
         cy.get('.el-switch__core').click()
         cy.get('.pt-3 > div > .btn').click()
         cy.get('.row > :nth-child(3) > .btn').click()
