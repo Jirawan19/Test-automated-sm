@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-let textNo
+// let textNo
 
 Cypress.config('defaultCommandTimeout', 100000)
 context("AddsellTax-Cash", () => {
