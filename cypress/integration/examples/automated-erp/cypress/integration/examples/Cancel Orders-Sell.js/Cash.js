@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 Cypress.config('defaultCommandTimeout', 100000)
-context("AddsellTax-Cash", () => {
+context("Cancel Order-Sell", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
@@ -92,8 +92,6 @@ const CancelOrderCash3 = () => {
         totalPrice += product.qty * product.price
     })
     cy.get(':nth-child(1) > .row > .text-right > h5').should("contain.text", totalPrice)
-
-
 }
 // ข้อมูลลูกค้า,รูปแบบภาษี/การชำระเงิน  (แบบมีภาษี)
 const CancelOrderCash4 = () => {
