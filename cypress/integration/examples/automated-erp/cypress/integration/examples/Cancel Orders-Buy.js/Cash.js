@@ -11,9 +11,10 @@ context("Cancel Order-Buy/Cash", () => {
         loginCancelOrderBuyCash("retail-CRR", "password")
         CancelOrderBuyCash1()
         CancelOrderBuyCash2()
-        // CancelOrderBuyCash3()
-        // CancelOrderBuyCash4()
-        // taxCancelOrderBuyCash(getRandomArbitraryCancelOrderBuyCash(1, 100000))
+        CancelOrderBuyCash3()
+        CancelOrderBuyCash4()
+        taxCancelOrderBuyCash(getRandomArbitraryCancelOrderBuyCash(1, 100000))
+        CancelOrderBuyCash5()
     })
 })
 const loginCancelOrderBuyCash = (username, password) => {
@@ -36,7 +37,7 @@ const CancelOrderBuyCash2 = () => {
     cy.get('#inventory > .form-group > .form-control').type("11")
     cy.get(':nth-child(1) > td > .btn').click()
     cy.get(':nth-child(2) > td > .btn').click()
-    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close').click({ force: true })
+    cy.get('#scanAddOrders').click({ force: true })
 
 }
 
@@ -102,7 +103,19 @@ const taxCancelOrderBuyCash = (textNo) => {
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control')
         .type(textNo)
     cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
-    cy.get('.row > :nth-child(3) > .btn').click()
-    cy.get('.box-price > .row > :nth-child(1) > .btn').click()
-    // cy.get('.swal2-confirm').click()
+    cy.get('.pt-3 > div > .btn').click()
+    cy.get('.swal2-confirm').click()
+}
+
+// ขั้นตอนยกเลิกออเดอร์
+const CancelOrderBuyCash5 = () => {
+    cy.get('.el-link--inner').click()
+    cy.get('#orders-0 > :nth-child(1) > a').click()
+    cy.get(':nth-child(3) > .status-border').should("contain.text","รายการเสร็จสิ้น")
+    cy.get('.mt-2 > .btn').click({ force: true })
+    cy.get('.swal2-confirm').click({ force: true })
+    cy.get('.swal2-confirm').click({ force: true })
+    cy.get('.swal2-confirm').click()
+    cy.get(':nth-child(3) > .status-border').should("contain.text","ยกเลิก")
+    cy.get('.btn').click({ force: true })
 }
