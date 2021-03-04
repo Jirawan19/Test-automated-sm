@@ -5,6 +5,7 @@ context("AddsellTax-Cash", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
+    // ยกเลิกรายการสินค้าแบบมีภาษี
     it("Cancel Order-Sell/Cash", () => {
         loginCancelOrderCash("retail-CRR", "password")
         CancelOrderCash1()
@@ -13,7 +14,15 @@ context("AddsellTax-Cash", () => {
         CancelOrderCash4()
         CancelOrderCash5()
     })
-
+    // ยกเลิกรายการสินค้าแบบไม่มีภาษี
+    it("Cancel Order-Sell/Cash1", () => {
+        loginCancelOrderCash("retail-CRR", "password")
+        CancelOrderCash1()
+        CancelOrderCash2()
+        CancelOrderCash3()
+        CancelOrderCash41()
+        CancelOrderCash5()
+    })
 })
 
 const loginCancelOrderCash = (username, password) => {
@@ -38,7 +47,7 @@ const CancelOrderCash2 = () => {
     cy.get(':nth-child(1) > td > .btn').click()
     cy.get(':nth-child(2) > td > .btn').click()
     cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close > span')
-    .click({ force: true })
+        .click({ force: true })
 
 }
 
@@ -86,11 +95,25 @@ const CancelOrderCash3 = () => {
 
 
 }
-// ข้อมูลลูกค้า,รูปแบบภาษี/การชำระเงิน
+// ข้อมูลลูกค้า,รูปแบบภาษี/การชำระเงิน  (แบบมีภาษี)
 const CancelOrderCash4 = () => {
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{enter}")
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
+    cy.get('.box-price > .row > :nth-child(1) > .btn').click()
+    cy.get(':nth-child(5) > .number-box > h1').click()
+    cy.get('.col-8 > .number-box > h1').click()
+    cy.get('.col-8 > .number-box > h1').click()
+    cy.get(':nth-child(3) > :nth-child(1) > .number-box').click()
+    cy.get('.swal2-confirm').click()
+}
+
+// ข้อมูลลูกค้า,รูปแบบภาษี/การชำระเงิน  (แบบไม่มีภาษี)
+const CancelOrderCash41 = () => {
+    cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
+        .click().type("{downarrow}{downarrow}{enter}")
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(2) > .btn').click()
     cy.get('.box-price > .row > :nth-child(1) > .btn').click()
     cy.get(':nth-child(5) > .number-box > h1').click()
     cy.get('.col-8 > .number-box > h1').click()

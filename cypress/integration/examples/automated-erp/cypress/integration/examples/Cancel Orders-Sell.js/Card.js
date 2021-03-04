@@ -5,6 +5,7 @@ context("AddsellTax-Cash", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
+    // ยกเลิกรายการสินค้าแบบมีภาษี
     it("Cancel Order-Sell/Card", () => {
         loginCancelOrderCard("retail-CRR", "password")
         CancelOrderCard1()
@@ -12,6 +13,16 @@ context("AddsellTax-Cash", () => {
         CancelOrderCard3()
         CancelOrderCard4()
         CancelOrderCard5()
+    })
+    // ยกเลิกรายการสินค้าแบบไม่มีภาษี
+    it("Cancel Order-Sell/Card 1", () => {
+        loginCancelOrderCard("retail-CRR", "password")
+        CancelOrderCard1()
+        CancelOrderCard2()
+        CancelOrderCard3()
+        CancelOrderCard41()
+        CancelOrderCard5()
+
     })
 
 })
@@ -37,8 +48,8 @@ const CancelOrderCard2 = () => {
     cy.get('#inventory > .form-group > .form-control').type("11")
     cy.get(':nth-child(1) > td > .btn').click()
     cy.get(':nth-child(2) > td > .btn').click()
-    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close > span')
-    .click({ force: true })
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close')
+        .click({ force: true })
 
 }
 
@@ -86,11 +97,21 @@ const CancelOrderCard3 = () => {
 
 
 }
-// ข้อมูลลูกค้า,รูปแบบภาษี/การชำระเงิน
+// ข้อมูลลูกค้า,รูปแบบภาษี/การชำระเงิน (แบบมีภาษี)
 const CancelOrderCard4 = () => {
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{enter}")
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
+    cy.get('.row > :nth-child(3) > .btn').click()
+    cy.get('[style="padding-bottom: 70px;"] > .btn').click()
+    cy.get('.swal2-confirm').click()
+}
+// ข้อมูลลูกค้า,รูปแบบภาษี/การชำระเงิน (แบบไม่มีภาษี)
+const CancelOrderCard41 = () => {
+    cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
+        .click().type("{downarrow}{downarrow}{enter}")
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(2) > .btn').click()
     cy.get('.row > :nth-child(3) > .btn').click()
     cy.get('[style="padding-bottom: 70px;"] > .btn').click()
     cy.get('.swal2-confirm').click()
