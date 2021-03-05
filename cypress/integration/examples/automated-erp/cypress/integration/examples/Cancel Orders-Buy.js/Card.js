@@ -46,7 +46,6 @@ const CancelOrderBuy2 = () => {
         .click()
     cy.get('#inventory > .form-group > .form-control').type("11")
     cy.get(':nth-child(1) > td > .btn').click()
-    // cy.get(':nth-child(2) > td > .btn').click()
     cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close')
         .click()
 }
@@ -57,7 +56,7 @@ const CancelOrderBuy3 = () => {
     const products = [
         {
             price: 4,
-            qty: 100,
+            qty: 500,
             percentage1: 5,
             percentage2: 5
         },
@@ -92,8 +91,10 @@ const CancelOrderBuy3 = () => {
     products.map(product => {
         totalPrice += product.qty * product.price
     })
+    
     cy.get(':nth-child(1) > .row > .text-right').should("contain.text", totalPrice)
 }
+
 // ข้อมูลลูกค้า,รูปแบบภาษี/การชำระเงิน  (แบบมีภาษี)
 const CancelOrderBuy4 = () => {
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
@@ -105,7 +106,7 @@ const getRandomArbitraryCancelOrderBuy = (min, max) => {
     1, 100000
     return Math.random() * (max - min) + min;
 }
-// ข้อมูลลูกค้า,ราคาแบบรวมภาษี,และสุ่มภาษี
+// ข้อมูลลูกค้า,ราคาแบบรวมภาษี,และสุ่มภาษี (ราคารวมภาษี)
 const taxCancelOrderBuy = (textNo) => {
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control').clear()
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner').click()
@@ -118,7 +119,7 @@ const taxCancelOrderBuy = (textNo) => {
     cy.get('.swal2-confirm').click()
 }
 
-// ข้อมูลลูกค้า,ราคาแบบไม่รวมภาษี,และสุ่มภาษี
+// ข้อมูลลูกค้า,ราคาแบบไม่รวมภาษี,และสุ่มภาษี (ราคาไม่รวมภาษี)
 const taxCancelOrderBuy1 = (textNo) => {
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control').clear()
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner').click()

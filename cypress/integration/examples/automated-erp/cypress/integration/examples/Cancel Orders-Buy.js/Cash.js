@@ -16,6 +16,17 @@ context("Cancel Order-Buy/Cash", () => {
         taxCancelOrderBuyCash(getRandomArbitraryCancelOrderBuyCash(1, 100000))
         CancelOrderBuyCash5()
     })
+
+    // ยกเลิก ออเดอร์แบบไม่รวมภาษี
+    it("Cancel Order-Buy/Cash1", () => {
+        loginCancelOrderBuyCash("retail-CRR", "password")
+        CancelOrderBuyCash1()
+        CancelOrderBuyCash2()
+        CancelOrderBuyCash3()
+        CancelOrderBuyCash4()
+        taxCancelOrderBuyCash1(getRandomArbitraryCancelOrderBuyCash(1, 100000))
+        CancelOrderBuyCash5()
+    })
 })
 const loginCancelOrderBuyCash = (username, password) => {
     cy.get('#input_username').type(username)
@@ -95,7 +106,7 @@ const getRandomArbitraryCancelOrderBuyCash = (min, max) => {
     1, 100000
     return Math.random() * (max - min) + min;
 }
-// ข้อมูลลูกค้า,ราคาแบบรวมภาษี,และสุ่มภาษี
+// ข้อมูลลูกค้า,ราคาแบบรวมภาษี,และสุ่มภาษี (ราคารวมภาษี)
 const taxCancelOrderBuyCash = (textNo) => {
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control').clear()
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner').click()
@@ -103,6 +114,18 @@ const taxCancelOrderBuyCash = (textNo) => {
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control')
         .type(textNo)
     cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
+    cy.get('.pt-3 > div > .btn').click()
+    cy.get('.swal2-confirm').click()
+}
+// ข้อมูลลูกค้า,ราคาแบบรวมภาษี,และสุ่มภาษี (ราคาไม่รวมภาษี)
+const taxCancelOrderBuyCash1 = (textNo) => {
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control').clear()
+    cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner').click()
+        .type("{downarrow}{downarrow}{enter}")
+    cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control')
+        .type(textNo)
+    cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
+    cy.get(':nth-child(3) > .row > :nth-child(2) > .btn').click()
     cy.get('.pt-3 > div > .btn').click()
     cy.get('.swal2-confirm').click()
 }
