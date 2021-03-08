@@ -11,60 +11,56 @@ context("add-buy-Tax-transfer", () => {
         getLatestTaxNo()
     })
     // เช็คเลขกำกับภาษีที่มีในระบบ
-    it("Add-Buy-Tax case tax no dub", () => {
-        login("retail-CRR", "password")
-        cy.get(':nth-child(2) > .col-12 > .mt-4').click()
-        cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
-        cy.get(':nth-child(2) > .form-group > a > .btn').click()
-        cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
-        cy.get('#atp > .form-group > .form-control').type("11", { force: true })
-        cy.get(':nth-child(1) > td > .btn').click({ force: true })
-        cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
-        AddBuyTransfer()
-        Datatransfer()
-        tax(textNo)
-        cy.get(':nth-child(1) > .text-price').should("contain.text", "เลขใบกำกับภาษีนี้มีในระบบแล้ว")
-    })
+    // it("Add-Buy-Tax case tax no dub", () => {
+    //     login("retail-CRR", "password")
+    //     cy.get(':nth-child(2) > .col-12 > .mt-4').click()
+    //     cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
+    //     cy.get(':nth-child(2) > .form-group > a > .btn').click()
+    //     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
+    //     cy.get('#atp > .form-group > .form-control').type("11", { force: true })
+    //     cy.get(':nth-child(1) > td > .btn').click({ force: true })
+    //     cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
+    //     AddBuyTransfer()
+    //     Datatransfer()
+    //     tax(textNo)
+    //     cy.get(':nth-child(1) > .text-price').should("contain.text", "เลขใบกำกับภาษีนี้มีในระบบแล้ว")
+    // })
     // สินค้าและราคาแบบรวมภาษี
     it("Add-Buy-tax/card", () => {
         login("retail-CRR", "password")
         cy.get(':nth-child(2) > .col-12 > .mt-4').click()
         cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
         cy.get(':nth-child(2) > .form-group > a > .btn').click()
-        cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
-        cy.get('#atp > .form-group > .form-control').type("11", { force: true })
-        cy.get(':nth-child(1) > td > .btn').click({ force: true })
-        cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
-        AddBuy()
-        Datatransfer()
-        tax(getRandomArbitrary(1,100000))
-        cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
-        cy.get('.el-switch__core').click()
-        cy.get('.pt-3 > div > .btn').click()
-        cy.get('.row > :nth-child(3) > .btn').click()
-        cy.get('.swal2-confirm').click()
+        // AddBuy1()
+        // Datatransfer()
+        // tax(getRandomArbitrary(1,100000))
+        // cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
+        // cy.get('.el-switch__core').click()
+        // cy.get('.pt-3 > div > .btn').click()
+        // cy.get('.row > :nth-child(3) > .btn').click()
+        // cy.get('.swal2-confirm').click()
     })
 
-     // สินค้าและราคาแบบไม่รวมภาษี
-    it("Add-Buy-Notax/card", () => {
-        login("retail-CRR", "password")
-        cy.get(':nth-child(2) > .col-12 > .mt-4').click()
-        cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
-        cy.get(':nth-child(2) > .form-group > a > .btn').click()
-        cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
-        cy.get('#atp > .form-group > .form-control').type("11", { force: true })
-        cy.get(':nth-child(1) > td > .btn').click({ force: true })
-        cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
-        AddBuy()
-        Datatransfer()
-        tax(getRandomArbitrary(1,100000))
-        cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
-        cy.get(':nth-child(3) > .row > :nth-child(2) > .btn').click()
-        cy.get('.el-switch__core').click()
-        cy.get('.pt-3 > div > .btn').click()
-        cy.get('.row > :nth-child(3) > .btn').click()
-        cy.get('.swal2-confirm').click()
-    })
+    // สินค้าและราคาแบบไม่รวมภาษี
+    // it("Add-Buy-Notax/card", () => {
+    //     login("retail-CRR", "password")
+    //     cy.get(':nth-child(2) > .col-12 > .mt-4').click()
+    //     cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
+    //     cy.get(':nth-child(2) > .form-group > a > .btn').click()
+    //     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
+    //     cy.get('#atp > .form-group > .form-control').type("11", { force: true })
+    //     cy.get(':nth-child(1) > td > .btn').click({ force: true })
+    //     cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
+    //     AddBuy()
+    // Datatransfer()
+    // tax(getRandomArbitrary(1,100000))
+    // cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
+    // cy.get(':nth-child(3) > .row > :nth-child(2) > .btn').click()
+    // cy.get('.el-switch__core').click()
+    // cy.get('.pt-3 > div > .btn').click()
+    // cy.get('.row > :nth-child(3) > .btn').click()
+    // cy.get('.swal2-confirm').click()
+    // })
 })
 const tax = (textNo) => {
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control').clear()
@@ -137,18 +133,33 @@ const getLatestTaxNo = () => {
             textNo = sometext
         });
 }
+// สินค้า PO
+const AddBuy1 = () => {
+    cy.get('.box-add-product > .row > :nth-child(1) > .btn').click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
+        .click()
+    cy.get('#inventory > .form-group > .form-control').type("11")
+    cy.get('#inventory > [style="overflow: auto;"] > .table > tbody > :nth-child(2) > td > .btn')
+        .click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close')
+        .click()
 
-const AddBuy = () => {
-    cy.get('.box-add-product > .row > :nth-child(2) > .btn').click()
-    cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab').click()
-    cy.get('.mb-2 > :nth-child(1) > .el-autocomplete > .el-input > .el-input__inner')
-        .type("ผ้าดิสเบรค").tab().type("{downarrow}{downarrow}{enter}")
-    cy.get('.mt-3 > :nth-child(1) > .el-autocomplete > .el-input > .el-input__inner').type("BENDIX")
-    cy.get('.form-group > .mt-2 > .el-input__inner').type("1111").tab()
-    cy.get('.inline-input > .el-input__inner').type("1150").tab().type("{downarrow}{downarrow}{enter}")
-    cy.get('.text-right > .btn-confirm').click()
 }
 
-const getRandomArbitrary = (min, max) => {1,100000
+// สินค้า RO
+// const AddBuy1 = () => {
+//     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click()
+//     cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
+//         .click()
+//     // cy.get('.mb-2 > :nth-child(1) > .el-autocomplete > .el-input > .el-input__inner')
+//     //     .type("ผ้าดิสเบรค").tab().type("{downarrow}{downarrow}{enter}")
+//     // cy.get('.mt-3 > :nth-child(1) > .el-autocomplete > .el-input > .el-input__inner').type("BENDIX")
+//     // cy.get('.form-group > .mt-2 > .el-input__inner').type("1111").tab()
+//     // cy.get('.inline-input > .el-input__inner').type("1150").tab().type("{downarrow}{downarrow}{enter}")
+//     // cy.get('.text-right > .btn-confirm').click()
+// }
+
+const getRandomArbitrary = (min, max) => {
+    1, 100000
     return Math.random() * (max - min) + min;
 }
