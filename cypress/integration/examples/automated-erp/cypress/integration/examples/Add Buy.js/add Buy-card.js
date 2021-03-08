@@ -31,8 +31,8 @@ context("add-buy-Tax-transfer", () => {
         cy.get(':nth-child(2) > .col-12 > .mt-4').click()
         cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
         cy.get(':nth-child(2) > .form-group > a > .btn').click()
-        // AddBuy1()
-        // Datatransfer()
+        AddBuy1()
+        Datatransfer()
         // tax(getRandomArbitrary(1,100000))
         // cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
         // cy.get('.el-switch__core').click()
@@ -99,21 +99,21 @@ const Datatransfer = () => {
             percentage1: 10,
             percentage2: 10
         },
-        {
-            price: 100,
-            qty: 2,
-            percentage1: 5,
-            percentage2: 5,
-        }
+        // {
+        //     price: 100,
+        //     qty: 2,
+        //     percentage1: 5,
+        //     percentage2: 5,
+        // }
     ]
     cy.get('#products-0 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner').clear().type(products[0].qty)
-    cy.get('#products-0 > [style="width: 200px;"] > :nth-child(1) > .text-left > .form-control').type(products[0].percentage1)
-    cy.get('#products-0 > [style="width: 200px;"] > :nth-child(2) > .text-left > .form-control').type(products[0].percentage2)
-    cy.get('#products-0 > [style="width: 150px;"] > .el-input > .el-input__inner').type(products[0].price)
-    cy.get('#products-1 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner').clear().type(products[1].qty)
-    cy.get('#products-1 > [style="width: 200px;"] > :nth-child(1) > .text-left > .form-control').type(products[1].percentage1)
-    cy.get('#products-1 > [style="width: 200px;"] > :nth-child(2) > .text-left > .form-control').type(products[1].percentage2)
-    cy.get('#products-1 > [style="width: 150px;"] > .el-input > .el-input__inner').type(products[1].price)
+    cy.get('#products-0 > [style="width: 200px;"] > :nth-child(1) > .text-left > .form-control').clear().type(products[0].percentage1)
+    cy.get('#products-0 > [style="width: 200px;"] > :nth-child(2) > .text-left > .form-control').clear().type(products[0].percentage2)
+    cy.get('#products-0 > [style="width: 150px;"] > .el-input > .el-input__inner').clear().type(products[0].price)
+    // cy.get('#products-1 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner').clear().type(products[1].qty)
+    // cy.get('#products-1 > [style="width: 200px;"] > :nth-child(1) > .text-left > .form-control').type(products[1].percentage1)
+    // cy.get('#products-1 > [style="width: 200px;"] > :nth-child(2) > .text-left > .form-control').type(products[1].percentage2)
+    // cy.get('#products-1 > [style="width: 150px;"] > .el-input > .el-input__inner').type(products[1].price)
     cy.get('.col-md-5').click({ force: true })
 
     let totalPrice = 0
