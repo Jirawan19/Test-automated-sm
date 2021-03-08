@@ -7,9 +7,9 @@ context("AddsellTax-Card", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
-    // it("getLatestTaxNo", () => {
-    //     getLatestTaxNo()
-    // })
+    it("getLatestTaxNo", () => {
+        getLatestTaxNo()
+    })
     
     // ราคารวมภาษี
     it("AddsellTax-Card", () => {

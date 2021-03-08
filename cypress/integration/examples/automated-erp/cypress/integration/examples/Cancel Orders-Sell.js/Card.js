@@ -15,15 +15,15 @@ context("AddsellTax-Cash", () => {
         CancelOrderCard5()
     })
     // ยกเลิกรายการสินค้าแบบไม่มีภาษี
-    it("Cancel Order-Sell/Card 1", () => {
-        loginCancelOrderCard("retail-CRR", "password")
-        CancelOrderCard1()
-        CancelOrderCard2()
-        CancelOrderCard3()
-        CancelOrderCard41()
-        CancelOrderCard5()
+    // it("Cancel Order-Sell/Card 1", () => {
+    //     loginCancelOrderCard("retail-CRR", "password")
+    //     CancelOrderCard1()
+    //     CancelOrderCard2()
+    //     CancelOrderCard3()
+    //     CancelOrderCard41()
+    //     CancelOrderCard5()
 
-    })
+    // })
 
 })
 

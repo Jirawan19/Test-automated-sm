@@ -6,15 +6,15 @@ context("Cancel Order-Buy/Card", () => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
     // ยกเลิก ออเดอร์แบบรวมภาษี
-    // it("Cancel Order-Buy/Card", () => {
-    //     loginCancelOrderBuyCard("retail-CRR", "password")
-    //     CancelOrderBuy1()
-    //     CancelOrderBuy2()
-    //     CancelOrderBuy3()
-    //     CancelOrderBuy4()
-    //     taxCancelOrderBuy(getRandomArbitraryCancelOrderBuy(1, 100000))
-    //     CancelOrderBuy5()
-    // })
+    it("Cancel Order-Buy/Card", () => {
+        loginCancelOrderBuyCard("retail-CRR", "password")
+        CancelOrderBuy1()
+        CancelOrderBuy2()
+        CancelOrderBuy3()
+        CancelOrderBuy4()
+        taxCancelOrderBuy(getRandomArbitraryCancelOrderBuy(1, 100000))
+        CancelOrderBuy5()
+    })
     // ยกเลิก ออเดอร์แบบไม่รวมภาษี
     it("Cancel Order-Buy/Card", () => {
         loginCancelOrderBuyCard("retail-CRR", "password")
@@ -56,7 +56,7 @@ const CancelOrderBuy3 = () => {
     const products = [
         {
             price: 4,
-            qty: 500,
+            qty: 20,
             percentage1: 5,
             percentage2: 5
         },
