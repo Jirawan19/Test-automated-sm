@@ -20,13 +20,13 @@ context("add-buy-Tax-transfer", () => {
         cy.get('#atp > .form-group > .form-control').type("11", { force: true })
         cy.get(':nth-child(1) > td > .btn').click({ force: true })
         cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-header > .close > span').click()
-        AddBuyTransfer()
+        AddBuy()
         Datatransfer()
         tax(textNo)
         cy.get(':nth-child(1) > .text-price').should("contain.text", "เลขใบกำกับภาษีนี้มีในระบบแล้ว")
     })
 
-    // ข้อมูลสินค้าและราคาแบบบวกภาษี
+    // ข้อมูลสินค้าและราคาแบบบวกภาษี PO
     it("Add-Buy-Tax/transfer", () => {
         login("retail-CRR", "password")
         cy.get(':nth-child(2) > .col-12 > .mt-4').click()
@@ -45,7 +45,7 @@ context("add-buy-Tax-transfer", () => {
         cy.get('.box-price > .row > :nth-child(2) > .btn').click()
         cy.get('.swal2-confirm').click()
     })
-    // ข้อมูลสินค้าและราคาแบบไม่บวกภาษี
+    // ข้อมูลสินค้าและราคาแบบไม่บวกภาษี PO
     it("Add-Buy-NoTax/transfer", () => {
         login("retail-CRR", "password")
         cy.get(':nth-child(2) > .col-12 > .mt-4').click()
@@ -152,4 +152,30 @@ const AddBuy = () => {
 
 const getRandomArbitrary = (min, max) => {1,99999999999999999
     return Math.random() * (max - min) + min;
+}
+
+// สินค้า PO
+const AddBuyTransfer = () => {
+    cy.get('.box-add-product > .row > :nth-child(1) > .btn').click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
+        .click()
+    cy.get('#inventory > .form-group > .form-control').type("11")
+    cy.get('#inventory > [style="overflow: auto;"] > .table > tbody > :nth-child(2) > td > .btn')
+        .click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close')
+        .click()
+
+}
+
+// สินค้า RO
+const AddBuyTransfer1 = () => {
+    cy.get('.box-add-product > .row > :nth-child(2) > .btn').click()
+    cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
+        .click()
+    cy.get('.mb-2 > :nth-child(1) > .el-autocomplete > .el-input > .el-input__inner')
+        .type("ผ้าดิสเบรค").tab().type("{downarrow}{downarrow}{enter}")
+    cy.get('.mt-3 > :nth-child(1) > .el-autocomplete > .el-input > .el-input__inner').type("BENDIX")
+    cy.get('.form-group > .mt-2 > .el-input__inner').type("1111").tab()
+    cy.get('.inline-input > .el-input__inner').type("1150").tab().type("{downarrow}{downarrow}{enter}")
+    cy.get('.text-right > .btn-confirm').click()
 }
