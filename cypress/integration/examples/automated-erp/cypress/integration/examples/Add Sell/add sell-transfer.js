@@ -2,7 +2,7 @@
 
 // let textNo
 
-Cypress.config('defaultCommandTimeout', 100000)
+Cypress.config('defaultCommandTimeout', 5000)
 context("AddsellTax-transfer", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
@@ -10,23 +10,46 @@ context("AddsellTax-transfer", () => {
     // it("getLatestTaxNo", () => {
     //     getLatestTaxNo()
     // })
-    it("AddsellTax-transfer", () => {
+
+    // เพิ่มรายการขายแบบราคารวมภาษี RO 
+    it("Addsell Tax-transfer-RO", () => {
         login("retail-CRR", "password")
-        sell()
-        sell1()
+        AddSellTranferRO()
+        sellTranfer1()
         selltexTransfer()
+        CheckTrnfer()
     })
 
-    it("AddsellTax-transfer1", () => {
+    // // เพิ่มรายการขายแบบราคาไม่รวมภาษี RO 
+    it("Addsell NOTax-transfer-RO", () => {
         login("retail-CRR", "password")
-        sell()
-        sell1()
+        AddSellTranferRO()
+        sellTranfer1()
         selltexTransfer1()
+        CheckTrnfer()
+    })
+
+    // เพิ่มรายการขายแบบราคารวมภาษี PO 
+    it("Addsell Tax-transfer-PO", () => {
+        login("retail-CRR", "password")
+        AddSellTranferPO()
+        sellTranfer1()
+        selltexTransfer()
+        CheckTrnfer()
+    })
+
+    // เพิ่มรายการขายแบบราคาไม่รวมภาษี PO 
+    it("Addsell NOTax-transfer-PO", () => {
+        login("retail-CRR", "password")
+        AddSellTranferPO()
+        sellTranfer1()
+        selltexTransfer1()
+        CheckTrnfer()
     })
 })
 
-// ข้อมูลสินค้าที่เลือกซื้อ
-const sell = () => {
+// ข้อมูลสินค้าที่เลือกขาย RO
+const AddSellTranferRO = () => {
     cy.get(':nth-child(1) > .col-12 > .mt-4').click()
     cy.get(':nth-child(2) > .form-group > a > .btn').click()
     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
@@ -38,9 +61,21 @@ const sell = () => {
         .tab().type("OTHER BRAND").tab().type("CROWN").tab().type("โฉมปี 1959-1967 (MARK I)")
     cy.get('.text-right > .btn-confirm').click()
 }
+// ข้อมูลสินค้าที่เลือกขาย PO
+const AddSellTranferPO = () => {
+    cy.get('.row > :nth-child(1) > .col-12').click()
+    cy.get(':nth-child(2) > .form-group > a > .btn').click()
+    cy.get('.box-add-product > .row > :nth-child(1) > .btn').click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
+        .click()
+    cy.get('#inventory > .form-group > .form-control').type("DA")
+    cy.get('[style="overflow: auto;"] > .table > tbody > :nth-child(1) > td > .btn').click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close')
+        .click()
+}
 
 // ข้อมูลราคาของสินค้าที่เลือก
-const sell1 = () => {
+const sellTranfer1 = () => {
     const products = [
         {
             price: 5,
@@ -117,4 +152,11 @@ const login = (username, password) => {
 //         });
 // }
 
+const CheckTrnfer = () => {
+    cy.get('.el-link--inner').click({ force: true })
+    // cy.get('.el-link--inner').click()
+    cy.get('#orders-0 > :nth-child(1) > a').click()
+    cy.get(':nth-child(3) > .status-border').should("contain.text", "รายการเสร็จสิ้น")
+    cy.get('tbody > :nth-child(1) > :nth-child(5)').should("contain.text", "ขายออก")
+}
 
