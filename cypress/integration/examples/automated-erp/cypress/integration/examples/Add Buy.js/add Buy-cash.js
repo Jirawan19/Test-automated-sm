@@ -30,17 +30,7 @@ context("add-buy-Tax-transfer", () => {
         AddBuyCash0()
         DataCash()
         tax(getRandomArbitrary(1, 99999999999999999))
-        cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
-        cy.get('.el-switch__core').click()
-        cy.get('.pt-3 > div > .btn').click()
-        cy.get('.box-price > .row > :nth-child(1) > .btn').click()
-        cy.get('.swal2-confirm').click()
-        cy.get('.el-link--inner').click()
-        cy.get('#orders-1 > :nth-child(5) > .justify-content-center > .status-border')
-            .should("contain.text", "รายการเสร็จสิ้น")
-        cy.get('#orders-0 > :nth-child(1) > a').click()
-        cy.get(':nth-child(3) > .status-border').should("contain.text", " รายการเสร็จสิ้น")
-
+        AddBuyCash2()
     })
     // สินค้าและราคาแบบไม่รวมภาษี  PO
     it("Add-Buy-NoTax/Cash-PO", () => {
@@ -51,18 +41,7 @@ context("add-buy-Tax-transfer", () => {
         AddBuyCash()
         DataCash()
         tax(getRandomArbitrary(1, 99999999999999999))
-        cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
-        cy.get(':nth-child(3) > .row > :nth-child(2) > .btn').click()
-        cy.get('.el-switch__core').click()
-        cy.get('.pt-3 > div > .btn').click()
-        cy.get('.box-price > .row > :nth-child(1) > .btn').click()
-        cy.get('.swal2-confirm').click()
-        cy.get('.el-link--inner').click()
-        cy.get('#orders-1 > :nth-child(5) > .justify-content-center > .status-border')
-            .should("contain.text", "รายการเสร็จสิ้น")
-        cy.get('#orders-0 > :nth-child(1) > a').click()
-        cy.get(':nth-child(3) > .status-border').should("contain.text", " รายการเสร็จสิ้น")
-
+        AddBuyCash2()
     })
 
     // สินค้าและราคาแบบรวมภาษี RO
@@ -74,17 +53,7 @@ context("add-buy-Tax-transfer", () => {
         AddBuyCash1()
         DataCash()
         tax(getRandomArbitrary(1, 99999999999999999))
-        cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
-        cy.get('.el-switch__core').click()
-        cy.get('.pt-3 > div > .btn').click()
-        cy.get('.box-price > .row > :nth-child(1) > .btn').click()
-        cy.get('.swal2-confirm').click()
-        cy.get('.el-link--inner').click()
-        cy.get('#orders-1 > :nth-child(5) > .justify-content-center > .status-border')
-            .should("contain.text", "รายการเสร็จสิ้น")
-        cy.get('#orders-0 > :nth-child(1) > a').click()
-        cy.get(':nth-child(3) > .status-border').should("contain.text", " รายการเสร็จสิ้น")
-
+        AddBuyCash2()
     })
     // สินค้าและราคาแบบไม่รวมภาษี  RO
     it("Add-Buy-NoTax/Cash-RO", () => {
@@ -95,17 +64,7 @@ context("add-buy-Tax-transfer", () => {
         AddBuyCash1()
         DataCash()
         tax(getRandomArbitrary(1, 99999999999999999))
-        cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
-        cy.get(':nth-child(3) > .row > :nth-child(2) > .btn').click()
-        cy.get('.el-switch__core').click()
-        cy.get('.pt-3 > div > .btn').click()
-        cy.get('.box-price > .row > :nth-child(1) > .btn').click()
-        cy.get('.swal2-confirm').click()
-        cy.get('.el-link--inner').click()
-        cy.get('#orders-1 > :nth-child(5) > .justify-content-center > .status-border')
-            .should("contain.text", "รายการเสร็จสิ้น")
-        cy.get('#orders-0 > :nth-child(1) > a').click()
-        cy.get(':nth-child(3) > .status-border').should("contain.text", " รายการเสร็จสิ้น")
+        AddBuyCash2()
     })
 })
 
@@ -126,7 +85,7 @@ const login = (username, password) => {
     cy.get('#input_password').type(password)
     cy.get('.btn').click()
 }
-
+// // เช็คสินค้าที่มีเลขกำกับภาษีในระบบ
 const AddBuyCash0 = () => {
     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click()
     cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab').click()
@@ -137,7 +96,7 @@ const AddBuyCash0 = () => {
     cy.get('.inline-input > .el-input__inner').type("1150").tab().type("{downarrow}{downarrow}{enter}")
     cy.get('.text-right > .btn-confirm').click()
 }
-
+// ราคาสินค้า
 const DataCash = () => {
     const products = [
         {
@@ -219,4 +178,17 @@ const AddBuyCash0 = () => {
     cy.get('.form-group > .mt-2 > .el-input__inner').type("1111").tab()
     cy.get('.inline-input > .el-input__inner').type("1150").tab().type("{downarrow}{downarrow}{enter}")
     cy.get('.text-right > .btn-confirm').click()
+}
+// ราคารวมภาษี,สถานะการจ่ายแบบโอน,ตรวจเช็ค
+const AddBuyCash2 = () => {
+    cy.get(':nth-child(3) > .row > :nth-child(1) > .btn').click()
+    cy.get('.el-switch__core').click()
+    cy.get('.pt-3 > div > .btn').click()
+    cy.get('.box-price > .row > :nth-child(2) > .btn').click()
+    cy.get('.swal2-confirm').click()
+    cy.get('.el-link--inner').click()
+    cy.get('#orders-1 > :nth-child(5) > .justify-content-center > .status-border')
+        .should("contain.text", "รายการเสร็จสิ้น")
+    cy.get('#orders-0 > :nth-child(1) > a').click()
+    cy.get(':nth-child(3) > .status-border').should("contain.text", " รายการเสร็จสิ้น")
 }
