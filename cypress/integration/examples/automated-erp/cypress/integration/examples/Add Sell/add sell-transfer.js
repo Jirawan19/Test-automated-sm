@@ -136,7 +136,6 @@ const selltexTransfer1 = () => {
 
 
 const login = (username, password) => {
-    // exampleExpect()
     cy.get('#input_username').type(username)
     cy.get('#input_password').type(password)
     cy.get('.btn').click()
