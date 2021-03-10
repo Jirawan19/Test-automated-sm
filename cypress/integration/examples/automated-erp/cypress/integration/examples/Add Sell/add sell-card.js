@@ -159,5 +159,29 @@ const checkCard = () => {
 //         });
 // }
 
+// ตัวอย่างการแทนค่า
+
+// const exampleExpect = () => {
+
+    // cy.get('strong').then(rs => {
+    //     // console.log(rs);
+    //     expect(rs[0].outerHTML)
+    //         .eq('<strong data-v-9fea38fc="">สำหรับ Retailer และ Supplier</strong>')
+    // })
+
+    // cy.get('strong').contains("สำหรับ Retailer และ Supplier")
+
+    // cy.get('strong').should("contain.text", "สำหรับ Retailer และ Supplier")
+    // const customer = {
+    //     name: "in",
+    //     age: 26
+    // }
+    // cy.wrap(customer).its("name").should("eq", "in")
+    // cy.wrap(customer).its("age").should("eq", 26)
+    // cy.wrap(customer).should("deep.equal", {
+    //     name: "in",
+    //     age: 26
+    // })
+// }
 
 
