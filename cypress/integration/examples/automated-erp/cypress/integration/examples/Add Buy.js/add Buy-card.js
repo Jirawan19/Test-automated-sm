@@ -135,7 +135,7 @@ const login = (username, password) => {
     cy.get('#input_password').type(password)
     cy.get('.btn').click()
 }
-// 
+// // เช็คสินค้าที่มีเลขกำกับภาษีในระบบ
 const AddBuyCard = () => {
     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click()
     cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab').click()

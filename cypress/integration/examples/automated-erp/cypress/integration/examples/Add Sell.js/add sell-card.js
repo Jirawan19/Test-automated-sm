@@ -7,29 +7,63 @@ context("AddsellTax-Card", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
     })
-    it("getLatestTaxNo", () => {
-        getLatestTaxNo()
-    })
-    
-    // ราคารวมภาษี
-    it("AddsellTax-Card", () => {
+    // it("getLatestTaxNo", () => {
+    //     getLatestTaxNo()
+    // })
+
+    // ราคารวมภาษี PO
+    it("AddsellTax-Card-PO", () => {
         login("retail-CRR", "password")
-        sell()
+        sellPO()
         sell1()
         selltexCard()
+        checkCard()
     })
 
-    // ราคาไม่รวมภาษี 
-    it("AddsellTax-Card1", () => {
+    // ราคาไม่รวมภาษี PO
+    it("Addsell NoTax-Card-PO", () => {
         login("retail-CRR", "password")
-        sell()
+        sellPO()
         sell1()
         selltexCard1()
+        checkCard()
+    })
+
+    // ราคารวมภาษี RO
+    it("AddsellTax-Card-RO", () => {
+        login("retail-CRR", "password")
+        sellRO()
+        sell1()
+        selltexCard()
+        checkCard()
+    })
+
+    // // ราคาไม่รวมภาษี  RO
+    it("Addsell NOTax-Card-RO", () => {
+        login("retail-CRR", "password")
+        sellRO()
+        sell1()
+        selltexCard1()
+        checkCard()
     })
 })
 
-// ข้อมูลสินค้าที่เลือกซื้อ
-const sell = () => {
+// ข้อมูลสินค้าที่เลือกซื้อ PO
+const sellPO = () => {
+    cy.get(':nth-child(1) > .col-12 > .mt-4').click()
+    cy.get(':nth-child(2) > .form-group > a > .btn').click()
+    cy.get('.box-add-product > .row > :nth-child(1) > .btn').click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
+        .click()
+    cy.get('#inventory > .form-group > .form-control').type("10",{ force: true })
+    cy.get(':nth-child(1) > td > .btn').click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close')
+        .click()
+
+}
+
+// ข้อมูลสินค้าที่เลือกซื้อ RO
+const sellRO = () => {
     cy.get(':nth-child(1) > .col-12 > .mt-4').click()
     cy.get(':nth-child(2) > .form-group > a > .btn').click()
     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
@@ -41,6 +75,7 @@ const sell = () => {
         .tab().type("OTHER BRAND").tab().type("CROWN").tab().type("โฉมปี 1959-1967 (MARK I)")
     cy.get('.text-right > .btn-confirm').click()
 }
+
 
 // ข้อมูลราคาและราคาสินค้า
 const sell1 = () => {
@@ -83,8 +118,6 @@ const selltexCard = () => {
     cy.get('.row > :nth-child(3) > .btn').click()
     cy.get('[style="padding-bottom: 70px;"] > .btn').click()
     cy.get('.swal2-confirm').click()
-    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
-        .click()
 }
 
 
@@ -97,8 +130,6 @@ const selltexCard1 = () => {
     cy.get('.row > :nth-child(3) > .btn').click()
     cy.get('[style="padding-bottom: 70px;"] > .btn').click()
     cy.get('.swal2-confirm').click()
-    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
-        .click()
 }
 
 
@@ -107,6 +138,14 @@ const login = (username, password) => {
     cy.get('#input_username').type(username)
     cy.get('#input_password').type(password)
     cy.get('.btn').click()
+}
+
+const checkCard = () => {
+    // cy.get('.el-link--inner').click({ force: true })
+    cy.get('.el-link--inner').click({ force: true })
+    cy.get('tbody > #orders-0 > :nth-child(1)').click()
+    cy.get(':nth-child(3) > .status-border').should("contain.text", "รอชำระเงิน")
+
 }
 
 

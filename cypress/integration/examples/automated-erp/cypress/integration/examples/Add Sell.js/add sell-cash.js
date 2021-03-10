@@ -11,20 +11,39 @@ context("AddsellTax-Cash", () => {
     //     getLatestTaxNo()
     // })
 
-    // ราคารวมภาษี
-    it("AddsellTax-Cash", () => {
+        // ราคารวมภาษี PO
+    it("AddsellTax-Cash-PO", () => {
         login("retail-CRR", "password")
-        sell()
-        sell1()
+        sellCashPO()
+        sellCash1()
         selltexCash()
+        checkCash()
     })
-    // ราคาไม่รวมภาษี
-    it("AddsellTax-Cash1", () => {
+    // ราคาไม่รวมภาษี PO
+    it("Addsell NOTax-Cash-PO", () => {
         login("retail-CRR", "password")
-        sell()
-        sell1()
+        sellCashPO()
+        sellCash1()
         selltexCash1()
+        checkCash()
     })
+
+        // ราคารวมภาษี RO
+        it("AddsellTax-Cash-RO", () => {
+            login("retail-CRR", "password")
+            sellCashRO()
+            sellCash1()
+            selltexCash()
+            checkCash()
+        })
+        // ราคาไม่รวมภาษี RO
+        it("Addsell NOTax-Cash-RO", () => {
+            login("retail-CRR", "password")
+            sellCashRO()
+            sellCash1()
+            selltexCash1()
+            checkCash()
+        })
 })
 
 // ข้อมูลสินค้าที่เลือกซื้อ
@@ -42,7 +61,7 @@ const sell = () => {
 }
 
 // ข้อมูลราคาของสินค้าที่เลือก
-const sell1 = () => {
+const sellCash1 = () => {
     const products = [
         {
             price: 5,
@@ -88,8 +107,6 @@ const selltexCash = () => {
     cy.get('.col-8 > .number-box > h1').click({ force: true })
     cy.get(':nth-child(3) > :nth-child(1) > .number-box > h1').click()
     cy.get('.swal2-confirm').click()
-    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
-        .click()
 }
 
 // ข้อมูลลูกค้าและราคาไม่รวมภาษี
@@ -105,8 +122,6 @@ const selltexCash1 = () => {
     cy.get('.col-8 > .number-box > h1').click({ force: true })
     cy.get(':nth-child(3) > :nth-child(1) > .number-box > h1').click()
     cy.get('.swal2-confirm').click()
-    cy.get('#validateInventoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
-        .click() 
 
 }
 
@@ -127,6 +142,34 @@ const login = (username, password) => {
     cy.get('#input_password').type(password)
     cy.get('.btn').click()
 }
+// ข้อมูลสินค้าที่เลือกซื้อ PO
+const sellCashPO = () => {
+    cy.get(':nth-child(1) > .col-12 > .mt-4').click()
+    cy.get(':nth-child(2) > .form-group > a > .btn').click()
+    cy.get('.box-add-product > .row > :nth-child(1) > .btn').click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
+        .click()
+    cy.get('#inventory > .form-group > .form-control').type("10",{ force: true })
+    cy.get(':nth-child(1) > td > .btn').click()
+    cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close')
+        .click()
+
+}
+
+// ข้อมูลสินค้าที่เลือกซื้อ RO
+const sellCashRO = () => {
+    cy.get(':nth-child(1) > .col-12 > .mt-4').click()
+    cy.get(':nth-child(2) > .form-group > a > .btn').click()
+    cy.get('.box-add-product > .row > :nth-child(2) > .btn').click({ force: true })
+    cy.get('#addProductModal > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
+        .click()
+    cy.get('.mb-2 > :nth-child(1) > .el-autocomplete > .el-input > .el-input__inner').type("ก้ามเบรค").tab().type("{downarrow}{downarrow}{enter}")
+        .tab().type("GIRLING").tab()
+    cy.get('.form-group > .mt-2 > .el-input__inner').type("456").tab().tab().type("{downarrow}{downarrow}{enter}")
+        .tab().type("OTHER BRAND").tab().type("CROWN").tab().type("โฉมปี 1959-1967 (MARK I)")
+    cy.get('.text-right > .btn-confirm').click()
+}
+
 
 const AddBuyTransfer = () => {
     cy.get('.box-add-product > .row > :nth-child(2) > .btn').click()
@@ -156,4 +199,12 @@ const getLatestTaxNo = () => {
 const getRandomArbitrary = (min, max) => {
     1, 99999999999999999
     return Math.random() * (max - min) + min;
+}
+
+const checkCash = () => {
+    cy.get('.el-link--inner').click({ force: true })
+    cy.get('.el-link--inner').click({ force: true })
+    cy.get('tbody > #orders-0 > :nth-child(1)').click()
+    cy.get(':nth-child(3) > .status-border').should("contain.text", "รายการเสร็จสิ้น")
+
 }
