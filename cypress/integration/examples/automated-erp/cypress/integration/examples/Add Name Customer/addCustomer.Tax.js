@@ -16,7 +16,8 @@ context("add-customer-tax", () => {
             clickAddCustomer()
             cy.get(':nth-child(2) > .row > :nth-child(1) > .form-control').type("jirawan 1")
             cy.get(':nth-child(3) > .row > :nth-child(1) > .form-control').type("phahon 54 168/106")
-            cy.get(':nth-child(3) > .row > :nth-child(2) > .form-control').type("0888888888")
+            tax22(getRandomNumber22(1, 10))
+            tax11(getRandomNumber11(1, 100000))
             cy.get(':nth-child(4) > .row > :nth-child(1) > .form-control').type("0123456789012")
             cy.get(':nth-child(2) > .row > :nth-child(2) > .form-control').type("nam 1")
             cy.get(':nth-child(5) > .row > :nth-child(1) > .form-control').select(paymentType)
@@ -30,7 +31,8 @@ context("add-customer-tax", () => {
         clickAddCustomer()
         cy.get(':nth-child(2) > .row > :nth-child(1) > .form-control').type("jirawan 1")
         cy.get(':nth-child(3) > .row > :nth-child(1) > .form-control').type("phahon 54 168/106")
-        cy.get(':nth-child(3) > .row > :nth-child(2) > .form-control').type("0888888888")
+        tax22(getRandomNumber22(1, 10))
+        tax11(getRandomNumber11(1, 100000))
         cy.get(':nth-child(4) > .row > :nth-child(1) > .form-control').type("0123456789012")
         cy.get(':nth-child(2) > .row > :nth-child(2) > .form-control').type("nam 1")
         cy.get(':nth-child(5) > .row > :nth-child(1) > .form-control').select("เครดิตเทอม")
@@ -51,5 +53,25 @@ const clickAddCustomer = () => {
     cy.get('#customerdesk > .d-flex > .col-lg-12 > a > .btn', { timeout: 900000 }).click({ force: true })
     // cy.get(':nth-child(5) > .col-12 > .mt-4', { timeout: 900000 }).click({ force: true })
     // cy.get('#customerdesk > .d-xl-flex > .text-right > a > .btn', { timeout: 900000 }).click({ force: true })
+}
+
+const tax11 = (textNo) => {
+    cy.get(':nth-child(4) > .row > :nth-child(1) > .form-control').type(textNo)
+}
+
+
+const tax22 = (textNo) => {
+    cy.get(':nth-child(3) > .row > :nth-child(2) > .form-control').type(textNo)
+}
+
+
+const getRandomNumber11 = (min, max) => {
+    1, 100000
+    return Math.random() * (max - min) + min;
+}
+
+const getRandomNumber22 = (min, max) => {
+    1, 10
+    return Math.random() * (max - min) + min;
 }
 

@@ -68,7 +68,7 @@ const AddSellTranferPO = () => {
     cy.get('.box-add-product > .row > :nth-child(1) > .btn').click()
     cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-body > #myTab > :nth-child(2) > #profile-tab')
         .click()
-    cy.get('#inventory > .form-group > .form-control').type("DA")
+    cy.get('#inventory > .form-group > .form-control').type("ad")
     cy.get('[style="overflow: auto;"] > .table > tbody > :nth-child(1) > td > .btn').click()
     cy.get('#scanAddOrders > .modal-dialog > .modal-content > .modal-header > .close')
         .click()

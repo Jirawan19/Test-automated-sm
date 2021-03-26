@@ -71,7 +71,7 @@ context("add-buy-Tax-transfer", () => {
 const tax = (textNo) => {
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control').clear()
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner').click()
-        .type("{downarrow}{downarrow}{enter}")
+        .type("{downarrow}{downarrow}{downarrow}{downarrow}{enter}")
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .form-control')
         .type(textNo)
     cy.get('#products-0 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner')

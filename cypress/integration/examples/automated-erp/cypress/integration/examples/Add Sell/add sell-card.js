@@ -17,35 +17,35 @@ context("AddsellTax-Card", () => {
         sellPO()
         sell1()
         selltexCard()
-        checkCard()
+        // checkCard()
     })
 
     // ราคาไม่รวมภาษี PO
-    it("Addsell NoTax-Card-PO", () => {
-        login("retail-CRR", "password")
-        sellPO()
-        sell1()
-        selltexCard1()
-        checkCard()
-    })
+    // it("Addsell NoTax-Card-PO", () => {
+    //     login("retail-CRR", "password")
+    //     sellPO()
+    //     sell1()
+    //     selltexCard1()
+    //     checkCard()
+    // })
 
     // ราคารวมภาษี RO
-    it("AddsellTax-Card-RO", () => {
-        login("retail-CRR", "password")
-        sellRO()
-        sell1()
-        selltexCard()
-        checkCard()
-    })
+    // it("AddsellTax-Card-RO", () => {
+    //     login("retail-CRR", "password")
+    //     sellRO()
+    //     sell1()
+    //     selltexCard()
+        // checkCard()
+    // })
 
     // // ราคาไม่รวมภาษี  RO
-    it("Addsell NOTax-Card-RO", () => {
-        login("retail-CRR", "password")
-        sellRO()
-        sell1()
-        selltexCard1()
-        checkCard()
-    })
+    // it("Addsell NOTax-Card-RO", () => {
+    //     login("retail-CRR", "password")
+    //     sellRO()
+    //     sell1()
+    //     selltexCard1()
+    //     // checkCard()
+    // })
 })
 
 // ข้อมูลสินค้าที่เลือกซื้อ PO
@@ -113,7 +113,7 @@ const sell1 = () => {
 // ข้อมูลลูกค้าและสินค้าราคารวมภาษี
 const selltexCard = () => {
     cy.get('.col-sm-12.p-0 > [style="background-color: rgb(243, 244, 246);"] > .form-row > .col-md-8 > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{downarrow}{enter}")
+        .click().type("{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}")
     cy.get('.col-sm-12.p-0 > :nth-child(2) > .row > :nth-child(1) > .btn').click()
     cy.get('.row > :nth-child(3) > .btn').click()
     cy.get('[style="padding-bottom: 70px;"] > .btn').click()
@@ -142,7 +142,8 @@ const login = (username, password) => {
 
 const checkCard = () => {
     // cy.get('.el-link--inner').click({ force: true })
-    cy.get('.el-link--inner').click({ force: true })
+    // cy.get('.el-link--inner').click({ force: true })
+    cy.visit("https://smdevdemo.autocareth.com/retailer/erp-orders-sales")
     cy.get('tbody > #orders-0 > :nth-child(1)').click()
     cy.get(':nth-child(3) > .status-border').should("contain.text", "รอชำระเงิน")
 
@@ -184,4 +185,7 @@ const checkCard = () => {
     // })
 // }
 
-
+const getRandomArbitrary = (min, max) => {
+    1, 100000
+    return Math.random() * (max - min) + min;
+}

@@ -45,16 +45,16 @@ context("add-buy-Tax-transfer", () => {
         AddBuyTransfer2()
     })
     // ข้อมูลสินค้าและราคาแบบบวกภาษี RO
-    it("Add-Buy-Tax/transfer-RO", () => {
-        login("retail-CRR", "password")
-        cy.get(':nth-child(2) > .col-12 > .mt-4').click()
-        cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
-        cy.get(':nth-child(2) > .form-group > a > .btn').click()
-        AddBuyTransfer1()
-        Datatransfer()
-        tax(getRandomArbitrary(1, 99999999999999999))
-        AddBuyTransfer2()
-    })
+    // it("Add-Buy-Tax/transfer-RO", () => {
+    //     login("retail-CRR", "password")
+    //     cy.get(':nth-child(2) > .col-12 > .mt-4').click()
+    //     cy.get('.nuxt-link-active > .el-menu-item > .menu-text').click()
+    //     cy.get(':nth-child(2) > .form-group > a > .btn').click()
+    //     AddBuyTransfer1()
+    //     Datatransfer()
+    //     tax(getRandomArbitrary(1, 99999999999999999))
+    //     AddBuyTransfer2()
+    // })
     // ข้อมูลสินค้าและราคาแบบไม่บวกภาษี RO
     it("Add-Buy-NoTax/transfer-RO", () => {
         login("retail-CRR", "password")
@@ -195,7 +195,7 @@ const AddBuyTransfer2 = () => {
     cy.get('.swal2-confirm').click()
     cy.get('.el-link--inner').click()
     cy.get('#orders-1 > :nth-child(5) > .justify-content-center > .status-border')
-        .should("contain.text", "รายการเสร็จสิ้น")
+        .should("contain.text", "รอชำระเงิน")
     cy.get('#orders-0 > :nth-child(1) > a').click()
-    cy.get(':nth-child(3) > .status-border').should("contain.text", " รายการเสร็จสิ้น")
+    cy.get(':nth-child(3) > .status-border').should("contain.text", "รอชำระเงิน")
 }

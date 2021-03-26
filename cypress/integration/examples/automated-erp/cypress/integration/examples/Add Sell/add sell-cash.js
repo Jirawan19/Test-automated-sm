@@ -29,21 +29,21 @@ context("AddsellTax-Cash", () => {
     })
 
         // ราคารวมภาษี RO
-        it("AddsellTax-Cash-RO", () => {
-            login("retail-CRR", "password")
-            sellCashRO()
-            sellCash1()
-            selltexCash()
-            checkCash()
-        })
+        // it("AddsellTax-Cash-RO", () => {
+        //     login("retail-CRR", "password")
+        //     sellCashRO()
+        //     sellCash1()
+        //     selltexCash()
+        //     checkCash()
+        // })
         // ราคาไม่รวมภาษี RO
-        it("Addsell NOTax-Cash-RO", () => {
-            login("retail-CRR", "password")
-            sellCashRO()
-            sellCash1()
-            selltexCash1()
-            checkCash()
-        })
+        // it("Addsell NOTax-Cash-RO", () => {
+        //     login("retail-CRR", "password")
+        //     sellCashRO()
+        //     sellCash1()
+        //     selltexCash1()
+        //     checkCash()
+        // })
 })
 
 // ข้อมูลสินค้าที่เลือกซื้อ
