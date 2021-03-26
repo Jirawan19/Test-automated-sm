@@ -7,7 +7,9 @@ context("Admin Add Sale RO", () => {
     it("Admin Add Sale RO", () => {
         loginAdminSaleRO("MNY-ADMIN-1", "MNYadmin1")
         AdsaleRO()
-        Adsale1RO
+        Adsale1RO()
+        AdminADMITRO()
+        Adsale2RO()
     })
 })
 
@@ -71,4 +73,31 @@ const taxAdminRO = (textNo) => {
 const getRandomNumberAdmin = (min, max) => {
     1, 40
     return Math.random() * (max - min) + min;
+}
+
+// รับรายการขาย
+const AdminADMITRO = () => {
+    cy.get(':nth-child(1) > :nth-child(6) > .status-border')
+        .should("contain.text", "รอยืนยันรายการ")
+    cy.get('tbody > :nth-child(1) > :nth-child(1) > a').click()
+    cy.get('#swal2-title').should("contain.text", "ยืนยันการทำรายการ ?")
+    cy.get('.swal2-confirm').click()
+    cy.get('.status-border').should("contain.text", "กำลังดำเนินการ")
+    cy.get(':nth-child(1) > .col-sm-12 > strong').should("contain.text", "รายละเอียดการขาย")
+    cy.get('.d-none > .col-12 > .save-btn-box > span > .btn').click()
+    cy.get('#swal2-title').should("contain.text", "ยืนยันการทำรายการ ?")
+    cy.get('.swal2-confirm').click()
+    cy.get('#swal2-title').should("contain.text", "สำเร็จ")
+    cy.get('.swal2-confirm').click()
+}
+
+// ตรวจเช็คสถานะที่พึ่งรับรายการขาย
+const Adsale2RO = () => {
+    cy.get('.status-border').should("contain.text", "รายการรอจัดพิมพ์ใบรับออเดอร์")
+    cy.get('p').click()
+    cy.get('.mr-4 > .btn').click({ force: true })
+    cy.get(':nth-child(1) > :nth-child(6) > .status-border')
+        .should("contain.text", "รายการเสร็จสิ้น")
+    // cy.get('tbody > :nth-child(1) > :nth-child(1) > a').click()
+    // cy.get('.status-border').should("contain.text", "รายการเสร็จสิ้น")
 }
