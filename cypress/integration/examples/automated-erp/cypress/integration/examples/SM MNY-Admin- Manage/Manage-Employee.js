@@ -8,24 +8,41 @@ context("Admin Manage-Add/Employee", () => {
     })
     it("Admin Manage-AddEmployee", () => {
         ManageEmployee("MNY-ADMIN-test", "MNYadmin1")
+        // เพิ่มพนักงานขาย Test-Seller 00
+        TestSeller00()
         // เพิ่มหัวหน้าพนักงานขาย
         ManageEmployee1()
         // เช็คหัวหน้าพนักงานขายที่เพิ่มใหม่
-        ManageEmployee2()
+        // ManageEmployee2()
         // เพิ่มพนักงานขาย
         ManageEmployee3()
         // เช็คหัวหน้าพนักงานขายที่เพิ่มใหม่
-        ManageEmployee4()
+        // ManageEmployee4()
         // เพิ่มร้านค้าใหห้พนักงาน
-        ManageEmployee5()
+        // ManageEmployee5()
         // เช็คร้านค้าให้พนักงาน
-        ManageEmployee6()
+        // ManageEmployee6()
     })
 })
 const ManageEmployee = (username, password) => {
     cy.get('#input_username').type(username)
     cy.get('#input_password').type(password)
     cy.get('.btn').click()
+}
+
+// พนักงานขาย สำหรับเปิดรายการขายจาก Seller แต่ต้องเพิ่มร้านค้าให้พนักงานแบบเพิ่มเอง
+const TestSeller00 = () => {
+    cy.get('[href="/supplier/management"] > .el-menu-item > .menu-text').click()
+    cy.get('#employee > .mb-2 > .col-xl > .order-1 > .btn').click()
+    cy.get(':nth-child(1) > .form-control').type("Test-Seller 00")
+    cy.get('.el-input__inner').click().type("{downarrow}{downarrow}{enter}")
+    cy.get(':nth-child(3) > .form-control').type("Test-Seller 00")
+    cy.get(':nth-child(4) > .form-control').type("test-seller 00")
+    cy.get(':nth-child(5) > .form-control').type("test-seller 00@gmail.com")
+    cy.get(':nth-child(6) > .form-control').type("0955915150")
+    cy.get(':nth-child(7) > .form-control').type("พหลฯ")
+    cy.get(':nth-child(2) > .btn').click()
+    cy.get('.swal2-confirm').click()
 }
 // ขั้นตอนเพิ่ม หัวหน้าพนักงาน
 const ManageEmployee1 = () => {
@@ -37,19 +54,19 @@ const ManageEmployee1 = () => {
     cy.get('#employee > .mb-2 > .col-xl > .order-1 > .btn').click()
     cy.get('.col-sm-12 > h2').should("contain.text", "เพิ่มพนักงาน")
     cy.get(':nth-child(1) > .primary-blue > h5').should("contain.text", "ชื่อพนักงาน")
-    cy.get(':nth-child(1) > .form-control').type("Test2")
+    taxAddEmployee1(getRandomNumberAddEmployee(0, 10))
     cy.get(':nth-child(2) > .primary-blue > h5').should("contain.text", "สิทธ์การใช้งาน (Roles)")
     cy.get('.el-input__inner').click().type("{downarrow}{enter}")
     cy.get(':nth-child(3) > .primary-blue > h5').should("contain.text", "Username")
-    cy.get(':nth-child(3) > .form-control').type("Test-Admin2")
+    taxAddEmployee2(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(4) > .primary-blue > h5').should("contain.text", "Password")
-    cy.get(':nth-child(4) > .form-control').type("test-admin1")
+    taxAddEmployee3(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(5) > .primary-blue > h5').should("contain.text", "E-mail")
-    cy.get(':nth-child(5) > .form-control').type("Test2@gmail.com")
+    taxAddEmployee4(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(6) > .primary-blue > h5').should("contain.text", "เบอร์โทรศัพท์")
-    cy.get(':nth-child(6) > .form-control').type("0123456788")
+    taxAddEmployee5(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(7) > .primary-blue > h5').should("contain.text", "เขตรับผิดชอบ")
-    cy.get(':nth-child(7) > .form-control').type("กทม.")
+    taxAddEmployee6(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(2) > .btn').should("contain.text", "บันทึก")
     cy.get(':nth-child(2) > .btn').click()
     cy.get('#swal2-title').should("contain.text", "สำเร็จ")
@@ -82,19 +99,19 @@ const ManageEmployee3 = () => {
     cy.get('#employee > .mb-2 > .col-xl > .order-1 > .btn').click()
     cy.get('.col-sm-12 > h2').should("contain.text", "เพิ่มพนักงาน")
     cy.get(':nth-child(1) > .primary-blue > h5').should("contain.text", "ชื่อพนักงาน")
-    cy.get(':nth-child(1) > .form-control').type("Test3")
+    taxAddEmployee7(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(2) > .primary-blue > h5').should("contain.text", "สิทธ์การใช้งาน (Roles)")
     cy.get('.el-input__inner').click().type("{downarrow}{downarrow}{enter}")
     cy.get(':nth-child(3) > .primary-blue > h5').should("contain.text", "Username")
-    cy.get(':nth-child(3) > .form-control').type("Test-Admin3")
+    taxAddEmployee8(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(4) > .primary-blue > h5').should("contain.text", "Password")
-    cy.get(':nth-child(4) > .form-control').type("test-admin3")
+    taxAddEmployee9(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(5) > .primary-blue > h5').should("contain.text", "E-mail")
-    cy.get(':nth-child(5) > .form-control').type("Test3@gmail.com")
+    taxAddEmployee10(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(6) > .primary-blue > h5').should("contain.text", "เบอร์โทรศัพท์")
-    cy.get(':nth-child(6) > .form-control').type("0123456787")
+    taxAddEmployee11(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(7) > .primary-blue > h5').should("contain.text", "เขตรับผิดชอบ")
-    cy.get(':nth-child(7) > .form-control').type("กทม.หลวง")
+    taxAddEmployee12(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(2) > .btn').should("contain.text", "บันทึก")
     cy.get(':nth-child(2) > .btn').click()
     cy.get('#swal2-title').should("contain.text", "สำเร็จ")
@@ -138,10 +155,70 @@ const ManageEmployee5 = () => {
     cy.get('.modal-footer > .btn').should("contain.text", "บันทึก")
     cy.get('.modal-footer > .btn').click()
 }
-// เช็คร้านที่เพิ่มให้พนักงาน
-const ManageEmployee6 = () => {
-    cy.get(':nth-child(1) > [style="text-align: center;"]')
-        .should("contain.text", "บริษัท มโนยนต์ชัย จำกัด")
-    cy.get(':nth-child(2) > [style="text-align: center;"]')
-        .should("contain.text", "บริษัท ออโต้แพร์ จำกัด (สำนักงานใหญ่)")
+
+const getRandomNumberAddEmployee = (min, max) => {
+    0, 0
+    return Math.random() * (max - min) + min;
+}
+// หัวหน้าพนักงาน ชื่อ
+const taxAddEmployee1 = (textNo) => {
+    cy.get(':nth-child(1) > .form-control')
+        .type("Test Admin").type(textNo)
+}
+// หัวหน้าพนักงาน username
+const taxAddEmployee2 = (textNo) => {
+    cy.get(':nth-child(3) > .form-control').type("Test-Admin")
+        .type(textNo)
+}
+// หัวหน้าพนักงาน password
+const taxAddEmployee3 = (textNo) => {
+    cy.get(':nth-child(4) > .form-control').type("test-admin")
+        .type(textNo)
+}
+// หัวหน้าพนักงาน e-mail
+const taxAddEmployee4 = (textNo) => {
+    cy.get(':nth-child(5) > .form-control').type("Test")
+        .type(textNo).type("@gmail.com")
+}
+// หัวหน้าพนักงาน เบอร์โทรศัพท์
+const taxAddEmployee5 = (textNo) => {
+    cy.get(':nth-child(6) > .form-control')
+        .type(textNo)
+}
+// หัวหน้าพนักงาน เขตรับผิดชอบ
+const taxAddEmployee6 = (textNo) => {
+    cy.get(':nth-child(7) > .form-control').type("กทม.")
+        .type(textNo)
+}
+
+
+// พนักงาน
+const taxAddEmployee7 = (textNo) => {
+    cy.get(':nth-child(1) > .form-control').type("Test-Seller")
+        .type(textNo)
+}
+// พนักงาน username
+const taxAddEmployee8 = (textNo) => {
+    cy.get(':nth-child(3) > .form-control').type("Test-Seller")
+        .type(textNo)
+}
+// พนักงาน password
+const taxAddEmployee9 = (textNo) => {
+    cy.get(':nth-child(4) > .form-control').type("test-seller")
+        .type(textNo)
+}
+// พนักงาน e-mail
+const taxAddEmployee10 = (textNo) => {
+    cy.get(':nth-child(5) > .form-control').type("Seller")
+        .type(textNo).type("@gmail.com")
+}
+// พนักงาน เบอร์โทรศัพท์
+const taxAddEmployee11 = (textNo) => {
+    cy.get(':nth-child(6) > .form-control')
+        .type(textNo)
+}
+// พนักงาน เขตรับผิดชอบ
+const taxAddEmployee12 = (textNo) => {
+    cy.get(':nth-child(7) > .form-control').type("กทม.หลวง")
+        .type(textNo)
 }
