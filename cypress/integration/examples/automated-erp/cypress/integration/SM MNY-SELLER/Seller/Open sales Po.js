@@ -1,5 +1,8 @@
-// Seller เปิดรายการขาย ต้องเพิ่มพนักงานจาก แอดมิน 
-// และทำการเพิ่มร้านค้าให้พนักงาน และถึงจะลงชื่อเข้าใช้ ของพนักงานเพื่อเปิดรายการขาย
+// Seller เปิดรายการขาย 
+// ต้องเพิ่มพนักงานจาก แอดมิน 
+// และทำการเพิ่มร้านค้าให้พนักงาน,อัพเดทสินค้า
+//  และถึงจะลงชื่อเข้าใช้ ของพนักงานเพื่อเปิดรายการขาย
+
 
 
 /// <reference types="cypress" />
@@ -10,21 +13,26 @@ context("Seller-Open sales Po", () => {
         cy.visit("https://smdevdemo.autocareth.com/")
     })
     it("Seller-Open sales PO", () => {
-        SellerOpensales("Test-Seller 00", "test-seller 00")
+        SellerOpensalesPO("Test-Seller 00", "test-seller 00")
+
         // เพิ่มขนส่งใหม่ในกรณีไม่มีขนส่ง
         // Addtransport()
+        
         // Seller เปิดรายการขาย
         OpensalesPO()
+        
         // เช็ครายการขายพี่เปิดใหม่
         checkOpensalesPO()
+        
         // Seller รับรายการขาย
         OpensalesPO1()
+        
         // เช็คสถานะรับรายการขาย
         checkOpensalesPO1()
     })
 })
 
-const SellerOpensales = (username, password) => {
+const SellerOpensalesPO = (username, password) => {
     cy.get('#input_username').type(username)
     cy.get('#input_password').type(password)
     cy.get('.btn').click()
