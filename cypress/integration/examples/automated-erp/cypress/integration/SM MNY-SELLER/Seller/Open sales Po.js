@@ -58,7 +58,7 @@ const OpensalesPO = () => {
     cy.get('.btn-save').click()
     cy.get('.swal2-confirm').click()
 }
-
+// เช็คสถานะ
 const checkOpensalesPO = () => {
     cy.get('tbody > :nth-child(1) > :nth-child(1) > a').click()
     cy.get('.status-border').should("contain.text", "รอยืนยันรายการ")
@@ -76,6 +76,7 @@ const OpensalesPO1 = () => {
     // cy.get('.mr-4 > .btn').click()
 
 }
+// เช็คสถานะ
 const checkOpensalesPO1 = () => {
     cy.get('.mr-4 > .btn').click({ force: true })
     cy.get('tbody > :nth-child(1) > :nth-child(1) > a').click({ force: true })

@@ -12,7 +12,8 @@ context("Seller-Manage-AddShop", () => {
         // ขั้นตอนเพิ่มร้านค้า
         SellerManageAddShop1()
 
-
+        // ค้นหาร้านค้าที่เพิ่มใหม่
+        SellerManageAddShop2()
     })
 })
 
@@ -40,12 +41,12 @@ const SellerManageAddShop1 = () => {
         .type("0955915150")
     taxAddPSellerManageShop3(getRandomNumberSellerManageShop(0, 10))
     cy.get(':nth-child(3) > .el-select > .el-input > .el-input__inner')
-    .click().type("{downarrow}{enter}")
+        .click().type("{downarrow}{enter}")
     cy.get('h3').should("contain.text", "เพิ่มพนักงาน / Add Employee")
     taxAddPSellerManageShop4(getRandomNumberSellerManageShop(0, 10))
     taxAddPSellerManageShop5(getRandomNumberSellerManageShop(0, 10))
     cy.get(':nth-child(2) > .container-fluid > :nth-child(2) > .col-sm-6 > .form-control')
-    .type("Test 00")
+        .type("Test 00")
     taxAddPSellerManageShop6(getRandomNumberSellerManageShop(0, 10))
     taxAddPSellerManageShop7(getRandomNumberSellerManageShop(0, 10))
     cy.get('.row > :nth-child(2) > .btn').should("contain.text", "บันทึก")
@@ -92,4 +93,19 @@ const taxAddPSellerManageShop6 = (textNo) => {
 const taxAddPSellerManageShop7 = (textNo) => {
     cy.get(':nth-child(3) > :nth-child(2) > .form-control').type("Test 5")
         .type(textNo)
+}
+// ค้นหาร้านค้าที่พึ่งเพิ่มใหม่
+const SellerManageAddShop2 = () => {
+    cy.get('h4').should("contain.text", "ร้านค้า")
+    cy.get('.el-input__inner').click().type("Test Shop").type("{downarrow}{enter}")
+    cy.get('thead > tr > :nth-child(1)').should("contain.text", "ชื่อลูกค้า")
+    cy.get('tbody > tr > :nth-child(1)').should("contain.text", "Test Shop ")
+    cy.get('thead > tr > :nth-child(2)').should("contain.text", "ที่อยู่")
+    cy.get('tbody > tr > :nth-child(2)').should("contain.text", "พหลโยธิน-วันชรพล2 กรุงเทพ")
+    cy.get('thead > tr > :nth-child(3)').should("contain.text", "เบอร์โทร")
+    cy.get('tbody > tr > :nth-child(3)').should("contain.text", "0955915150")
+    cy.get('thead > tr > :nth-child(4)').should("contain.text", "ประเภท")
+    cy.get('tbody > tr > :nth-child(4)').should("contain.text", "A")
+    cy.get('thead > tr > :nth-child(5)').should("contain.text", "จัดการ")
+
 }

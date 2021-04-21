@@ -7,7 +7,7 @@ context("Add Products Edit", () => {
         cy.visit("https://smdevdemo.autocareth.com/")
     })
     it("Add Products Edit", () => {
-        AddProductsEdit("MNY-ADMIN-1", "MNYadmin1")
+        AddProductsEdit("MNY-ADMIN-test", "MNYadmin1")
         AddProductsEdit1()
         CheckAddProductsEdit()
         EditProducts()

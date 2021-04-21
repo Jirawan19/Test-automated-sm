@@ -2,7 +2,9 @@
 // ต้องเพิ่มพนักงานจาก แอดมิน 
 // และทำการเพิ่มร้านค้าให้พนักงาน,อัพเดทสินค้า
 //  และถึงจะลงชื่อเข้าใช้ ของพนักงานเพื่อเปิดรายการขาย
+
 /// <reference types="cypress" />
+
 Cypress.config('defaultCommandTimeout', 100000)
 
 context("Seller-Open sales Ro+PO", () => {

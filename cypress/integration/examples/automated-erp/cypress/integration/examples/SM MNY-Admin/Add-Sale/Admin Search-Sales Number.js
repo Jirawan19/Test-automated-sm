@@ -7,7 +7,7 @@ context("Sales Number", () => {
         cy.visit("https://smdevdemo.autocareth.com/")
     })
     it("Sales Number", () => {
-        loginSalesNumber("MNY-ADMIN-1", "MNYadmin1")
+        loginSalesNumber("MNY-ADMIN-test", "MNYadmin1")
         SalesNumber()
 
     })

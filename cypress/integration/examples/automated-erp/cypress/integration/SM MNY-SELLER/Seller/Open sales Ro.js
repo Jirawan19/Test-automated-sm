@@ -81,7 +81,7 @@ const getRandomNumberOpenSalesRO = (min, max) => {
 const taxAddOpenSalesRO = (textNo) => {
     cy.get('#manufacturerNo').type(textNo)
 }
-
+// เช็คสถานะ
 const checkOpensalesRO = () => {
     cy.get('.ml-3 > h4').should("contain.text", "รายการขาย / Sale Orders")
     cy.get('tbody > :nth-child(1) > :nth-child(1) > a').click()

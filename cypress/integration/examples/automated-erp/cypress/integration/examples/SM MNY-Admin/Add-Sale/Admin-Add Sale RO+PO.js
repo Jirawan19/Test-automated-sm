@@ -5,7 +5,7 @@ context("Admin Add Sale PO+PO", () => {
         cy.visit("https://smdevdemo.autocareth.com/")
     })
     it("Admin Add Sale PO+PO", () => {
-        loginAdminSaleROPO("MNY-ADMIN-1", "MNYadmin1")
+        loginAdminSaleROPO("MNY-ADMIN-test", "MNYadmin1")
         AdsalePORO()
         Adsale1PORO()
         AdminADMITPORO()

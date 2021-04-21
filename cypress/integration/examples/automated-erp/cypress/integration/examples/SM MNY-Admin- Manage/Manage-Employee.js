@@ -9,7 +9,7 @@ context("Admin Manage-Add/Employee", () => {
     it("Admin Manage-AddEmployee", () => {
         ManageEmployee("MNY-ADMIN-test", "MNYadmin1")
         // เพิ่มพนักงานขาย Test-Seller 00
-        TestSeller00()
+        // TestSeller00()
         // เพิ่มหัวหน้าพนักงานขาย
         ManageEmployee1()
         // เช็คหัวหน้าพนักงานขายที่เพิ่มใหม่
@@ -60,7 +60,7 @@ const ManageEmployee1 = () => {
     cy.get(':nth-child(3) > .primary-blue > h5').should("contain.text", "Username")
     taxAddEmployee2(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(4) > .primary-blue > h5').should("contain.text", "Password")
-    taxAddEmployee3(getRandomNumberAddEmployee(5, 0))
+    taxAddEmployee3(getRandomNumberAddEmployee(0, 0))
     cy.get(':nth-child(5) > .primary-blue > h5').should("contain.text", "E-mail")
     taxAddEmployee4(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(6) > .primary-blue > h5').should("contain.text", "เบอร์โทรศัพท์")
@@ -105,7 +105,7 @@ const ManageEmployee3 = () => {
     cy.get(':nth-child(3) > .primary-blue > h5').should("contain.text", "Username")
     taxAddEmployee8(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(4) > .primary-blue > h5').should("contain.text", "Password")
-    taxAddEmployee9(getRandomNumberAddEmployee(5, 0))
+    taxAddEmployee9(getRandomNumberAddEmployee(0, 0))
     cy.get(':nth-child(5) > .primary-blue > h5').should("contain.text", "E-mail")
     taxAddEmployee10(getRandomNumberAddEmployee(5, 0))
     cy.get(':nth-child(6) > .primary-blue > h5').should("contain.text", "เบอร์โทรศัพท์")

@@ -7,7 +7,7 @@ context("Search Products", () => {
         cy.visit("https://smdevdemo.autocareth.com/")
     })
     it("Search Products", () => {
-        SearchProducts("MNY-ADMIN-1", "MNYadmin1")
+        SearchProducts("MNY-ADMIN-test", "MNYadmin1")
         SearchProducts1()
     })
 })
