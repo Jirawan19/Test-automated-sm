@@ -22,8 +22,8 @@ context("E-catalog", () => {
         chekearchecatalogspares1()
     })
     //ค้นหา ล้อแม็ก
-    it("E-catalog/spares", () => {
-        //loginsupplier("grip-member1", "password")
+    it("E-catalog/Wheel", () => {
+        loginsupplier("grip-member1", "password")
 
     })
 })
