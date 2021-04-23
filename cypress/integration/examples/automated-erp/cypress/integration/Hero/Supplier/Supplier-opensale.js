@@ -105,7 +105,9 @@ const detailopensale = () => {
     cy.get(':nth-child(1) > :nth-child(4) > .form-check > .form-control').clear().type("2")
     cy.get(':nth-child(2) > :nth-child(4) > .form-check > .form-control').clear().type("4")
 }
-**
+
+//แทนค้า ราคาสินค้า,จำนวนและคำนวณราคาสินค้า
+
 const sell1 = () => {
     const products = [
         {
