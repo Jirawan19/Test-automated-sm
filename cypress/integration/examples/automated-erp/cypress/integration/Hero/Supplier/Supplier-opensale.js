@@ -66,7 +66,6 @@ const Detail1 = () => {
 }
 
 const Detail2 = () => {
-    //cy.get('.col-6 > .btn').click()
     cy.get('.mt-2 > #searchSeries > .bv-no-focus-ring > label').should("contain.text", "ซีรี่ย์")
     cy.get('#searchSeries > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
         .click().type("65").type("{downarrow}{downarrow}{enter}")
@@ -103,7 +102,6 @@ const checkdetailproducts = () => {
 
 const Selectproduct = () => {
     cy.get(':nth-child(1) > :nth-child(5) > .btn-details').click()
-    // cy.get(':nth-child(3) > :nth-child(5) > .btn-details').click()
     cy.get('.close').click()
 }
 
