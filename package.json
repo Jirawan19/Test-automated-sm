@@ -10,7 +10,7 @@
   "keywords": [],
   "description": "",
   "dependencies": {
-    "cypress": "^6.5.0"
+    "cypress": "^7.1.0"
   },
   "devDependencies": {
     "cypress-plugin-tab": "^1.0.5"
