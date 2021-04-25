@@ -24,7 +24,8 @@ context("E-catalog", () => {
     //ค้นหา ล้อแม็ก
     it("E-catalog/Wheel", () => {
         loginsupplier("grip-member1", "password")
-
+        searchEcatalogWheel1()
+        chekearchecatalogWheel1()
     })
 })
 
@@ -36,7 +37,7 @@ const loginsupplier = (username, password) => {
     cy.get('.btn-global').click()
 }
 
-    //ค้นหา ยางรถยนต์
+//ค้นหา ยางรถยนต์
 const searchEcatalogtires1 = () => {
     cy.get('h3').should("contain.text", "E-Catalog")
     cy.get('#tab-0').should("contain.text", "ยางรถยนต์")
@@ -58,6 +59,7 @@ const chekearchecatalogtires1 = () => {
     cy.get('.row.mt-4 > :nth-child(2) > .btn-reset').click()
 }
 
+// ค้นหา ยี่ห้อ
 const searchEcatalogtires2 = () => {
     cy.get('.row.mt-2 > #searchTireฺBrand > .bv-no-focus-ring > .primary-blue')
         .should("contain.text", "ยี่ห้อ")
@@ -77,13 +79,13 @@ const chekearchecatalogtires2 = () => {
     cy.get('.row.mt-4 > :nth-child(2) > .btn-reset').click()
 }
 
-    //ค้นหา อะไหล่
+//ค้นหา อะไหล่
 const searchEcatalogspares1 = () => {
     cy.get('h3').should("contain.text", "E-Catalog")
     cy.get('#tab-1').should("contain.text", "อะไหล่")
     cy.get('#tab-1').click()
     cy.get('#searchParts > .bv-no-focus-ring > .primary-blue').should("contain.text", "ค้นหาอะไหล่")
-    cy.get('#inputSearchParts').type("กาว")
+    cy.get('#inputSearchParts').type("โช๊ค")
     cy.get('#pane-1 > .row.mt-3 > :nth-child(1) > .btn-search').should("contain.text", "ค้นหา")
     cy.get('#pane-1 > .row.mt-3 > :nth-child(1) > .btn-search').click()
 }
@@ -91,11 +93,45 @@ const searchEcatalogspares1 = () => {
 const chekearchecatalogspares1 = () => {
     cy.get('[data-v-04c40936=""][data-v-2615cf88=""] > .d-none > .table > .table-header > tr > :nth-child(1)')
         .should("contain.text", "ชื่อสินค้า")
-    cy.get('.text-left > .secondary-blue').should("contain.text", "test-044")
-    cy.get('.m-0').should("contain.text", "กาวดำ -")
-    cy.get('[data-v-04c40936=""][data-v-2615cf88=""] > .d-none > .table > .table-header > tr > :nth-child(2)')
-        .should("contain.text", "รายละเอียด")
-    cy.get('.text-center.align-middle').should("contain.text", ":โฉมปี 2006-2011 (ACV40)")
-    cy.get('#pane-1 > .row.mt-3 > :nth-child(2) > .btn-reset').should("contain.text", "รีเซ็ต")
-    cy.get('#pane-1 > .row.mt-3 > :nth-child(2) > .btn-reset').click()
+    cy.get(':nth-child(1) > .text-left > .secondary-blue')
+        .should("contain.text", "WWW-1002")
+    cy.get(':nth-child(1) > .text-left > .m-0').should("contain.text", "โช๊คนิ่มๆ4 หน้า")
+    cy.get(':nth-child(1) > .text-left > span').should("contain.text", " ยี่ห้อ:RTI-881 ")
+
+    cy.get('[data-v-04c40936=""][data-v-2615cf88=""] > .d-none > .table > tbody > :nth-child(2) > .text-left > .secondary-blue')
+        .should("contain.text", "WWW-1001")
+    cy.get(':nth-child(2) > .text-left > .m-0').should("contain.text", "โช๊คนิ่มๆ3 หน้า")
+    cy.get('[data-v-04c40936=""][data-v-2615cf88=""] > .d-none > .table > tbody > :nth-child(2) > .text-left > span')
+        .should("contain.text", " ยี่ห้อ:RTI-880 ")
+}
+
+// ค้นหา ล้อแม็ก
+const searchEcatalogWheel1 = () => {
+    cy.get('h3').should("contain.text", "E-Catalog")
+    cy.get('#tab-2').should("contain.text", "ล้อแม็ก")
+    cy.get('#tab-2').click()
+    cy.get('#pane-2 > :nth-child(1) > :nth-child(4) > .bv-no-focus-ring > .primary-blue')
+        .should("contain.text", "PCD")
+    cy.get(':nth-child(4) > .bv-no-focus-ring > .el-input > .el-input__inner').type("22.0")
+    cy.get(':nth-child(5) > .bv-no-focus-ring > .primary-blue').should("contain.text", "รูดุมล้อ")
+    cy.get(':nth-child(5) > .bv-no-focus-ring > .el-input > .el-input__inner').type("55")
+    cy.get('#pane-2 > .row.mt-3 > :nth-child(1) > .btn-search').should("contain.text", "ค้นหา")
+    cy.get('#pane-2 > .row.mt-3 > :nth-child(1) > .btn-search').click()
+}
+
+const chekearchecatalogWheel1 = () => {
+    cy.get('[data-v-2d66592e=""][data-v-2615cf88=""] > .d-none > .table > .table-header > tr > :nth-child(1)')
+        .should("contain.text", "ชื่อสินค้า")
+    cy.get('[data-v-2d66592e=""][data-v-2615cf88=""] > .d-none > .table > tbody > tr > .text-left > .secondary-blue')
+        .should("contain.text", "RWEO-2")
+    cy.get('[data-v-2d66592e=""][data-v-2615cf88=""] > .d-none > .table > tbody > tr > .text-left > span')
+        .should("contain.text", "ขอบ21")
+    cy.get('[data-v-2d66592e=""][data-v-2615cf88=""] > .d-none > .table > .table-header > tr > :nth-child(2)')
+        .should("contain.text", "ยี่ห้อ")
+    cy.get('[data-v-2d66592e=""][data-v-2615cf88=""] > .d-none > .table > tbody > tr > :nth-child(2)')
+        .should("contain.text", "RTY")
+    cy.get('[data-v-2d66592e=""][data-v-2615cf88=""] > .d-none > .table > .table-header > tr > :nth-child(4)')
+        .should("contain.text", "ราคาขาย")
+    cy.get('[data-v-2d66592e=""][data-v-2615cf88=""] > .d-none > .table > tbody > tr > :nth-child(4)')
+        .should("contain.text", "1,564.00")
 }
