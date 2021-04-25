@@ -28,6 +28,12 @@ context("Open-Sale", () => {
 
         //กรอกรายละเอียดหลังจากเลือกสินค้าแล้ว
         detailopensale()
+
+        // เปิดรายการขาย
+        supplieropenorder()
+
+        // เช็ครายการขายที่พึ่งเปิด
+        checksupplieropenorder()
     })
 })
 
@@ -97,46 +103,79 @@ const checkdetailproducts = () => {
 
 const Selectproduct = () => {
     cy.get(':nth-child(1) > :nth-child(5) > .btn-details').click()
-    cy.get(':nth-child(3) > :nth-child(5) > .btn-details').click()
+    // cy.get(':nth-child(3) > :nth-child(5) > .btn-details').click()
     cy.get('.close').click()
 }
 
+// ตรวจเช็คสินค้าที่เลือกแบบรวมภาษี 7%
 const detailopensale = () => {
+    cy.get('.col-12.mt-2 > .table > thead > tr > :nth-child(2)').should("contain.text", "รายการ")
+    cy.get('.col-12.mt-2 > .table > tbody > tr > :nth-child(2) > :nth-child(1)')
+        .should("contain.text", "195 / 65 R 15")
+    cy.get('.col-12.mt-2 > .table > tbody > tr > :nth-child(2) > :nth-child(3)')
+        .should("contain.text", "NANO ENERGY 3")
+    cy.get('.col-12.mt-2 > .table > tbody > tr > :nth-child(2) > :nth-child(5)')
+        .should("contain.text", "TOYO")
+    cy.get('.col-12.mt-2 > .table > thead > tr > :nth-child(4)').should("contain.text", "จำนวน")
     cy.get(':nth-child(1) > :nth-child(4) > .form-check > .form-control').clear().type("2")
-    cy.get(':nth-child(2) > :nth-child(4) > .form-check > .form-control').clear().type("4")
+    cy.get('.col-12.mt-2 > .table > thead > tr > :nth-child(5)').should("contain.text", "ราคาต่อหน่วย")
+    cy.get('.col-12.mt-2 > .table > tbody > tr > :nth-child(5)').should("contain.text", "2,650.00")
+    cy.get('.col-12.mt-2 > .table > thead > tr > :nth-child(6)').should("contain.text", "ราคารวม")
+    cy.get('.col-12.mt-2 > .table > tbody > tr > :nth-child(6)').should("contain.text", "5,300.00")
+    cy.get('tfoot > :nth-child(1) > .text-right').should("contain.text", "5,300.00")
+    cy.get(':nth-child(4) > [colspan="2"]').should("contain.text", "ยอดรวมสินค้าสุทธิ (VAT)")
+    cy.get(':nth-child(4) > .text-right').should("contain.text", "5,671.00 บาท")
+
+    // ตรวจเช็๕สินค้าที่เลือกแบบไม่รวมภาษี 7%
+    cy.get('.el-switch__core').click()
+    cy.get(':nth-child(3) > [colspan="2"]').should("contain.text", "ภาษีมูลค่าเพิ่ม (VAT)")
+    cy.get(':nth-child(4) > [colspan="2"]').should("contain.text", "ยอดรวมสินค้าสุทธิ")
+    cy.get(':nth-child(4) > .text-right').should("contain.text", "5,300.00 บาท")
 }
 
-//แทนค้า ราคาสินค้า,จำนวนและคำนวณราคาสินค้า
-
-const sell1 = () => {
-    const products = [
-        {
-            price: 5,
-            qty: 100,
-            percentage1: 10,
-            percentage2: 10
-        },
-        // {
-        //     price: 10,
-        //     qty: 100,
-        //     percentage1: 5,
-        //     percentage2: 5,
-        // }
-    ]
-    cy.get('#products-0 > :nth-child(2) > .form-row > :nth-child(1) > .el-input > .el-input__inner')
-        .clear().type(products[0].price)
-    cy.get('#products-0 > [style="width: 200px;"] > :nth-child(1) > .text-left > .form-control')
-        .clear().type(products[0].percentage1)
-    cy.get('#products-0 > [style="width: 200px;"] > :nth-child(2) > .text-left > .form-control')
-        .clear().type(products[0].percentage2)
-    cy.get('#products-0 > [style="width: 150px;"] > :nth-child(2) > .el-input__inner')
-        .clear().type(products[0].qty)
-
-
-    let totalPrice = 0
-    products.map(product => {
-        totalPrice += product.qty * product.price
-    })
-    cy.get(':nth-child(1) > .row > .text-right > h5').should("contain.text", totalPrice)
-
+// เปิดรายการขายแบบบวกภาษีเพิ่ม
+const supplieropenorder = () => {
+    cy.get('.el-switch__core').click()
+    cy.get('.el-textarea__inner').type("ด่วน")
+    cy.get('.text-right > .btn-confirm').click()
+    cy.get('#swal2-title').should("contain.text", "สำเร็จ")
+    cy.get('#swal2-content').should("contain.text", "สถานะรอรับสินค้า")
+    cy.get('.swal2-confirm').should("contain.text", "OK")
+    cy.get('.swal2-confirm').click()
 }
+
+// เช็ครายการสินค้าที่พึ่งเปิด
+const checksupplieropenorder = () => {
+    cy.get('.CardheadTitle > h3').should("contain.text", "รายการขาย")
+    cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
+    cy.get('.status-border').should("contain.text", "รอรับสินค้า")
+    cy.get('.col-sm-12 > .font-weight-bold').should("contain.text", "รายละเอียดการขาย")
+    cy.get('.table-order-wrappe > .table > thead > tr > :nth-child(1)').should("contain.text", "รายการ")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
+        .should("contain.text", "195 / 65 R 15")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
+        .should("contain.text", "NANO ENERGY 3")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
+        .should("contain.text", "TOYO")
+    cy.get('.table-order-wrappe > .table > thead > tr > :nth-child(5)')
+        .should("contain.text", "สถานะ")
+    cy.get(':nth-child(1) > :nth-child(5) > .secondary-blue')
+        .should("contain.text", "ยืนยันการส่ง")
+    cy.get('.table-order-wrappe > .table > thead > tr > :nth-child(4)')
+        .should("contain.text", "ราคารวม")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(1) > :nth-child(4)')
+        .should("contain.text", "5,300.00")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(4) > .secondary-blue')
+        .should("contain.text", "ภาษีมูลค่าเพิ่ม (VAT)")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(4) > :nth-child(3)')
+        .should("contain.text", "371.00 บาท")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(5) > .secondary-blue')
+        .should("contain.text", "ยอดรวมสุทธิ (VAT)")
+    cy.get('.table-order-wrappe > .col-12 > .save-btn-box > .nuxt-link-active > .btn')
+        .should("contain.text", "กลับ")
+    cy.get('.table-order-wrappe > .col-12 > .save-btn-box > .nuxt-link-active > .btn')
+        .click()
+}
+
+
+
