@@ -85,7 +85,7 @@ const searchEcatalogspares1 = () => {
     cy.get('#tab-1').should("contain.text", "อะไหล่")
     cy.get('#tab-1').click()
     cy.get('#searchParts > .bv-no-focus-ring > .primary-blue').should("contain.text", "ค้นหาอะไหล่")
-    cy.get('#inputSearchParts').type("โช๊ค")
+    cy.get('#inputSearchParts').type("กาว")
     cy.get('#pane-1 > .row.mt-3 > :nth-child(1) > .btn-search').should("contain.text", "ค้นหา")
     cy.get('#pane-1 > .row.mt-3 > :nth-child(1) > .btn-search').click()
 }
@@ -94,15 +94,15 @@ const chekearchecatalogspares1 = () => {
     cy.get('[data-v-04c40936=""][data-v-2615cf88=""] > .d-none > .table > .table-header > tr > :nth-child(1)')
         .should("contain.text", "ชื่อสินค้า")
     cy.get(':nth-child(1) > .text-left > .secondary-blue')
-        .should("contain.text", "WWW-1002")
-    cy.get(':nth-child(1) > .text-left > .m-0').should("contain.text", "โช๊คนิ่มๆ4 หน้า")
-    cy.get(':nth-child(1) > .text-left > span').should("contain.text", " ยี่ห้อ:RTI-881 ")
+        .should("contain.text", "test-044")
+    cy.get(':nth-child(1) > .text-left > .m-0').should("contain.text", "กาวดำ -")
+    cy.get(':nth-child(1) > .text-left > span').should("contain.text", "ยี่ห้อ:DAITEN")
 
-    cy.get('[data-v-04c40936=""][data-v-2615cf88=""] > .d-none > .table > tbody > :nth-child(2) > .text-left > .secondary-blue')
-        .should("contain.text", "WWW-1001")
-    cy.get(':nth-child(2) > .text-left > .m-0').should("contain.text", "โช๊คนิ่มๆ3 หน้า")
-    cy.get('[data-v-04c40936=""][data-v-2615cf88=""] > .d-none > .table > tbody > :nth-child(2) > .text-left > span')
-        .should("contain.text", " ยี่ห้อ:RTI-880 ")
+    // cy.get('[data-v-04c40936=""][data-v-2615cf88=""] > .d-none > .table > tbody > :nth-child(2) > .text-left > .secondary-blue')
+    //     .should("contain.text", "test-044")
+    // cy.get(':nth-child(2) > .text-left > .m-0').should("contain.text", "กาวดำ -")
+    // cy.get('[data-v-04c40936=""][data-v-2615cf88=""] > .d-none > .table > tbody > :nth-child(2) > .text-left > span')
+    //     .should("contain.text", "ยี่ห้อ:DAITEN")
 }
 
 // ค้นหา ล้อแม็ก

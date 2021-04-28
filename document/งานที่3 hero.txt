@@ -19,3 +19,11 @@ Seller
 2.คลังสินค้า
 3.บริการ
 4.สมุดรายชื่อ
+
+https://herodemo.autopair.co/
+Supplier login :
+username: grip-member1
+password: password
+Workshop login :
+username: empGrip01
+password: password

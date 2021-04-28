@@ -50,12 +50,12 @@ const Opensale = () => {
     cy.get('a > .el-button > span').should("contain.text", "เพิ่มรายการขาย")
     cy.get('a > .el-button > span').click()
     cy.get('.primary-blue').should("contain.text", "ลูกค้า")
-    cy.get('.col-md-4 > .el-select > .el-input > .el-input__inner')
-        .click().type("empGrip01").type("{downarrow}{enter}")
+    cy.get('.col-xl-4 > .el-select > .el-input > .el-input__inner')
+        .click().type("อู่ ค").type("{downarrow}{enter}")
 }
 
 const Detail1 = () => {
-    cy.get('.col-6 > .btn').click()
+    cy.get('.col-xl-6 > .btn').click()
     cy.get('#tab-0').should("contain.text", "ยางรถยนต์")
     cy.get('#tab-1').should("contain.text", "อะไหล่")
     cy.get('#tab-2').should("contain.text", "ล้อแม็กซ์")
@@ -79,8 +79,8 @@ const Detail3 = () => {
 }
 
 const searchdetail = () => {
-    cy.get('.mt-4 > .btn-search').should("contain.text", "ค้นหา")
-    cy.get('.mt-4 > .btn-search').click()
+    cy.get('.mt-4 > :nth-child(1) > .btn-search').should("contain.text", "ค้นหา")
+    cy.get('.mt-4 > :nth-child(1) > .btn-search').click()
 }
 
 const checkdetailproducts = () => {
@@ -125,7 +125,8 @@ const detailopensale = () => {
     cy.get(':nth-child(4) > .text-right').should("contain.text", "5,671.00 บาท")
 
     // ตรวจเช็๕สินค้าที่เลือกแบบไม่รวมภาษี 7%
-    cy.get('.el-switch__core').click()
+    cy.get('.pl-0.d-xl-block > .table > tfoot > :nth-child(3) > .text-right > .el-switch > .el-switch__core')
+        .click()
     cy.get(':nth-child(3) > [colspan="2"]').should("contain.text", "ภาษีมูลค่าเพิ่ม (VAT)")
     cy.get(':nth-child(4) > [colspan="2"]').should("contain.text", "ยอดรวมสินค้าสุทธิ")
     cy.get(':nth-child(4) > .text-right').should("contain.text", "5,300.00 บาท")
@@ -133,7 +134,8 @@ const detailopensale = () => {
 
 // เปิดรายการขายแบบบวกภาษีเพิ่ม
 const supplieropenorder = () => {
-    cy.get('.el-switch__core').click()
+    cy.get('.pl-0.d-xl-block > .table > tfoot > :nth-child(3) > .text-right > .el-switch > .el-switch__core')
+        .click()
     cy.get('.el-textarea__inner').type("ด่วน")
     cy.get('.text-right > .btn-confirm').click()
     cy.get('#swal2-title').should("contain.text", "สำเร็จ")
