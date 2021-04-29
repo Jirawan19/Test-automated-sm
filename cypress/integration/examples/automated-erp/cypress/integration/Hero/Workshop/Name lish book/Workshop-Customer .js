@@ -13,6 +13,7 @@ context("Name lish book", () => {
         AddCustomer2()
         AddCustomer3()
         AddCustomer4()
+        checkAddCustomer()
     })
 })
 
@@ -146,11 +147,11 @@ const AddCustomer3 = () => {
     cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > :nth-child(1) > label')
         .should("contain.text", "ประเภทการชำระ")
     // ชำระเงินสด
-    cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{enter}", { force: true })
-    // โอนชำระ
     // cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
-    //     .click().type("{downarrow}{downarrow}{enter}")
+    // .click().type("{downarrow}{enter}", { force: true })
+    // โอนชำระ
+    cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
+        .click().type("{downarrow}{downarrow}{enter}", { force: true })
     // เช็ค
     // cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
     //     .click().type("{downarrow}{downarrow}{downarrow}{downarrow}{enter}")
@@ -159,8 +160,15 @@ const AddCustomer3 = () => {
 
 // ยืนยันเพิ่มลูกค้า
 const AddCustomer4 = () => {
-    cy.get('#swal2-title').should("contain.text","สำเร็จ")
-    cy.get('#swal2-content').should("contain.text","เพิ่มลูกค้าเรียบร้อย")
-    cy.get('.swal2-confirm').should("contain.text","OK")
+    cy.get('#swal2-title').should("contain.text", "สำเร็จ")
+    cy.get('#swal2-content').should("contain.text", "เพิ่มลูกค้าเรียบร้อย")
+    cy.get('.swal2-confirm').should("contain.text", "OK")
     cy.get('.swal2-confirm').click()
+}
+// เช็คผู้จำหน่อยที่พึ่งเพิ่ม
+const checkAddCustomer = () => {
+    cy.get(':nth-child(7) > .nav-link > .row').click()
+    cy.get('h3').should("contain.text", "สมุดรายชื่อ")
+    cy.get('#tab-customer').should("contain.text", "ลูกค้า")
+    cy.get('#tab-customer').click()
 }
