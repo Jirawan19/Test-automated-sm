@@ -51,7 +51,7 @@ const Opensale = () => {
     cy.get('a > .el-button > span').click()
     cy.get('.primary-blue').should("contain.text", "ลูกค้า")
     cy.get('.col-xl-4 > .el-select > .el-input > .el-input__inner')
-        .click().type("อู่ ค").type("{downarrow}{enter}")
+        .click().type("{downarrow}{enter}")
 }
 
 const Detail1 = () => {
@@ -101,7 +101,9 @@ const checkdetailproducts = () => {
 }
 
 const Selectproduct = () => {
-    cy.get(':nth-child(1) > :nth-child(5) > .btn-details').click()
+    cy.get('#pane-0 > .d-xl-block > .table > thead > tr > [style="width: 200px;"]').click()
+    cy.get('#pane-0 > .d-xl-block > .table > thead > tr > [style="width: 200px;"]').click()
+    cy.get('.d-xl-block > .table > tbody > tr > :nth-child(5) > .btn-details').click({ force: true })
     cy.get('.close').click()
 }
 
@@ -137,7 +139,7 @@ const supplieropenorder = () => {
     cy.get('.pl-0.d-xl-block > .table > tfoot > :nth-child(3) > .text-right > .el-switch > .el-switch__core')
         .click()
     cy.get('.el-textarea__inner').type("ด่วน")
-    cy.get('.text-right > .btn-confirm').click()
+    cy.get('.d-xl-flex > :nth-child(2) > .btn').click()
     cy.get('#swal2-title').should("contain.text", "สำเร็จ")
     cy.get('#swal2-content').should("contain.text", "สถานะรอรับสินค้า")
     cy.get('.swal2-confirm').should("contain.text", "OK")
@@ -171,9 +173,9 @@ const checksupplieropenorder = () => {
         .should("contain.text", "371.00 บาท")
     cy.get('.table-order-wrappe > .table > tbody > :nth-child(5) > .secondary-blue')
         .should("contain.text", "ยอดรวมสุทธิ (VAT)")
-    cy.get('.table-order-wrappe > .col-12 > .save-btn-box > .nuxt-link-active > .btn')
+    cy.get('.ml-auto > .nuxt-link-active > .btn')
         .should("contain.text", "กลับ")
-    cy.get('.table-order-wrappe > .col-12 > .save-btn-box > .nuxt-link-active > .btn')
+    cy.get('.ml-auto > .nuxt-link-active > .btn')
         .click()
 }
 

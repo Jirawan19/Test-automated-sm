@@ -82,7 +82,7 @@ const taxAddSupplier4 = (textNo) => {
 // ยืนยันเพิ่ม supplier
 const AddSupplier2 = () => {
     cy.get('#swal2-title').should("contain.text", "สำเร็จ")
-    cy.get('#swal2-content').should("contain.text", "เพิ่มลูกค้าเรียบร้อย")
+    cy.get('#swal2-content').should("contain.text", "เพิ่มผู้จำหน่ายเรียบร้อย")
     cy.get('.swal2-confirm').should("contain.text", "OK")
     cy.get('.swal2-confirm').click()
 }
