@@ -16,18 +16,18 @@ context("E-catalog", () => {
     })
 
     //ค้นหา อะไหล่
-    // it("E-catalog/spares", () => {
-    //     loginsupplier("grip-member1", "password")
-    //     searchEcatalogspares1()
-    //     chekearchecatalogspares1()
-    // })
+    it("E-catalog/spares", () => {
+        loginsupplier("grip-member1", "password")
+        searchEcatalogspares1()
+        chekearchecatalogspares1()
+    })
 
     //ค้นหา ล้อแม็ก
-    // it("E-catalog/Wheel", () => {
-    //     loginsupplier("grip-member1", "password")
-    //     searchEcatalogWheel1()
-    //     chekearchecatalogWheel1()
-    // })
+    it("E-catalog/Wheel", () => {
+        loginsupplier("grip-member1", "password")
+        searchEcatalogWheel1()
+        chekearchecatalogWheel1()
+    })
 })
 
 const loginsupplier = (username, password) => {
@@ -51,7 +51,7 @@ const searchEcatalogtires1 = () => {
 }
 
 const chekearchecatalogtires1 = () => {
-    cy.get('[data-v-36f4bc92=""][data-v-62653ce7=""] > .d-none > .table > .table-header > tr > :nth-child(1)')
+    cy.get('[data-v-36f4bc92=""][data-v-71db0b87=""] > .d-none > .table > .table-header > tr > :nth-child(1)')
         .should("contain.text", "ชื่อสินค้า")
     cy.get(':nth-child(1) > .text-left > .primary-blue').should("contain.text", "195 / 65 R 15")
     cy.get(':nth-child(2) > .text-left > .primary-blue').should("contain.text", "265 / 65 R 17")
@@ -71,7 +71,7 @@ const searchEcatalogtires2 = () => {
 }
 
 const chekearchecatalogtires2 = () => {
-    cy.get('[data-v-36f4bc92=""][data-v-62653ce7=""] > .d-none > .table > .table-header > tr > :nth-child(2)')
+    cy.get('[data-v-36f4bc92=""][data-v-71db0b87=""] > .d-none > .table > .table-header > tr > :nth-child(2)')
         .should("contain.text", "ยี่ห้อ")
     cy.get('tbody > :nth-child(1) > :nth-child(2)').should("contain.text", "TOYO")
     cy.get('tbody > :nth-child(2) > :nth-child(2)').should("contain.text", "TOYO")
@@ -92,7 +92,7 @@ const searchEcatalogspares1 = () => {
 }
 
 const chekearchecatalogspares1 = () => {
-    cy.get('[data-v-04c40936=""][data-v-62653ce7=""] > .d-none > .table > .table-header > tr > :nth-child(1)')
+    cy.get('[data-v-04c40936=""][data-v-71db0b87=""] > .d-none > .table > .table-header > tr > :nth-child(1)')
         .should("contain.text", "ชื่อสินค้า")
     cy.get('.text-left > .secondary-blue')
         .should("contain.text", "test-044")
@@ -121,18 +121,17 @@ const searchEcatalogWheel1 = () => {
 }
 
 const chekearchecatalogWheel1 = () => {
-    cy.get('[data-v-2d66592e=""][data-v-62653ce7=""] > .d-none > .table > .table-header > tr > :nth-child(1)')
+    cy.get('[data-v-2d66592e=""][data-v-71db0b87=""] > .d-none > .table > .table-header > tr > :nth-child(1)')
         .should("contain.text", "ชื่อสินค้า")
-    cy.get('[data-v-2d66592e=""][data-v-62653ce7=""] > .d-none > .table > tbody > tr > .text-left > .secondary-blue')
+    cy.get('[data-v-2d66592e=""][data-v-71db0b87=""] > .d-none > .table > tbody > tr > .text-left > .secondary-blue')
         .should("contain.text", "RWEO-2")
-    cy.get('[data-v-2d66592e=""][data-v-62653ce7=""] > .d-none > .table > tbody > tr > .text-left > span')
+    cy.get('[data-v-2d66592e=""][data-v-71db0b87=""] > .d-none > .table > tbody > tr > .text-left > span')
         .should("contain.text", "ขอบ21")
-    cy.get('[data-v-2d66592e=""][data-v-62653ce7=""] > .d-none > .table > .table-header > tr > :nth-child(2)')
+    cy.get('[data-v-2d66592e=""][data-v-71db0b87=""] > .d-none > .table > .table-header > tr > :nth-child(2)')
         .should("contain.text", "ยี่ห้อ")
-    cy.get('[data-v-2d66592e=""][data-v-62653ce7=""] > .d-none > .table > tbody > tr > :nth-child(2)')
+    cy.get('[data-v-2d66592e=""][data-v-71db0b87=""] > .d-none > .table > tbody > tr > :nth-child(2)')
         .should("contain.text", "RTY")
-    cy.get('[data-v-2d66592e=""][data-v-62653ce7=""] > .d-none > .table > .table-header > tr > :nth-child(4)')
+    cy.get('[data-v-2d66592e=""][data-v-71db0b87=""] > .d-none > .table > .table-header > tr > :nth-child(4)')
         .should("contain.text", "ราคาขาย")
-    cy.get('[data-v-2d66592e=""][data-v-62653ce7=""] > .d-none > .table > tbody > tr > :nth-child(4)')
-        .should("contain.text", "1,564.00")
+    cy.get('[data-v-2d66592e=""][data-v-71db0b87=""] > .d-none > .table > tbody > tr > :nth-child(4)').should("contain.text", "1,564.00")
 }

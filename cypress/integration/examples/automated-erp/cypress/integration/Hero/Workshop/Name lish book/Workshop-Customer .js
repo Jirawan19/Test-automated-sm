@@ -76,7 +76,8 @@ const AddCustomer1 = () => {
         .clear().type("10220").type("{enter}")
     // cy.get(':nth-child(12) > .mb-4-CustomStyle > .form-group > .bv-no-focus-ring > label')
     //     .should("contain.text", "เบอร์โทรศัพท์มือถือ")
-    taxAddCustomer3(getRandomNumberAddCustomer(0, 10))
+    taxAddCustomer6(getRandomNumberAddCustomer(0, 10))
+    taxAddCustomer3(getRandomNumberAddCustomer(0, 3))
     cy.get('#step0 > .row > [align="right"] > div > :nth-child(2) > .btn').click()
 }
 
@@ -98,6 +99,10 @@ const taxAddCustomer2 = (textNo) => {
 const taxAddCustomer3 = (textNo) => {
     cy.get('.bv-no-focus-ring > #mobileNo')
         .type(textNo)
+}
+const taxAddCustomer6 = (textNo) => {
+    cy.get('.bv-no-focus-ring > #email')
+        .click().type("test").type(textNo).type("@gmail.com")
 }
 
 // กรอกข้อมูลรถยนต์
@@ -143,15 +148,15 @@ const taxAddCustomer5 = (textNo) => {
 const AddCustomer3 = () => {
     cy.get('h3').should("contain.text", "เพิ่มลูกค้า")
     cy.get('[style="flex-basis: 250px; max-width: 33.3333%; z-index: 0;"] > .el-step__main > .el-step__title')
-        .should("contain.text", "การชำระและรับข่าว")
+        .should("contain.text", "การชำระเงิน")
     cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > :nth-child(1) > label')
         .should("contain.text", "ประเภทการชำระ")
     // ชำระเงินสด
-    // cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
-    // .click().type("{downarrow}{enter}", { force: true })
-    // โอนชำระ
     cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{downarrow}{enter}", { force: true })
+    .click().type("{downarrow}{enter}", { force: true })
+    // โอนชำระ
+    // cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
+    //     .click().type("{downarrow}{downarrow}{enter}", { force: true })
     // เช็ค
     // cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
     //     .click().type("{downarrow}{downarrow}{downarrow}{downarrow}{enter}")
