@@ -297,7 +297,7 @@ const receiveSaleparts1 = () => {
 const checkreceiveparts1 = () => {
     cy.get('.status-border').should("contain.text", "รับสินค้าบางส่วน")
     cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(2)')
-        .should("contain.text", "รายการ")
+            .should("contain.text", "รายการ")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
         .should("contain.text", "กาวดำ -")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
