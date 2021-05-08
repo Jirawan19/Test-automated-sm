@@ -23,7 +23,7 @@ context("Add order to Supplier", () => {
     it("workshop receive ", () => {
         loginWorkshop("empGrip01", "password")
 
-        // // // รับรายการยางรถยนต์ แบบทั้งหมด
+        // // รับรายการยางรถยนต์ แบบทั้งหมด
         // receiveSale()
         // checkreceive()
 
@@ -324,7 +324,6 @@ const receiveSale1 = () => {
     cy.get('.swal2-confirm').should("contain.text", "OK")
     cy.get('.swal2-confirm').click()
 }
-
 const checkreceive1 = () => {
     cy.get('.status-border').should("contain.text", "รับสินค้าบางส่วน")
     cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(2)')
