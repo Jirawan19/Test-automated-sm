@@ -7,20 +7,20 @@ context("E-catalog", () => {
         cy.visit("https://herodemo.autopair.co/")
     })
     //ค้นหา ยางรถยนต์
-    it("E-catalog/tires", () => {
-        loginsupplier("grip-member1", "password")
-        searchEcatalogtires1()
-        chekearchecatalogtires1()
-        searchEcatalogtires2()
-        chekearchecatalogtires2()
-    })
+    // it("E-catalog/tires", () => {
+    //     loginsupplier("grip-member1", "password")
+    //     searchEcatalogtires1()
+    //     chekearchecatalogtires1()
+    //     searchEcatalogtires2()
+    //     chekearchecatalogtires2()
+    // })
 
-    //ค้นหา อะไหล่
-    it("E-catalog/spares", () => {
-        loginsupplier("grip-member1", "password")
-        searchEcatalogspares1()
-        chekearchecatalogspares1()
-    })
+    // //ค้นหา อะไหล่
+    // it("E-catalog/spares", () => {
+    //     loginsupplier("grip-member1", "password")
+    //     searchEcatalogspares1()
+    //     chekearchecatalogspares1()
+    // })
 
     //ค้นหา ล้อแม็ก
     it("E-catalog/Wheel", () => {
