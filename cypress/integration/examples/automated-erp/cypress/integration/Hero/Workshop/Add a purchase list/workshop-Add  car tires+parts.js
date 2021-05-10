@@ -6,7 +6,7 @@ context("Add order to Supplier", () => {
     beforeEach(() => {
         cy.visit("https://herodemo.autopair.co/")
     })
-    it("Add order-car tires", () => {
+    it("Add order-car tires+parts", () => {
         loginWorkshop("empGrip01", "password")
         Addorderworkshop()
         Addorderworkshop1()
@@ -23,7 +23,7 @@ context("Add order to Supplier", () => {
     it("workshop receive ", () => {
         loginWorkshop("empGrip01", "password")
 
-        // // รับรายการยางรถยนต์ แบบทั้งหมด
+        // รับรายการยางรถยนต์ แบบทั้งหมด
         // receiveSale()
         // checkreceive()
 
@@ -46,7 +46,7 @@ const Addorderworkshop = () => {
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
     cy.get(':nth-child(1) > .nav-link > .row > h6').click()
 }
-// เพิ่มรายการซื้อ ยาง
+// เพิ่มรายการซื้อ
 const Addorderworkshop1 = () => {
     cy.get('h3').should("contain.text", "เพิ่มรายการซื้อ")
     cy.get('.primary-blue').should("contain.text", "ผู้จำหน่าย")
@@ -78,7 +78,28 @@ const Addorderworkshop1 = () => {
     cy.get('.d-xl-block > .table > tbody > tr > :nth-child(5) > .btn-details').click({ force: true })
     cy.get('.close').click()
 
-    // เช็คสินค้าและราคาแบบ รวมภาษี 7%
+    // อะไหล่
+    cy.get('.col-xl-6 > .btn').click()
+    cy.get('.modal-title').should("contain.text", "เลือกสินค้า / Choose Product")
+    cy.get('#tab-1').should("contain.text", "อะไหล่")
+    cy.get('#tab-1').click()
+
+    // // ค้นหาอะไหล่
+    cy.get('#searchParts > .bv-no-focus-ring > label').should("contain.text", "ค้นหาอะไหล่")
+    cy.get('#inputSearchParts').click().type("กาว")
+
+    // // ค้นหา
+    cy.get(':nth-child(2) > .btn-search').should("contain.text", "ค้นหา")
+    cy.get(':nth-child(2) > .btn-search').click()
+
+    // // เลือกสินค้า
+    cy.get('#pane-1 > .d-xl-block > .table > thead > tr > :nth-child(1)').should("contain.text", "รหัสสินค้า")
+    cy.get('.d-xl-block > .table > tbody > tr > :nth-child(1)').should("contain.text", "test-044")
+    cy.get('#pane-1 > .d-xl-block > .table > thead > tr > [style="width: 200px;"]').click()
+    cy.get(':nth-child(6) > .btn-details').click({ force: true })
+    cy.get('.close').click()
+
+    // เช็คสินค้าและราคาแบบ รวมภาษี 7% ยาง
     cy.get('.col-12.mt-2 > .table > thead > tr > :nth-child(2)').should("contain.text", "รายการ")
     cy.get('.col-12.mt-2 > .table > tbody > tr > :nth-child(2) > :nth-child(1)')
         .should("contain.text", "195 / 65 R 15")
@@ -91,12 +112,34 @@ const Addorderworkshop1 = () => {
     cy.get('.col-12.mt-2 > .table > thead > tr > :nth-child(5)').should("contain.text", "ราคาต่อหน่วย")
     cy.get('.col-12.mt-2 > .table > tbody > tr > :nth-child(5)').should("contain.text", "2,650.00")
     cy.get('.col-12.mt-2 > .table > thead > tr > :nth-child(6)').should("contain.text", "ราคารวม")
-    cy.get('.col-12.mt-2 > .table > tbody > tr > :nth-child(6)').should("contain.text", "5,300.00")
-    cy.get('tfoot > :nth-child(1) > .text-right').should("contain.text", "5,300.00")
+    cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > :nth-child(6)')
+        .should("contain.text", "5,300.00")
+
+    // เช็คสินค้าและราคาแบบ รวมภาษี 7% อะไหล่
+    cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(2) > .primary-blue')
+        .should("contain.text", "test-044")
+    cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(2) > :nth-child(4)')
+        .should("contain.text", "กาวดำ -")
+    cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(2) > :nth-child(4) > span')
+        .should("contain.text", "ยี่ห้อ : DAITEN")
+
+    cy.get('.col-12.d-none > .table > thead > tr > :nth-child(4)')
+        .should("contain.text", "จำนวน")
+    cy.get(':nth-child(2) > :nth-child(4) > .form-check > .form-control')
+        .clear().type("5")
+    cy.get('.col-12.d-xl-block > .table > thead > tr > :nth-child(5)')
+        .should("contain.text", "ราคาต่อหน่วย")
+    cy.get('tbody > :nth-child(2) > :nth-child(5)')
+        .should("contain.text", "200.00")
+    cy.get('.col-12.d-xl-block > .table > thead > tr > :nth-child(6)')
+        .should("contain.text", "ราคารวม")
+    cy.get('tbody > :nth-child(2) > :nth-child(6)')
+        .should("contain.text", "1,000.00")
+
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > :nth-child(2)')
         .should("contain.text", "ยอดรวมสินค้าสุทธิ (VAT)")
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > .text-right')
-        .should("contain.text", "5,671.00 บาท")
+        .should("contain.text", "6,741.00 บาท")
 
     // ตรวจเช็คสินค้าและราคาแบบไม่รวมภาษี 7%
     cy.get(':nth-child(2) > .text-right > .el-switch > .el-switch__core')
@@ -104,9 +147,9 @@ const Addorderworkshop1 = () => {
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > :nth-child(2)')
         .should("contain.text", "ยอดรวมสินค้าสุทธิ")
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > .text-right')
-        .should("contain.text", "5,300.00 บาท")
+        .should("contain.text", "6,300.00 บาท")
 
-    // เปิดรายการขายแบบบวกภาษีเพิ่ม
+    // // เปิดรายการขายแบบบวกภาษีเพิ่ม
     cy.get(':nth-child(2) > .text-right > .el-switch > .el-switch__core')
         .click()
     cy.get('.d-xl-flex > :nth-child(2) > .btn')
@@ -119,6 +162,8 @@ const Addorderworkshop1 = () => {
 
 // เช็ครายการสินค้าที่พึ่งเปิด
 const checkAddopenorder = () => {
+
+    // ยาง
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
     cy.get('.status-border').should("contain.text", "รอยืนยันรายการ")
@@ -136,12 +181,29 @@ const checkAddopenorder = () => {
         .should("contain.text", "ราคารวม")
     cy.get('tbody > :nth-child(1) > :nth-child(4)')
         .should("contain.text", "5,300.00")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(4) > .secondary-blue')
-        .should("contain.text", "ภาษีมูลค่าเพิ่ม (VAT)")
-    cy.get('tbody > :nth-child(4) > :nth-child(3)')
-        .should("contain.text", "371.00 บาท")
+
+
+
+    // อะไหล่
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(1)')
+        .should("contain.text", "รายการ")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > .primary-blue')
+        .should("contain.text", "test-044")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(4)')
+        .should("contain.text", "กาวดำ -")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(5)')
+        .should("contain.text", "ยี่ห้อ : DAITEN")
+
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(4)')
+        .should("contain.text", "ราคารวม")
+    cy.get('tbody > :nth-child(2) > :nth-child(4)')
+        .should("contain.text", "1,000.00")
+
+
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(5) > .secondary-blue')
-        .should("contain.text", "ยอดรวมสุทธิ (VAT)")
+        .should("contain.text", "ภาษีมูลค่าเพิ่ม (VAT)")
+    cy.get('tbody > :nth-child(5) > :nth-child(3)')
+        .should("contain.text", "441.00 บาท")
     cy.get('.ml-auto > .nuxt-link-active > .btn')
         .should("contain.text", "กลับ")
     cy.get('.ml-auto > .nuxt-link-active > .btn')
@@ -171,7 +233,7 @@ const supplierreceive = () => {
     cy.get(':nth-child(1) > :nth-child(5) > .status-border').should("contain.text", "รอยืนยันรายการ")
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
 
-    // เช็คสินค้าและราคา
+    // เช็คสินค้าและราคา ยาง
     cy.get('.status-border').should("contain.text", "รอยืนยันรายการ")
     cy.get('.table-order-wrappe > .table > thead > tr > :nth-child(2)')
         .should("contain.text", "รายการ")
@@ -190,11 +252,29 @@ const supplierreceive = () => {
         .should("contain.text", "ราคารวม")
     cy.get('.table-order-wrappe > .table > tbody > :nth-child(1) > :nth-child(5)')
         .should("contain.text", "5,300.00")
-    cy.get('.table-order-wrappe > .table > tbody > :nth-child(4) > .secondary-blue')
+
+    // เช็คสินค้าและราคา อะไหล่
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(2) > .text-left > .primary-blue')
+        .should("contain.text", "test-044")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(2) > .text-left > :nth-child(4)')
+        .should("contain.text", "กาวดำ -")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(2) > .text-left > :nth-child(6)')
+        .should("contain.text", "ยี่ห้อ : DAITEN")
+
+    cy.get('.table-order-wrappe > .table > thead > tr > :nth-child(4)')
+        .should("contain.text", "ราคาต่อหน่วย")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(2) > :nth-child(4)')
+        .should("contain.text", "200.00")
+    cy.get('.table-order-wrappe > .table > thead > tr > :nth-child(5)')
+        .should("contain.text", "ราคารวม")
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(2) > :nth-child(5)')
+        .should("contain.text", "1,000.00")
+
+
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(5) > .secondary-blue')
         .should("contain.text", "ภาษีมูลค่าเพิ่ม (VAT)")
-    cy.get('.table-order-wrappe > .table > tbody > :nth-child(4) > [colspan="2"]')
-        .should("contain.text", "371.00 บาท")
-    
+    cy.get('.table-order-wrappe > .table > tbody > :nth-child(5) > [colspan="2"]')
+        .should("contain.text", "441.00 บาท")
     // บันทึกรับรายการขาย
     cy.get(':nth-child(2) > span > .btn').click()
     cy.get('#swal2-title').should("contain.text", "ยืนยันการทำรายการ ?")
@@ -207,7 +287,7 @@ const supplierreceive = () => {
     cy.get('.swal2-confirm').click()
 }
 
-// รับสินค้าทั้งหมด
+// รับสินค้าทั้งหมด ยาง
 const receiveSale = () => {
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
     cy.get('thead > tr > :nth-child(1)').should("contain.text", "เลขที่รายการซื้อ")
@@ -240,11 +320,40 @@ const receiveSale = () => {
     cy.get('tbody > :nth-child(1) > :nth-child(6)')
         .should("contain.text", "5,300.00")
 
+    // รับสินค้าทั้งหมด อะไหล่
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(2)')
+        .should("contain.text", "รายการ")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > .primary-blue')
+        .should("contain.text", "test-044")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(4)')
+        .should("contain.text", "กาวดำ -")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(5)')
+        .should("contain.text", "ยี่ห้อ : DAITEN")
+
+    // กรอกจำนวนและเลข dot
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(4)')
+        .should("contain.text", "จำนวนรับเข้า / dot")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > :nth-child(4) > .row > .quantity > input')
+        .clear().type("5")
+
+    // ตรวจเช็ค ราคาสินค้า
+
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(5)')
+        .should("contain.text", "ราคา")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > :nth-child(5)')
+        .should("contain.text", "200.00")
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(6)')
+        .should("contain.text", "ราคารวม")
+    cy.get('tbody > :nth-child(2) > :nth-child(6)')
+        .should("contain.text", "1,000.00")
+
+
+
     // ราคาภาษีมูลค่าเพิ่ม
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(4) > .secondary-blue')
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(5) > .secondary-blue')
         .should("contain.text", "ภาษีมูลค่าเพิ่ม (VAT)")
-    cy.get(':nth-child(4) > [colspan="2"]')
-        .should("contain.text", "371.00 บาท")
+    cy.get(':nth-child(5) > [colspan="2"]')
+        .should("contain.text", "441.00 บาท")
 
     // บันทึกรับรายการขาย
     cy.get('.d-xl-flex > :nth-child(2) > .btn').click()
@@ -258,7 +367,7 @@ const receiveSale = () => {
     cy.get('.swal2-confirm').should("contain.text", "OK")
     cy.get('.swal2-confirm').click()
 }
-// เช็คสถานะ
+// เช็คสถานะ ยาง
 const checkreceive = () => {
     cy.get('.status-border').should("contain.text", "รายการเสร็จสิ้น")
     cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(1)')
@@ -272,15 +381,34 @@ const checkreceive = () => {
     cy.get('.table-order-wrapper.d-none > .table > thead > tr > [style="width: 200px;"]')
         .should("contain.text", "สถานะ")
     cy.get(':nth-child(6) > .secondary-blue').should("contain.text", "ยืนยันการส่ง")
+
+    // เช็คสถานะ อะไหล่
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(1)')
+        .should("contain.text", "รายการ")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > .primary-blue')
+        .should("contain.text", "test-044")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(4)')
+        .should("contain.text", "กาวดำ -")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(5)')
+        .should("contain.text", "ยี่ห้อ : DAITEN")
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > [style="width: 200px;"]')
+        .should("contain.text", "สถานะ")
+    cy.get('tbody > :nth-child(2) > :nth-child(6)')
+        .should("contain.text", "ยืนยันการส่ง")
+    cy.get('.ml-auto > .nuxt-link-active > .btn')
+        .should("contain.text", "กลับ")
+    cy.get('.ml-auto > .nuxt-link-active > .btn').click({ force: true })
+
+
 }
-// รับสินค้าบางชิ้น
+// รับสินค้าบางชิ้น ยาง
 const receiveSale1 = () => {
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
     cy.get('thead > tr > :nth-child(1)').should("contain.text", "เลขที่รายการซื้อ")
     cy.get(':nth-child(1) > :nth-child(5) > .status-border').should("contain.text", "รอรับสินค้า")
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
 
-    // ตรวจเช็ครายการสินค้า
+    // ตรวจเช็ครายการสินค้า 
     cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(2)')
         .should("contain.text", "รายการ")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
@@ -306,11 +434,40 @@ const receiveSale1 = () => {
     cy.get('tbody > :nth-child(1) > :nth-child(6)')
         .should("contain.text", "5,300.00")
 
+    // รับสินค้าบางชิ้น อะไหล่
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(2)')
+        .should("contain.text", "รายการ")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > .primary-blue')
+        .should("contain.text", "test-044")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(4)')
+        .should("contain.text", "กาวดำ -")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(5)')
+        .should("contain.text", "ยี่ห้อ : DAITEN")
+
+    // กรอกจำนวนและเลข dot
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(4)')
+        .should("contain.text", "จำนวนรับเข้า / dot")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > :nth-child(4) > .row > .quantity > input')
+        .clear().type("2")
+
+    // ตรวจเช็ค ราคาสินค้า
+
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(5)')
+        .should("contain.text", "ราคา")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > :nth-child(5)')
+        .should("contain.text", "200.00")
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(6)')
+        .should("contain.text", "ราคารวม")
+    cy.get('tbody > :nth-child(2) > :nth-child(6)')
+        .should("contain.text", "1,000.00")
+
+
+
     // ราคาภาษีมูลค่าเพิ่ม
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(4) > .secondary-blue')
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(5) > .secondary-blue')
         .should("contain.text", "ภาษีมูลค่าเพิ่ม (VAT)")
-    cy.get(':nth-child(4) > [colspan="2"]')
-        .should("contain.text", "371.00 บาท")
+    cy.get(':nth-child(5) > [colspan="2"]')
+        .should("contain.text", "441.00 บาท")
 
     // บันทึกรับรายการขาย
     cy.get('.d-xl-flex > :nth-child(2) > .btn').click()
@@ -325,6 +482,8 @@ const receiveSale1 = () => {
     cy.get('.swal2-confirm').click()
 }
 const checkreceive1 = () => {
+
+    // ยาง
     cy.get('.status-border').should("contain.text", "รับสินค้าบางส่วน")
     cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(2)')
         .should("contain.text", "รายการ")
@@ -334,6 +493,18 @@ const checkreceive1 = () => {
         .should("contain.text", "NANO ENERGY 3")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
         .should("contain.text", "TOYO")
-    // cy.get(':nth-child(5) > [colspan="4"]').click()
+
+    // อะไหล่
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(2)')
+        .should("contain.text", "รายการ")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > .primary-blue')
+        .should("contain.text", "test-044")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(4)')
+        .should("contain.text", "กาวดำ -")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(2) > .text-left > :nth-child(5)')
+        .should("contain.text", "ยี่ห้อ : DAITEN")
+    cy.get('.ml-auto > .nuxt-link-active > .btn')
+        .should("contain.text", "กลับ")
     cy.get('.ml-auto > .nuxt-link-active > .btn').click({ force: true })
+
 }
