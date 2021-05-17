@@ -12,6 +12,7 @@ context("Warehouse", () => {
         Mag1()
         Mag2()
         confimeMag()
+
     })
 })
 
@@ -34,34 +35,28 @@ const Mag = () => {
 // กรอกรายละเอียดสินค้า
 const Mag1 = () => {
     cy.get('.row.mt-3 > .text-xl-right > a > .btn-confirm').click()
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .el-steps > [style="flex-basis: 50%; margin-right: 0px;"] > .el-step__main > .el-step__title')
-        .should("contain.text", "รายละเอียดสินค้า")
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .row > .col-sm-6 > h5')
-        .should("contain.text", "รายละเอียดสินค้า")
-    taxMag(getRandomNumberMag(1, 5))
-    cy.get(':nth-child(3) > .inline-input > .el-input__inner').type("test")
-    cy.get('.col-md-3 > .mt-2 > .el-input__inner').clear().type("10")
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > :nth-child(3) > .pl-xl-5 > .mt-2')
-        .clear().type("10")
-    cy.get('.pr-xl-5 > .mt-2 > .el-input__inner').clear().type("10")
-    cy.get(':nth-child(4) > :nth-child(3) > .mt-2 > .el-input__inner').clear().type("10")
-    cy.get(':nth-child(5) > .el-textarea > .el-textarea__inner').type("test")
+    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
+        .type("19")
+    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3)')
+        .type("19")
+    cy.get('.col-md-10 > .mt-2 > .el-input__inner')
+        .type("19")
+    cy.get(':nth-child(4) > :nth-child(1) > .mt-2').type("5")
+    cy.get('.col-md-3 > .mt-2').type("5")
+    cy.get(':nth-child(5) > .form-control').type("5")
+    cy.get('.pr-xl-5 > .mt-2 > .el-input__inner').type("500")
+    cy.get(':nth-child(5) > :nth-child(2) > .mt-2 > .el-input__inner')
+        .type("whit")
+    cy.get(':nth-child(5) > :nth-child(3) > .mt-2 > .el-input__inner')
+        .type("5")
     cy.get('.pr-5 > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{downarrow}{enter}")
-    cy.get(':nth-child(6) > .pr-0 > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{downarrow}{downarrow}{enter}")
+    cy.get(':nth-child(7) > .pr-0 > .el-select > .el-input > .el-input__inner')
+        .click().type("{downarrow}{enter}")
+
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .col-sm-12 > .btn-search').click()
 }
 
-const getRandomNumberMag = (min, max) => {
-    0, 0
-    return Math.random() * (max - min) + min;
-}
-
-const taxMag = (textNo) => {
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("test Mag").type(textNo)
-}
 // รายละเอียดราคา
 // เพิ่มสินค้าตัวเดิมยิดในคลังจะต้องเพิ่ม
 const Mag2 = () => {
@@ -70,11 +65,11 @@ const Mag2 = () => {
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .row > .col-sm-6 > h5')
         .should("contain.text", "รายละเอียดราคา")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(2) > .mt-2 > .el-input__inner')
-        .clear().type("50")
+        .clear().type("5")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(3) > .mt-2 > .el-input__inner')
-        .clear().type("20")
+        .clear().type("30")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(4) > .mt-2 > .el-input__inner')
-        .clear().type("15")
+        .clear().type("20")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .col-sm-12 > .btn-confirm').click()
 }
 
@@ -86,3 +81,4 @@ const confimeMag = () => {
     cy.get('.swal2-confirm').click()
     cy.get('#tab-MAG').click()
 }
+
