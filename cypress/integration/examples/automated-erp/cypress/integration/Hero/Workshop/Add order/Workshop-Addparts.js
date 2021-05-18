@@ -158,7 +158,7 @@ const Addorderparts = () => {
     // เลือกผู้จำหน่าย
     cy.get('.col-xl-auto > a > .btn-confirm').click()
     cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click().type("test01").type("{downarrow}{enter}", { force: true })
+        .click().type("test").type("{downarrow}{enter}", { force: true })
     cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
     cy.get('.modal-title')
         .should("contain.text", "เลือกสินค้า / Choose Product")

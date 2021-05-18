@@ -122,9 +122,12 @@ const Addordermag = () => {
 
 
     // เลือกผู้จำหน่าย
-    cy.get('.col-xl-auto > a > .btn-confirm').click()
+    cy.get('.col-xl-auto > a > .btn-confirm')
+        .click()
+    cy.get(':nth-child(1) > .primary-blue')
+        .should("contain.text", "ผู้จำหน่าย")
     cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click({ force: true }).type("test", { force: true }).type("{downarrow}{enter}", { force: true })
+        .click().type("test").type("{downarrow}{enter}", { force: true })
     cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
     cy.get('.modal-title')
         .should("contain.text", "เลือกสินค้า / Choose Product")

@@ -27,6 +27,7 @@ const Parts = () => {
     cy.get('h3').should("contain.text", "คลังสินค้า")
     cy.get('#tab-PART').should("contain.text", "อะไหล่")
     cy.get('#tab-PART').click()
+    
     // cy.get('.form-label').should("contain.text", "ค้นหาสินค้า")
     cy.get('.col-xl-auto > a > .btn-confirm').click()
     cy.get('#pane-PART > .col-xl-12 > .col-12 > .el-steps > [style="flex-basis: 50%; margin-right: 0px;"] > .el-step__main > .el-step__title')

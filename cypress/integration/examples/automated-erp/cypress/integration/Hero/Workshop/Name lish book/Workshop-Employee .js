@@ -39,19 +39,24 @@ const AddEmployee1 = () => {
     taxAddEmployee(getRandomNumberAddEmployee(1, 3))
     cy.get(':nth-child(2) > .primary-blue > h5').should("contain.text", "สิทธ์การใช้งาน (Roles)")
     cy.get('.el-input__inner').click().type("{downarrow}{downarrow}{enter}")
-    cy.get(':nth-child(3) > .primary-blue > h5').should("contain.text", "Username")
+    cy.get(':nth-child(5) > .primary-blue > h5').should("contain.text", "Username")
     taxAddEmployee1(getRandomNumberAddEmployee(1, 2))
-    cy.get(':nth-child(4) > .primary-blue > h5').should("contain.text", "Password")
-    cy.get(':nth-child(4) > .form-control').type("password")
-    cy.get(':nth-child(5) > .primary-blue > h5').should("contain.text", "E-mail")
+    cy.get(':nth-child(6) > .primary-blue > h5').should("contain.text", "Password")
+    cy.get(':nth-child(6) > .form-control').type("password")
+    cy.get(':nth-child(3) > .primary-blue > h5').should("contain.text", "E-mail")
     taxAddEmployee2(getRandomNumberAddEmployee(1, 5))
-    cy.get(':nth-child(6) > .primary-blue > h5').should("contain.text", "เบอร์โทรศัพท์")
+    cy.get(':nth-child(4) > .primary-blue > h5').should("contain.text", "เบอร์โทรศัพท์")
     taxAddEmployee3(getRandomNumberAddEmployee(0, 10))
-    cy.get(':nth-child(7) > .primary-blue > h5').should("contain.text", "เขตรับผิดชอบ")
-    taxAddEmployee4(getRandomNumberAddEmployee(0, 10))
-    cy.get('.row > :nth-child(2) > .btn').should("contain.text","บันทึก")
-    cy.get('.row > :nth-child(2) > .btn').click()
-    
+    // cy.get(':nth-child(7) > .primary-blue > h5').should("contain.text", "เขตรับผิดชอบ")
+    // taxAddEmployee4(getRandomNumberAddEmployee(0, 10))
+    cy.get('[success=""]').should("contain.text", "บันทึก")
+    cy.get('[success=""]').click()
+
+    cy.get('#swal2-title').should("contain.text", "สำเร็จ")
+    cy.get('#swal2-content').should("contain.text", "เพิ่มพนักงานเรียบร้อย")
+    cy.get('.swal2-confirm').should("contain.text", "OK")
+    cy.get('.swal2-confirm').click()
+
 }
 
 const getRandomNumberAddEmployee = (min, max) => {
@@ -59,20 +64,20 @@ const getRandomNumberAddEmployee = (min, max) => {
     return Math.random() * (max - min) + min;
 }
 const taxAddEmployee = (textNo) => {
-    cy.get('.form-row > :nth-child(1) > .form-control')
+    cy.get('.row > :nth-child(1) > .form-control')
         .type("test Personnel").type(textNo)
 }
 const taxAddEmployee1 = (textNo) => {
-    cy.get(':nth-child(3) > .form-control')
+    cy.get(':nth-child(5) > .form-control')
         .type("test Personnel").type(textNo)
 }
 const taxAddEmployee2 = (textNo) => {
-    cy.get(':nth-child(5) > .form-control')
+    cy.get(':nth-child(3) > .form-control')
         .type("test Personnel").type(textNo).type("@gmail.com")
 
 }
 const taxAddEmployee3 = (textNo) => {
-    cy.get(':nth-child(6) > .form-control')
+    cy.get(':nth-child(4) > .form-control')
         .type(textNo)
 }
 const taxAddEmployee4 = (textNo) => {
