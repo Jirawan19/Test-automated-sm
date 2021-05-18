@@ -40,7 +40,7 @@ const Addorderworkshop3 = () => {
 
     cy.get('.col-xl-6 > .btn').click()
     cy.get('.modal-title').should("contain.text", "เลือกสินค้า / Choose Product")
-    cy.get('#tab-2').should("contain.text", "ล้อแม็กซ์")
+    cy.get('#tab-2').should("contain.text", "ล้อแม็ก")
     cy.get('#tab-2').click()
 
     // // รายละเอียดสินค้า

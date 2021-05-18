@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-const { cli } = require("cypress")
-
 Cypress.config('defaultCommandTimeout', 100000)
 
 context("Warehouse", () => {
@@ -16,6 +14,7 @@ context("Warehouse", () => {
         AddconfimeMag()
 
         Addordermag()
+        checkordermag()
 
     })
 })
@@ -93,7 +92,7 @@ const Addordermag = () => {
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
     cy.get('.col-xl-auto > a > .btn-confirm').click()
 
-    // // เพิ่มผู้จำหน่าย
+    // เพิ่มผู้จำหน่าย
     // cy.get(':nth-child(1) > .primary-blue').should("contain.text", "ผู้จำหน่าย")
     // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
     //     .click().type("{downarrow}{enter}")
@@ -125,15 +124,15 @@ const Addordermag = () => {
     // เลือกผู้จำหน่าย
     cy.get('.col-xl-auto > a > .btn-confirm').click()
     cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click().type("test01").type("{downarrow}{enter}", { force: true })
+        .click({ force: true }).type("test", { force: true }).type("{downarrow}{enter}", { force: true })
     cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
     cy.get('.modal-title')
         .should("contain.text", "เลือกสินค้า / Choose Product")
 
     // // รายละเอียดสินค้า
-    cy.get('#tab-MAG').should("contain.text", "อะไหล่")
+    cy.get('#tab-MAG').should("contain.text", "ล้อแม็ก")
     cy.get('#tab-MAG').click()
-    cy.get('.modal-title').should("contain.text", "ค้นหาอะไหล่")
+    cy.get('.modal-title').should("contain.text", "เลือกสินค้า / Choose Product")
     cy.get(':nth-child(5) > .bv-no-focus-ring > label')
         .should("contain.text", "รูดุมล้อ")
     cy.get(':nth-child(5) > .bv-no-focus-ring > .el-input > .el-input__inner')
@@ -144,70 +143,74 @@ const Addordermag = () => {
         .click()
 
 
-    // // เลือกสินค้า
-    // cy.get('#pane-PART > .d-xl-block > .table > tbody > :nth-child(1) > :nth-child(6) > .btn-details')
-    //     .click()
-    // cy.get('#pane-PART > .d-xl-block > .table > tbody > :nth-child(2) > :nth-child(6) > .btn-details').click()
+    // เช็คและเลือกสินค้า
+    cy.get('.col-12.d-none > .table > thead > tr > :nth-child(2)')
+        .should("contain.text", "รายการ")
 
-    // cy.get('.close').click()
+    // สินค้าชิ้นที่ 1
+    cy.get('#pane-MAG > .d-xl-block > .table > tbody > tr > .text-left > :nth-child(3)')
+        .should("contain.text", "ยี่ห้อ:19 ")
+    cy.get('#pane-MAG > .d-xl-block > .table > thead > tr > :nth-child(4)')
+        .should("contain.text", "หน่วย")
+    cy.get('#pane-MAG > .d-xl-block > .table > tbody > tr > :nth-child(4)')
+        .should("contain.text", "ชิ้น")
 
+    cy.get('#pane-MAG > .d-xl-block > .table > tbody > tr > :nth-child(6) > .btn-details')
+        .click()
+    cy.get('.close').click()
 
-    // // เช็คสินค้าที่เลือก
-    // cy.get('.col-12.d-none > .table > thead > tr > :nth-child(2)')
-    //     .should("contain.text", "รายการ")
-
-    // // สินค้าชิ้นที่ 1
-    // cy.get('.col-12.d-none > .table > thead > tr > :nth-child(4)')
-    //     .should("contain.text", "จำนวน")
-    // cy.get(':nth-child(1) > :nth-child(4) > .row > .quantity > input')
-    //     .clear().type("3")
-
-    // // สินค้าชิ้นที่ 2
-    // cy.get('.col-12.d-none > .table > thead > tr > :nth-child(4)')
-    //     .should("contain.text", "จำนวน")
-    // cy.get(':nth-child(2) > :nth-child(4) > .row > .quantity > input')
-    //     .clear().type("3")
-
-    // // // ราคาต่อหน่วย
-    // cy.get('.col-12.d-none > .table > thead > tr > :nth-child(5)')
-    //     .should("contain.text", "ราคาต่อหน่วย")
-    // cy.get(':nth-child(1) > :nth-child(5) > .form-check > .form-control')
-    //     .clear().type("30")
-    // cy.get(':nth-child(2) > :nth-child(5) > .form-check > .form-control')
-    //     .clear().type("50")
-
-    // // ราคารวม
-    // cy.get('.col-12.d-none > .table > thead > tr > :nth-child(6)')
-    //     .should("contain.text", "ราคารวม")
-    // cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > :nth-child(6)')
-    //     .should("contain.text", "90.00")
-    // cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(6)')
-    //     .should("contain.text", "150.00")
-
-    // cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
-    //     .click()
-    // cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
-    //     .click()
-    // cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > :nth-child(2)')
-    //     .should("contain.text", "ราคารวม")
-    // cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
-    //     .should("contain.text", "240.00 บาท")
-
-    // cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > :nth-child(2)')
-    //     .should("contain.text", "ยอดรวมสินค้าสุทธิ (VAT)")
-    // cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > .text-right')
-    //     .should("contain.text", "256.80 บาท")
+    // // จำนวน/ราคาต่อหน่วย
+    cy.get('.quantity > input').clear().type("5")
+    cy.get('.col-12.d-none > .table > thead > tr > :nth-child(5)')
+        .should("contain.text", "ราคาต่อหน่วย")
+    cy.get(':nth-child(5) > .form-check > .form-control')
+        .clear().type("30")
 
 
-    // cy.get('.row.text-right > :nth-child(2) > .btn')
-    //     .should("contain.text", "เปิดบิลรายการซื้อ")
-    // cy.get('.row.text-right > :nth-child(2) > .btn')
-    //     .click()
+    // ราคารวม
+    cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
+        .click()
+    cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
+        .click()
+    cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > :nth-child(2)')
+        .should("contain.text", "ราคารวม")
+    cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
+        .should("contain.text", "150.00")
 
-    // cy.get('#swal2-title')
-    //     .should("contain.text", "สำเร็จ")
-    // cy.get('#swal2-content')
-    //     .should("contain.text", "รายการเสร็จสิ้น")
-    // cy.get('.swal2-confirm').click()
+    cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > :nth-child(2)')
+        .should("contain.text", "ยอดรวมสินค้าสุทธิ (VAT)")
+    cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > .text-right')
+        .should("contain.text", "160.50 บาท")
 
+
+    cy.get('.row.text-right > :nth-child(2) > .btn')
+        .should("contain.text", "เปิดบิลรายการซื้อ")
+    cy.get('.row.text-right > :nth-child(2) > .btn')
+        .click()
+
+    cy.get('#swal2-title')
+        .should("contain.text", "สำเร็จ")
+    cy.get('#swal2-content')
+        .should("contain.text", "รายการเสร็จสิ้น")
+    cy.get('.swal2-confirm').click()
+
+}
+const checkordermag = () => {
+    cy.get(':nth-child(1) > :nth-child(5) > .status-border')
+        .should("contain.text", "รายการเสร็จสิ้น")
+    cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
+    cy.get('.status-border')
+        .should("contain.text", "รายการเสร็จสิ้น")
+
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(5)')
+        .should("contain.text", "ราคารวม")
+    cy.get('tbody > :nth-child(1) > :nth-child(5)')
+        .should("contain.text", "150.00")
+
+    cy.get('.table-order-wrapper.d-none > .table > thead > tr > [style="width: 200px;"]')
+        .should("contain.text", "สถานะ")
+    cy.get(':nth-child(6) > .secondary-blue')
+        .should("contain.text", "ยืนยันการส่ง")
+
+    cy.get('.ml-auto > .nuxt-link-active > .btn').click()
 }

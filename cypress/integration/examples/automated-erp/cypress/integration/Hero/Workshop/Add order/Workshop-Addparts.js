@@ -249,7 +249,6 @@ const checkorderparts = () => {
     cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(5)')
         .should("contain.text", "ราคารวม")
     cy.get('tbody > :nth-child(1) > :nth-child(5)')
-    cy.get('tbody > :nth-child(1) > :nth-child(5)')
         .should("contain.text", "90.00")
     cy.get('tbody > :nth-child(2) > :nth-child(5)')
         .should("contain.text", "150.00")
