@@ -47,6 +47,7 @@ const AddService = () => {
 
 }
 
+// เช็คบริการที่เพิ่มใหม่
 const checkservice = () => {
     cy.get('h3[data-v-56f9da8c=""]').should("contain.text", "บริการ")
     cy.get('#__BVID__73__BV_label_').should("contain.text", "ค้นหาบริการ")
