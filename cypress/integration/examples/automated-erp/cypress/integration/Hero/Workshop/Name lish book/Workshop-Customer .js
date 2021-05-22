@@ -27,7 +27,7 @@ const loginWorkshop = (username, password) => {
 
 const AddCustomer = () => {
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
-    cy.get(':nth-child(7) > .nav-link > .row').click()
+    cy.get(':nth-child(8) > .nav-link > .row > h6').click()
     cy.get('h3').should("contain.text", "สมุดรายชื่อ")
     cy.get('#tab-customer').should("contain.text", "ลูกค้า")
     cy.get('#tab-customer').click()
@@ -172,8 +172,12 @@ const AddCustomer4 = () => {
 }
 // เช็คผู้จำหน่อยที่พึ่งเพิ่ม
 const checkAddCustomer = () => {
-    cy.get(':nth-child(7) > .nav-link > .row').click()
+    cy.get(':nth-child(8) > .nav-link > .row > h6').click()
     cy.get('h3').should("contain.text", "สมุดรายชื่อ")
     cy.get('#tab-customer').should("contain.text", "ลูกค้า")
     cy.get('#tab-customer').click()
+
+    cy.get('[data-v-9e61d76e=""][data-v-b634e05e=""] > .d-xl-flex > .table > tbody > :nth-child(1) > :nth-child(4) > a > .btn')
+        .click()
+    cy.get('.nuxt-link-active > .btn').click()
 }

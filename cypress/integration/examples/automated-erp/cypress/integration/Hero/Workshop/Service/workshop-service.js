@@ -23,7 +23,7 @@ const loginWorkshop = (username, password) => {
 // เข้ารายการ บริการ
 const AddService = () => {
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
-    cy.get(':nth-child(6) > .nav-link > .row > h6').click()
+    cy.get(':nth-child(7) > .nav-link > .row > h6').click()
 
     // เพิ่มบริการ
     cy.get('h3[data-v-56f9da8c=""]').should("contain.text", "บริการ")
@@ -34,7 +34,7 @@ const AddService = () => {
     cy.get(':nth-child(1) > .form-label').should("contain.text", "ชื่อบริการ")
     taxAddService(getRandomAddService(1, 3))
     cy.get(':nth-child(2) > .form-label').should("contain.text", "ราคาบริการ")
-    cy.get('#__BVID__69').type("150")
+    cy.get('#__BVID__83').type("150")
     cy.get('.col-lg-12 > .form-label').should("contain.text", "รายละเอียดบริการ")
     taxAddService1(getRandomAddService(1, 3))
 
@@ -50,11 +50,11 @@ const AddService = () => {
 // เช็คบริการที่เพิ่มใหม่
 const checkservice = () => {
     cy.get('h3[data-v-56f9da8c=""]').should("contain.text", "บริการ")
-    cy.get('#__BVID__73__BV_label_').should("contain.text", "ค้นหาบริการ")
-    cy.get('#__BVID__74').click().type("test")
-    cy.get('#__BVID__73__BV_label_').click()
-    cy.get('#__BVID__73__BV_label_').click()
-    cy.get('#__BVID__74').click()
+    cy.get('#__BVID__87__BV_label_').should("contain.text", "ค้นหาบริการ")
+    cy.get('#__BVID__88').click().type("test")
+    cy.get('h3[data-v-56f9da8c=""]').click()
+    cy.get('h3[data-v-56f9da8c=""]').click()
+    cy.get('.col-xl-2 > .btn').click()
 
 }
 
@@ -63,8 +63,8 @@ const getRandomAddService = (min, max) => {
     return Math.random() * (max - min) + min;
 }
 const taxAddService = (textNo) => {
-    cy.get('#__BVID__68')
-        .type("test Service").type(textNo)
+    cy.get('#__BVID__82')
+            .type("test Service").type(textNo)
 }
 const taxAddService1 = (textNo) => {
     cy.get('.el-textarea__inner')

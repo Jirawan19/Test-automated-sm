@@ -26,11 +26,11 @@ const loginWorkshop = (username, password) => {
 // รายละเอียดสินค้า
 const Cartiees = () => {
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
-    cy.get(':nth-child(5) > .nav-link > .row').click()
+    cy.get(':nth-child(6) > .nav-link > .row > h6').click()
     cy.get('h3').should("contain.text", "คลังสินค้า")
     cy.get('#tab-TIRE').should("contain.text", "ยางรถยนต์")
     cy.get('#tab-TIRE').click()
-    cy.get('.row.mt-4 > .text-xl-right > a > .btn-confirm').click()
+    cy.get('.row.mt-4 > .text-xl-right > .btn-confirm').click()
     cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .el-steps > [style="flex-basis: 50%; margin-right: 0px;"] > .el-step__main > .el-step__title')
         .should("contain.text", "รายละเอียดสินค้า")
     cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > .row > .col-sm-6 > h5')
@@ -107,4 +107,8 @@ const confimeCartiees = () => {
     cy.get('.swal2-confirm').should("contain.text", "OK")
     cy.get('.swal2-confirm').click()
     cy.get('#tab-TIRE').click()
+}
+
+for (let index = 1; index <= 15; index++) {
+    console.log(index)
 }

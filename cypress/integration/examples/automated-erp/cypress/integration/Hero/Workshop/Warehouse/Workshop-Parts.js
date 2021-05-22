@@ -23,13 +23,15 @@ const loginWorkshop = (username, password) => {
 // กรอกรายละเอียดสินค้า
 const Parts = () => {
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
-    cy.get(':nth-child(5) > .nav-link > .row').click()
+    cy.get(':nth-child(6) > .nav-link > .row > h6').click()
+    // cy.get(':nth-child(5) > .nav-link > .row').click()
     cy.get('h3').should("contain.text", "คลังสินค้า")
     cy.get('#tab-PART').should("contain.text", "อะไหล่")
     cy.get('#tab-PART').click()
     
     // cy.get('.form-label').should("contain.text", "ค้นหาสินค้า")
-    cy.get('.col-xl-auto > a > .btn-confirm').click()
+    cy.get('.col-xl-auto > .btn-confirm > .el-icon-circle-plus-outline').click()
+    // cy.get('.col-xl-auto > a > .btn-confirm').click()
     cy.get('#pane-PART > .col-xl-12 > .col-12 > .el-steps > [style="flex-basis: 50%; margin-right: 0px;"] > .el-step__main > .el-step__title')
         .should("contain.text", "รายละเอียดสินค้า")
     cy.get('#pane-PART > .col-xl-12 > .col-12 > .fromitem > .row > :nth-child(1) > h5')

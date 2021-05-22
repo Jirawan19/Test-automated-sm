@@ -26,7 +26,7 @@ const loginWorkshop = (username, password) => {
 
 const Mag = () => {
     cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
-    cy.get(':nth-child(5) > .nav-link > .row').click()
+    cy.get(':nth-child(6) > .nav-link > .row > h6').click()
     cy.get('h3').should("contain.text", "คลังสินค้า")
     cy.get('#tab-MAG').should("contain.text", "ล้อแม็ก")
     cy.get('#tab-MAG').click()
@@ -34,7 +34,8 @@ const Mag = () => {
 
 // กรอกรายละเอียดสินค้า
 const Mag1 = () => {
-    cy.get('.row.mt-3 > .text-xl-right > a > .btn-confirm').click()
+    cy.get('.row.mt-3 > .text-xl-right > .btn-confirm').click()
+    // cy.get('.row.mt-3 > .text-xl-right > a > .btn-confirm').click()
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
         .type("19")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3)')

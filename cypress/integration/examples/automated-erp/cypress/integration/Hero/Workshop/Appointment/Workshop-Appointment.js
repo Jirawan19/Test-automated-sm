@@ -30,7 +30,7 @@ const AddAppointment = () => {
 
     cy.get('h3').should("contain.text", "เพิ่มนัดหมายลูกค้า")
     cy.get('.el-select > .el-input > .el-input__inner')
-        .click().type("9กณ-2.06").type("{downarrow}{downarrow}{enter}")
+        .click().type("9กณ-").type("{downarrow}{downarrow}{enter}")
     cy.get('.mr-5 > .form-group > .el-date-editor > .el-input__inner')
         .click().click()
     cy.get('.el-icon-arrow-right')
@@ -49,4 +49,8 @@ const AddAppointment = () => {
     cy.get('#swal2-title').should("contain.text", "สำเร็จ")
     cy.get('#swal2-content').should("contain.text", "สร้างรายการนัดหมายเสร็จสิ้น")
     cy.get('.swal2-confirm').click()
+
+    cy.get('#calendar_tb_btn').click()
+
+
 }
