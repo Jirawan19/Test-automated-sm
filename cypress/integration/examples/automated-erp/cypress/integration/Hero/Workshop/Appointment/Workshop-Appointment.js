@@ -21,7 +21,7 @@ const loginWorkshop = (username, password) => {
     cy.get('.btn-global').click()
 }
 const AddAppointment = () => {
-    cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
+    cy.get('.CardheadTitle > h3').should("contain.text", "สมุดรายชื่อ")
     cy.get(':nth-child(2) > .nav-link > .row > h6').click()
 
     cy.get('h3').should("contain.text", "ตารางนัดหมายลูกค้า")
