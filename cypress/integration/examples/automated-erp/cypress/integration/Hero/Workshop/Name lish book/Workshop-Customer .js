@@ -34,8 +34,9 @@ const AddCustomer = () => {
 
 // กรอกข้อมูลลูกค้า
 const AddCustomer1 = () => {
-    cy.get('.row.mt-4 > .ml-xl-auto > a > .btn').click()
+    cy.get(':nth-child(1) > :nth-child(1) > .ml-xl-auto > a > .btn').click()
     cy.get('h3').should("contain.text", "เพิ่มลูกค้า")
+
     cy.get(':nth-child(1) > .el-step__main > .el-step__title').should("contain.text", "ข้อมูลลูกค้า")
     cy.get(':nth-child(1) > .mb-CustomStyle > [for=""]').should("contain.text", "ประเภทลูกค้า")
     cy.get(':nth-child(3) > .mb-CustomStyle > [for=""]').should("contain.text", "เพศ")
@@ -107,14 +108,13 @@ const taxAddCustomer6 = (textNo) => {
 // กรอกข้อมูลรถยนต์
 const AddCustomer2 = () => {
     cy.get(':nth-child(2) > .el-step__main > .el-step__title').should("contain.text", "รถยนต์")
-    cy.get('#registration_Number_input_1').click().type("9กณ")
     taxAddCustomer4(getRandomNumberAddCustomer(1, 3))
     cy.get('#vinNo > .bv-no-focus-ring > label').should("contain.text", "เลขตัวถัง")
     taxAddCustomer5(getRandomNumberAddCustomer(0, 5))
     cy.get(':nth-child(5) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{enter}", { force: true })
     cy.get(':nth-child(6) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{enter}")
+        .click().wait(2000).type("{downarrow}{enter}")
     cy.get('#step1 > :nth-child(1) > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
         .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
     cy.get(':nth-child(4) > .mb-4-CustomStyle > :nth-child(1) > label')
@@ -135,8 +135,8 @@ const AddCustomer2 = () => {
     cy.get('#step1 > :nth-child(1) > [align="right"] > div > :nth-child(2) > .btn').click()
 }
 const taxAddCustomer4 = (textNo) => {
-    cy.get('#registration_Number_input_2')
-        .click().type(textNo)
+    cy.get('#carRegistrationNumber')
+        .click().type("9กณ").type(textNo)
 }
 const taxAddCustomer5 = (textNo) => {
     cy.get('#vinNos')
@@ -148,10 +148,10 @@ const AddCustomer3 = () => {
     cy.get('h3').should("contain.text", "เพิ่มลูกค้า")
     cy.get('[style="flex-basis: 250px; max-width: 33.3333%; z-index: 0;"] > .el-step__main > .el-step__title')
         .should("contain.text", "การชำระเงิน")
-    cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > :nth-child(1) > label')
+    cy.get('.col-12.mb-4-CustomStyle > :nth-child(1) > label')
         .should("contain.text", "ประเภทการชำระ")
     // ชำระเงินสด
-    cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
+    cy.get('.col-12.mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{enter}", { force: true })
     // โอนชำระ
     // cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
@@ -171,12 +171,12 @@ const AddCustomer4 = () => {
 }
 // เช็คผู้จำหน่อยที่พึ่งเพิ่ม
 const checkAddCustomer = () => {
-    cy.get(':nth-child(8) > .nav-link > .row > h6').click()
+    cy.get(':nth-child(7) > .nav-link > .row').click()
     cy.get('h3').should("contain.text", "สมุดรายชื่อ")
     cy.get('#tab-customer').should("contain.text", "ลูกค้า")
     cy.get('#tab-customer').click()
 
-    cy.get('[data-v-9e61d76e=""][data-v-b634e05e=""] > .d-xl-flex > .table > tbody > :nth-child(1) > :nth-child(4) > a > .btn')
+    cy.get(':nth-child(1) > [style="width: 11rem;"] > .btn-details')
         .click()
     cy.get('.nuxt-link-active > .btn').click()
 }
