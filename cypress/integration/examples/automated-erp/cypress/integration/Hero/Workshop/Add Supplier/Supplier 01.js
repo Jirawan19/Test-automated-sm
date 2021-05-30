@@ -12,7 +12,7 @@ context("Add Supplier", () => {
         addSupplier1()
     })
     it("Admin", () => {
-        loginAdmin("ATP-ADMIN", "16011986")
+        loginAdmin("admin", "admin")
         Admin1()
         logout()
     })
@@ -78,13 +78,15 @@ const addSupplier1 = () => {
     cy.get(':nth-child(6) > .primary-blue').should("contain.text", "")
     cy.get('#password').type("password")
 
-    cy.get('[success=""]').should("contain.text", "บันทึก")
-    cy.get('[success=""]').click()
-
-    cy.get('.swal2-confirm').click()
+    cy.wait(2000)
 
     cy.get('[success=""]').should("contain.text", "บันทึก")
     cy.get('[success=""]').click()
+
+    // cy.get('.swal2-confirm').click()
+
+    // cy.get('[success=""]').should("contain.text", "บันทึก")
+    // cy.get('[success=""]').click()
 
     // ยืนยัน
     cy.get('#swal2-title').should("contain.text", "การสมัครเสร็จสมบูรณ์")
@@ -149,7 +151,7 @@ const loginAdmin = (username, password) => {
 }
 
 const Admin1 = () => {
-    cy.get('h3').should("contain.text", "ลูกค้า")
+    cy.get('h3').should("contain.text", "")
     cy.get(':nth-child(2) > .nav-link > .row').click()
 
     cy.get('#customer-0 > :nth-child(3) > a > .btn-details')
