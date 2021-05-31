@@ -28,10 +28,7 @@ const loginWorkshop = (username, password) => {
 }
 
 const AddMag = () => {
-    cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
     cy.get(':nth-child(5) > .nav-link > .row').click()
-    cy.get('h3').should("contain.text", "คลังสินค้า")
-    cy.get('#tab-MAG').should("contain.text", "ล้อแม็ก")
     cy.get('#tab-MAG').click()
 }
 
@@ -63,10 +60,6 @@ const AddMag1 = () => {
 // รายละเอียดราคา
 // เพิ่มสินค้าตัวเดิมยิดในคลังจะต้องเพิ่ม
 const AddMag2 = () => {
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .el-steps > [style="flex-basis: 50%; max-width: 50%;"] > .el-step__main > .el-step__title')
-        .should("contain.text", "รายละเอียดราคา")
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .row > .col-sm-6 > h5')
-        .should("contain.text", "รายละเอียดราคา")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(2) > .mt-2 > .el-input__inner')
         .clear().type("5")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(3) > .mt-2 > .el-input__inner')
@@ -78,9 +71,6 @@ const AddMag2 = () => {
 
 // ยืนยันเพิ่มสินค้า
 const AddconfimeMag = () => {
-    cy.get('#swal2-title').should("contain.text", "สำเร็จ")
-    cy.get('#swal2-content').should("contain.text", "เพิ่มสินค้าเข้าคลังเสร็จสิ้น")
-    cy.get('.swal2-confirm').should("contain.text", "OK")
     cy.get('.swal2-confirm').click()
     cy.get('#tab-MAG').click()
 }
@@ -89,59 +79,33 @@ const AddconfimeMag = () => {
 const Addordermag = () => {
     cy.get(':nth-child(4) > .nav-link > .row > h6')
         .click()
-    cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
     cy.get('.col-xl-auto > a > .btn-confirm').click()
 
     // เพิ่มผู้จำหน่าย
-    // cy.get(':nth-child(1) > .primary-blue').should("contain.text", "ผู้จำหน่าย")
-    // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-    //     .click().type("{downarrow}{enter}")
+    cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
+        .click().type("{downarrow}{enter}")
 
-    // cy.get('h3').should("contain.text", "เพิ่มผู้จำหน่าย")
-    // cy.get(':nth-child(1) > .mb-4-CustomStyle > .form-group > .bv-no-focus-ring > label')
-    //     .should("contain.text", "")
-    // cy.get('.bv-no-focus-ring > #name').type("test01")
-    // cy.get(':nth-child(2) > .mb-4-CustomStyle > .form-group > .bv-no-focus-ring > label')
-    //     .should("contain.text", "")
-    // cy.get('.bv-no-focus-ring > #address').type("sky")
-    // cy.get(':nth-child(4) > .mb-4-CustomStyle > .form-group > .bv-no-focus-ring > label')
-    //     .should("contain.text", "")
-    // cy.get('.bv-no-focus-ring > #mobileNo').type("0955915150")
-    // cy.get('.col-sm- > .mb-4-CustomStyle > .form-group > .bv-no-focus-ring > label')
-    //     .should("contain.text", "")
-    // cy.get('.bv-no-focus-ring > #taxCustomerNumber').type("1100201520688")
-    // cy.get('.btn-confirm').should("contain.text", "บันทึก")
-    // cy.get('.btn-confirm').click()
+    cy.get('.bv-no-focus-ring > #name').type("test01")
+    cy.get('.bv-no-focus-ring > #address').type("sky")
+    cy.get('.bv-no-focus-ring > #mobileNo').type("0955915150")
+    cy.get('.bv-no-focus-ring > #taxCustomerNumber').type("1100201520688")
+    cy.get('.btn-confirm').click()
 
-    // cy.get('#swal2-title')
-    //     .should("contain.text", "สำเร็จ")
-    // cy.get('#swal2-content')
-    //     .should("contain.text", "เพิ่มผู้จำหน่ายเรียบร้อย")
-    // cy.get('.swal2-confirm').click()
+    cy.get('.swal2-confirm').click()
 
 
 
     // เลือกผู้จำหน่าย
     cy.get('.col-xl-auto > a > .btn-confirm')
         .click()
-    cy.get(':nth-child(1) > .primary-blue')
-        .should("contain.text", "ผู้จำหน่าย")
     cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
         .click().type("test").type("{downarrow}{enter}", { force: true })
     cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
-    cy.get('.modal-title')
-        .should("contain.text", "เลือกสินค้า / Choose Product")
 
     // // รายละเอียดสินค้า
-    cy.get('#tab-MAG').should("contain.text", "ล้อแม็ก")
     cy.get('#tab-MAG').click()
-    cy.get('.modal-title').should("contain.text", "เลือกสินค้า / Choose Product")
-    cy.get(':nth-child(5) > .bv-no-focus-ring > label')
-        .should("contain.text", "รูดุมล้อ")
     cy.get(':nth-child(5) > .bv-no-focus-ring > .el-input > .el-input__inner')
         .click().type("19")
-    cy.get('#pane-MAG > :nth-child(2) > :nth-child(1) > .btn-search')
-        .should("contain.text", "ค้นหา")
     cy.get('#pane-MAG > :nth-child(2) > :nth-child(1) > .btn-search')
         .click()
 
