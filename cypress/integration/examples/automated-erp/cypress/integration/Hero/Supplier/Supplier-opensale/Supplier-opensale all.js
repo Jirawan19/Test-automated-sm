@@ -5,7 +5,7 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Open-Sale", () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("host"))
+        cy.visit("https://hero.autopair.co/")
     })
     //เปิดรายการขาย
     it("Open-Sale all", () => {

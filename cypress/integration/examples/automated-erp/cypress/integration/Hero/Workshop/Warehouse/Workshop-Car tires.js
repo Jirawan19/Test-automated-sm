@@ -4,7 +4,7 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Warehouse", () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("host"))
+        cy.visit("https://hero.autopair.co/")
     })
     it("Car tiees", () => {
         loginWorkshop("empGrip01", "password")

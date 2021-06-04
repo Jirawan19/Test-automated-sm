@@ -4,7 +4,7 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Warehouse", () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("host"))
+        cy.visit("https://hero.autopair.co/")
     })
     it("Mag", () => {
         loginWorkshop("empGrip01", "password")
@@ -111,16 +111,10 @@ const Addordermag = () => {
 
 
     // เช็คและเลือกสินค้า
-    cy.get('.col-12.d-none > .table > thead > tr > :nth-child(2)')
-        .should("contain.text", "รายการ")
 
     // สินค้าชิ้นที่ 1
     cy.get('#pane-MAG > .d-xl-block > .table > tbody > tr > .text-left > :nth-child(3)')
         .should("contain.text", "ยี่ห้อ:19 ")
-    cy.get('#pane-MAG > .d-xl-block > .table > thead > tr > :nth-child(4)')
-        .should("contain.text", "หน่วย")
-    cy.get('#pane-MAG > .d-xl-block > .table > tbody > tr > :nth-child(4)')
-        .should("contain.text", "ชิ้น")
 
     cy.get('#pane-MAG > .d-xl-block > .table > tbody > tr > :nth-child(6) > .btn-details')
         .click()
@@ -128,8 +122,6 @@ const Addordermag = () => {
 
     // // จำนวน/ราคาต่อหน่วย
     cy.get('.quantity > input').clear().type("5")
-    cy.get('.col-12.d-none > .table > thead > tr > :nth-child(5)')
-        .should("contain.text", "ราคาต่อหน่วย")
     cy.get(':nth-child(5) > .form-check > .form-control')
         .clear().type("30")
 
@@ -139,45 +131,27 @@ const Addordermag = () => {
         .click()
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
         .click()
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > :nth-child(2)')
-        .should("contain.text", "ราคารวม")
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
         .should("contain.text", "150.00")
 
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > :nth-child(2)')
-        .should("contain.text", "ยอดรวมสินค้าสุทธิ (VAT)")
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > .text-right')
         .should("contain.text", "160.50 บาท")
 
 
     cy.get('.row.text-right > :nth-child(2) > .btn')
-        .should("contain.text", "เปิดบิลรายการซื้อ")
-    cy.get('.row.text-right > :nth-child(2) > .btn')
         .click()
 
-    cy.get('#swal2-title')
-        .should("contain.text", "สำเร็จ")
-    cy.get('#swal2-content')
-        .should("contain.text", "รายการเสร็จสิ้น")
     cy.get('.swal2-confirm').click()
 
 }
 const checkordermag = () => {
-    cy.get(':nth-child(1) > :nth-child(5) > .status-border')
-        .should("contain.text", "รายการเสร็จสิ้น")
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
     cy.get('.status-border')
         .should("contain.text", "รายการเสร็จสิ้น")
 
-    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(5)')
-        .should("contain.text", "ราคารวม")
     cy.get('tbody > :nth-child(1) > :nth-child(5)')
         .should("contain.text", "150.00")
 
-    cy.get('.table-order-wrapper.d-none > .table > thead > tr > [style="width: 200px;"]')
-        .should("contain.text", "สถานะ")
-    cy.get(':nth-child(6) > .secondary-blue')
-        .should("contain.text", "ยืนยันการส่ง")
 
     cy.get('.ml-auto > .nuxt-link-active > .btn').click()
 }

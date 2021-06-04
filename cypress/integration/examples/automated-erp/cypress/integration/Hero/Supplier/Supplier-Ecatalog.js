@@ -4,7 +4,7 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("E-catalog", () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("host"))
+        cy.visit("https://hero.autopair.co/")
     })
     //ค้นหา ยางรถยนต์
     // it("E-catalog/tires", () => {

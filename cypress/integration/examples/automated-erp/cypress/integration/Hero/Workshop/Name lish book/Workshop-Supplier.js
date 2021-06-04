@@ -4,7 +4,7 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Name lish book", () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("host"))
+        cy.visit("https://hero.autopair.co/")
     })
     it("Add Supplier", () => {
         loginWorkshop("empGrip01", "password")
@@ -24,33 +24,18 @@ const loginWorkshop = (username, password) => {
 }
 // เข้าหน้าเพิ่มพนักงาน
 const AddSupplier = () => {
-    cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
     cy.get(':nth-child(7) > .nav-link > .row').click()
-    cy.get('h3').should("contain.text", "สมุดรายชื่อ")
-    cy.get('#tab-customer').should("contain.text", "ลูกค้า")
-    cy.get('#tab-employee').should("contain.text", "พนักงาน")
-    cy.get('#tab-supplier').should("contain.text", "ผู้จำหน่าย")
     cy.get('#tab-supplier').click()
 }
 
 // กรอกข้อมูล Sopplier
 const AddSupplier1 = () => {
     cy.get('#pane-supplier > .mb-2 > .col-xl-2 > a > .btn').click()
-    cy.get('h3').should("contain.text", "เพิ่มผู้จำหน่าย")
     taxAddSupplier(getRandomNumberAddSupplier(0, 5))
-    cy.get(':nth-child(2) > .mb-4-CustomStyle > .form-group > .bv-no-focus-ring > label')
-        .should("contain.text", "ที่อยู่")
     taxAddSupplier1(getRandomNumberAddSupplier(0, 5))
-    cy.get(':nth-child(3) > .mb-4-CustomStyle > .form-group > .bv-no-focus-ring > label')
-        .should("contain.text", "เบอร์โทรศัพท์")
     taxAddSupplier2(getRandomNumberAddSupplier(0, 9))
     taxAddSupplier3(getRandomNumberAddSupplier(0, 10))
-    cy.get('.col-sm- > .mb-4-CustomStyle > .form-group > .bv-no-focus-ring > label')
-        .should("contain.text", "เลขประจำตัวผู้เสียภาษี")
     taxAddSupplier4(getRandomNumberAddSupplier(0, 13))
-    // cy.get(':nth-child(6) > .mb-4-CustomStyle > #mobileNo > .bv-no-focus-ring > .form-control')
-    //     .click().type("{enter}")
-    cy.get('.btn-confirm').should("contain.text", "บันทึก")
     cy.get('.btn-confirm').click()
 }
 const getRandomNumberAddSupplier = (min, max) => {
@@ -81,18 +66,11 @@ const taxAddSupplier4 = (textNo) => {
 
 // ยืนยันเพิ่ม supplier
 const AddSupplier2 = () => {
-    cy.get('#swal2-title').should("contain.text", "สำเร็จ")
-    cy.get('#swal2-content').should("contain.text", "เพิ่มผู้จำหน่ายเรียบร้อย")
-    cy.get('.swal2-confirm').should("contain.text", "OK")
     cy.get('.swal2-confirm').click()
 }
 
 // เช็คผู้จำหน่อยที่พึ่งเพิ่ม
 const checkAddSupplier = () => {
     cy.get(':nth-child(7) > .nav-link > .row').click()
-    cy.get('h3').should("contain.text", "สมุดรายชื่อ")
-    cy.get('#tab-customer').should("contain.text", "ลูกค้า")
-    cy.get('#tab-employee').should("contain.text", "พนักงาน")
-    cy.get('#tab-supplier').should("contain.text", "ผู้จำหน่าย")
     cy.get('#tab-supplier').click()
 }

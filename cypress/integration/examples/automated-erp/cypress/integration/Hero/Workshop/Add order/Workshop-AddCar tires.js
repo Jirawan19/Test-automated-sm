@@ -4,14 +4,14 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Warehouse", () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("host"))
+        cy.visit("https://hero.autopair.co/")
     })
     it("Car ties", () => {
         loginWorkshop("empGrip01", "password")
-        addCartiees()
-        addCartiees1()
-        addconfimeCartiees()
-        checkconfimeCartiees()
+        // addCartiees()
+        // addCartiees1()
+        // addconfimeCartiees()
+        // checkconfimeCartiees()
 
         Addorder()
         checkorder()
@@ -36,8 +36,6 @@ const addCartiees = () => {
     cy.get('.row.mt-4 > .text-xl-right > .btn-confirm').click()
     taxCartiees(getRandomNumberCartiees(0, 10))
     taxCartiees1(getRandomNumberCartiees(0, 10))
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > :nth-child(3) > :nth-child(1) > .primary-blue')
-        .should("contain.text", "Tag")
     taxCartiees2(getRandomNumberCartiees(0, 10))
     taxCartiees3(getRandomNumberCartiees(0, 10))
     taxCartiees4(getRandomNumberCartiees(0, 10))
@@ -48,8 +46,6 @@ const addCartiees = () => {
         .click().type("{downarrow}{downarrow}{enter}")
     cy.get(':nth-child(5) > .pr-0 > .el-select')
         .click().type("{downarrow}{downarrow}{enter}")
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .col-sm-12 > .btn-search')
-        .should("contain.text", "ถัดไป")
     cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .col-sm-12 > .btn-search')
         .click()
 }
@@ -115,7 +111,6 @@ const checkconfimeCartiees = () => {
 const Addorder = () => {
     cy.get(':nth-child(4) > .nav-link > .row > h6')
         .click()
-    cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
     cy.get('.col-xl-auto > a > .btn-confirm').click()
 
     // เพิ่มผู้จำหน่าย
@@ -183,8 +178,7 @@ const Addorder = () => {
     cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(6)')
         .should("contain.text", "150.00")
 
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
-        .click()
+   
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
         .click()
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
@@ -209,8 +203,6 @@ const checkorder = () => {
     cy.get('tbody > :nth-child(2) > :nth-child(6)')
         .should("contain.text", "ยืนยันการส่ง")
 
-    cy.get(':nth-child(5) > [colspan="3"]')
-        .should("contain.text", "16.80 บาท")
 
     cy.get('.ml-auto > .nuxt-link-active > .btn').click()
 

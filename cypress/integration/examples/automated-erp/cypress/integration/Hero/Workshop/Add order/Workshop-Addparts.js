@@ -4,14 +4,14 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Warehouse", () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("host"))
+        cy.visit("https://hero.autopair.co/")
     })
     it("Parts", () => {
         loginWorkshop("empGrip01", "password")
-        addParts()
-        addParts1()
-        addconfimeParts()
-        checkconfimeCarparts()
+        // addParts()
+        // addParts1()
+        // addconfimeParts()
+        // checkconfimeCarparts()
 
         Addorderparts()
         checkorderparts()
@@ -83,8 +83,8 @@ const addconfimeParts = () => {
 }
 const checkconfimeCarparts = () => {
     cy.get('#inventorys-0 > :nth-child(7) > .btn-details').click()
-    cy.get('#inventorytablepart > .modal-dialog > .modal-content > .modal-body > .form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > .font-weight-bold > :nth-child(2)')
-        .should("contain.text", "50")
+    // cy.get('#inventorytablepart > .modal-dialog > .modal-content > .modal-body > .form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > .font-weight-bold > :nth-child(2)')
+    //     .should("contain.text", "10")
 
     cy.get('#inventorytablepart > .modal-dialog > .modal-content > .modal-footer > .btn').click()
 
@@ -97,23 +97,23 @@ const Addorderparts = () => {
     cy.get('.col-xl-auto > a > .btn-confirm').click()
 
     // เพิ่มผู้จำหน่าย
-    cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{enter}")
+    // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
+    //     .click().type("{downarrow}{enter}")
 
-    cy.get('.bv-no-focus-ring > #name').type("test01")
-    cy.get('.bv-no-focus-ring > #address').type("sky")
-    cy.get('.bv-no-focus-ring > #mobileNo').type("0955915150")
-    cy.get('.bv-no-focus-ring > #taxCustomerNumber').type("1100201520688")
-    cy.get('.btn-confirm').click()
+    // cy.get('.bv-no-focus-ring > #name').type("test01")
+    // cy.get('.bv-no-focus-ring > #address').type("sky")
+    // cy.get('.bv-no-focus-ring > #mobileNo').type("0955915150")
+    // cy.get('.bv-no-focus-ring > #taxCustomerNumber').type("1100201520688")
+    // cy.get('.btn-confirm').click()
 
-    cy.get('.swal2-confirm').click()
+    // cy.get('.swal2-confirm').click()
 
 
 
     // เลือกผู้จำหน่าย
     cy.get('.col-xl-auto > a > .btn-confirm').click()
     cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click().type("test").type("{downarrow}{enter}", { force: true })
+        .click().type("test").wait(500).type("{downarrow}{enter}", { force: true })
     cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
 
     // รายละเอียดสินค้า
@@ -143,9 +143,9 @@ const Addorderparts = () => {
         .clear().type("3")
 
     // // ราคาต่อหน่วย
-    cy.get(':nth-child(1) > :nth-child(5) > .form-check > .form-control')
+    cy.get(':nth-child(1) > :nth-child(5) > .quantity > input')
         .clear().type("30")
-    cy.get(':nth-child(2) > :nth-child(5) > .form-check > .form-control')
+    cy.get(':nth-child(2) > :nth-child(5) > .quantity > input')
         .clear().type("50")
 
     // ราคารวม
@@ -154,10 +154,6 @@ const Addorderparts = () => {
     cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(6)')
         .should("contain.text", "150.00")
 
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
-        .click()
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
-        .click()
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
         .should("contain.text", "240.00 บาท")
 
