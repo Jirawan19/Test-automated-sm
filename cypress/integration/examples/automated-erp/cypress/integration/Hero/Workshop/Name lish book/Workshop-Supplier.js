@@ -4,7 +4,7 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Name lish book", () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("host"))
+        cy.visit("https://hero.autopair.co/")
     })
     it("Add Supplier", () => {
         loginWorkshop("empGrip01", "password")
@@ -44,7 +44,7 @@ const getRandomNumberAddSupplier = (min, max) => {
 }
 const taxAddSupplier = (textNo) => {
     cy.get('.bv-no-focus-ring > #name')
-        .type("test Supplier").type(textNo)
+        .type("เพิ่มผู้จำหน่าย").type(textNo)
 }
 const taxAddSupplier1 = (textNo) => {
     cy.get('.bv-no-focus-ring > #address')

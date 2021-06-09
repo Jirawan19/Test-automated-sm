@@ -4,12 +4,13 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Name lish book", () => {
     beforeEach(() => {
-        cy.visit("https://hero.autopair.co/")
+        cy.visit("https://herodemo.autopair.co/")
     })
     it("Add Employee", () => {
         loginWorkshop("empGrip01", "password")
-        AddEmployee()
-        AddEmployee1()
+        Addtechnician()
+        Addtechnician1()
+        checktechnician()
     })
 })
 
@@ -22,16 +23,16 @@ const loginWorkshop = (username, password) => {
 }
 
 // เข้าหน้าเพิ่มพนักงาน
-const AddEmployee = () => {
+const Addtechnician = () => {
     cy.get(':nth-child(7) > .nav-link > .row').click()
     cy.get('#tab-employee').click()
 }
 
 // กรอกข้อมูลพนักงาน
-const AddEmployee1 = () => {
+const Addtechnician1 = () => {
     cy.get('#pane-employee > .mb-2 > .col-xl-2 > a > .btn').click()
     taxAddEmployee(getRandomNumberAddEmployee(1, 3))
-    cy.get('.el-input__inner').click().type("{downarrow}{downarrow}{enter}")
+    cy.get('.el-input__inner').click().type("{downarrow}{downarrow}{downarrow}{enter}")
     taxAddEmployee1(getRandomNumberAddEmployee(1, 2))
     cy.get(':nth-child(6) > .form-control').type("password")
     taxAddEmployee2(getRandomNumberAddEmployee(1, 5))
@@ -48,15 +49,15 @@ const getRandomNumberAddEmployee = (min, max) => {
 }
 const taxAddEmployee = (textNo) => {
     cy.get('.row > :nth-child(1) > .form-control')
-        .type("เพิ่มพนักงาน ขาย").type(textNo)
+        .type("เพิ่มพนักงาน ช่างซ่อม").type(textNo)
 }
 const taxAddEmployee1 = (textNo) => {
     cy.get(':nth-child(5) > .form-control')
-        .type("เพิ่มพนักงาน ขาย").type(textNo)
+        .type("เพิ่มพนักงาน ช่างซ่อม").type(textNo)
 }
 const taxAddEmployee2 = (textNo) => {
     cy.get(':nth-child(3) > .form-control')
-        .type("เพิ่มพนักงาน ขาย").type(textNo).type("@gmail.com")
+        .type("เพิ่มพนักงาน ช่างซ่อม").type(textNo).type("@gmail.com")
 
 }
 const taxAddEmployee3 = (textNo) => {
@@ -66,4 +67,11 @@ const taxAddEmployee3 = (textNo) => {
 const taxAddEmployee4 = (textNo) => {
     cy.get(':nth-child(7) > .form-control')
         .type("ดาวพลูโต").type(textNo)
+}
+
+const checktechnician = () => {
+    cy.get('#tab-employee').click()
+    cy.get(':nth-child(1) > :nth-child(4) > a > .btn').click()
+    cy.wait(500)
+    cy.get('.nuxt-link-active > .btn').click()
 }

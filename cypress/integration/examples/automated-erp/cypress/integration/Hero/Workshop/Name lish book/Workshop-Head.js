@@ -4,7 +4,7 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Name lish book", () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("host"))
+        cy.visit("https://hero.autopair.co/")
     })
     it("Add Employee", () => {
         loginWorkshop("empGrip01", "password")
@@ -48,15 +48,15 @@ const getRandomNumberAddEmployee = (min, max) => {
 }
 const taxAddHeedEmployee = (textNo) => {
     cy.get('.row > :nth-child(1) > .form-control')
-        .type("test Personnel").type(textNo)
+        .type("เพิ่มแอดมิน").type(textNo)
 }
 const taxAddHeedEmployee1 = (textNo) => {
     cy.get(':nth-child(5) > .form-control')
-        .type("test Personnel").type(textNo)
+        .type("เพิ่มแอดมิน").type(textNo)
 }
 const taxAddHeedEmployee2 = (textNo) => {
     cy.get(':nth-child(3) > .form-control')
-        .type("test Personnel").type(textNo).type("@gmail.com")
+        .type("เพิ่มแอดมิน").type(textNo).type("@gmail.com")
 
 }
 const taxAddHeedEmployee3 = (textNo) => {
