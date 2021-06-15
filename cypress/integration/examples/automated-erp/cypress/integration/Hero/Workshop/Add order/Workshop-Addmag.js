@@ -4,7 +4,7 @@ Cypress.config('defaultCommandTimeout', 100000)
 
 context("Warehouse", () => {
     beforeEach(() => {
-        cy.visit("https://hero.autopair.co/")
+        cy.visit("https://herodemo.autopair.co/")
     })
     it("Mag", () => {
         loginWorkshop("empGrip01", "password")
@@ -34,7 +34,8 @@ const AddMag = () => {
 
 // กรอกรายละเอียดสินค้า
 const AddMag1 = () => {
-    cy.get('.row.mt-3 > .text-xl-right > a > .btn-confirm').click()
+    cy.get('.row.mt-3 > .text-xl-right > .btn-confirm').click()
+    // cy.get('.row.mt-3 > .text-xl-right > a > .btn-confirm').click()
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
         .type("19")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3)')
@@ -42,9 +43,11 @@ const AddMag1 = () => {
     cy.get('.col-md-10 > .mt-2 > .el-input__inner')
         .type("19")
     cy.get(':nth-child(4) > :nth-child(1) > .mt-2').type("5")
-    cy.get('.col-md-3 > .mt-2').type("5")
-    cy.get(':nth-child(5) > .form-control').type("5")
-    cy.get('.pr-xl-5 > .mt-2 > .el-input__inner').type("500")
+    cy.get(':nth-child(4) > .col-md-6 > .mt-2').type("5")
+    cy.get('.w-auto').type("5")
+    // **
+    cy.get(':nth-child(5) > :nth-child(1) > .mt-2 > .el-input__inner')
+        .type("500")
     cy.get(':nth-child(5) > :nth-child(2) > .mt-2 > .el-input__inner')
         .type("whit")
     cy.get(':nth-child(5) > :nth-child(3) > .mt-2 > .el-input__inner')
