@@ -8,10 +8,11 @@ context("Warehouse", () => {
     })
     it("Parts", () => {
         loginWorkshop("empGrip01", "password")
-        // addParts()
-        // addParts1()
-        // addconfimeParts()
-        // checkconfimeCarparts()
+
+        addParts()
+        addParts1()
+        addconfimeParts()
+        checkconfimeCarparts()
 
         Addorderparts()
         checkorderparts()
@@ -100,18 +101,22 @@ const Addorderparts = () => {
     // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
     //     .click().type("{downarrow}{enter}")
 
-    // cy.get('.bv-no-focus-ring > #name').type("test01")
-    // cy.get('.bv-no-focus-ring > #address').type("sky")
-    // cy.get('.bv-no-focus-ring > #mobileNo').type("0955915150")
-    // cy.get('.bv-no-focus-ring > #taxCustomerNumber').type("1100201520688")
-    // cy.get('.btn-confirm').click()
+    // cy.get('#state-name').type("test01")
+    // cy.get('#state-address').type("sky")
+    // cy.get('#state-mobileNo').type("0955915150")
+    // cy.get('#state-taxCustomerNumber').type("1100201520688")
+    // cy.get('[success=""]').click()
 
     // cy.get('.swal2-confirm').click()
 
 
+    // แท็บรายการซื้อ
+    cy.get('#nav-item-3 > .nav-link > .row')
+        .click()
 
     // เลือกผู้จำหน่าย
     cy.get('.col-xl-auto > a > .btn-confirm').click()
+
     cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
         .click().type("test").wait(500).type("{downarrow}{enter}", { force: true })
     cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
@@ -123,49 +128,37 @@ const Addorderparts = () => {
 
 
     // เลือกสินค้า
+    cy.get('#pane-PART > .d-xl-block > .table > tbody > tr > :nth-child(1)')
+        .contains("test")
+
     cy.get('#pane-PART > .d-xl-block > .table > tbody > :nth-child(1) > :nth-child(6) > .btn-details')
         .click()
-    cy.get('#pane-PART > .d-xl-block > .table > tbody > :nth-child(2) > :nth-child(6) > .btn-details').click()
+
 
     cy.get('.close').click()
 
 
     // เช็คสินค้าที่เลือก
-    cy.get('.col-12.d-none > .table > thead > tr > :nth-child(2)')
-        .should("contain.text", "รายการ")
-
     // สินค้าชิ้นที่ 1
     cy.get(':nth-child(1) > :nth-child(4) > .row > .quantity > input')
         .clear().type("3")
-
-    // สินค้าชิ้นที่ 2
-    cy.get(':nth-child(2) > :nth-child(4) > .row > .quantity > input')
-        .clear().type("3")
-
     // // ราคาต่อหน่วย
-    cy.get(':nth-child(1) > :nth-child(5) > .quantity > input')
+    cy.get('.col-12.d-none > .table > tbody > tr > td.align-middle > .row > .mt-3 > .form-control')
         .clear().type("30")
-    cy.get(':nth-child(2) > :nth-child(5) > .quantity > input')
-        .clear().type("50")
 
     // ราคารวม
-    cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > :nth-child(6)')
+    cy.get('.col-12.d-none > .table > tbody > tr > :nth-child(6)')
         .should("contain.text", "90.00")
-    cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(6)')
-        .should("contain.text", "150.00")
 
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
-        .should("contain.text", "240.00 บาท")
-
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > .text-right')
-        .should("contain.text", "256.80 บาท")
+        .should("contain.text", "90.00 บาท")
 
 
     cy.get('.row.text-right > :nth-child(2) > .btn')
         .click()
 
     cy.get('.swal2-confirm').click()
-
+// **
 }
 const checkorderparts = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()

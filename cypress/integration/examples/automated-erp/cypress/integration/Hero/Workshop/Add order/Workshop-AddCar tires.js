@@ -12,7 +12,6 @@ context("Warehouse", () => {
         addCartiees1()
         addconfimeCartiees()
         checkconfimeCartiees()
-
         Addorder()
         checkorder()
 
@@ -114,25 +113,30 @@ const Addorder = () => {
     cy.get('.col-xl-auto > a > .btn-confirm').click()
 
     // เพิ่มผู้จำหน่าย
-    // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-    //     .click().type("{downarrow}{enter}")
+    cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
+        .click().type("{downarrow}{enter}")
 
-    // cy.get('.bv-no-focus-ring > #name').type("test01")
-    // cy.get('.bv-no-focus-ring > #address').type("sky")
-    // cy.get('.bv-no-focus-ring > #mobileNo').type("0955915150")
-    // cy.get('.bv-no-focus-ring > #taxCustomerNumber').type("1100201520688")
-    // cy.get('.btn-confirm').click()
+    cy.get('#state-name').type("test01")
+    cy.get('#state-address').type("sky")
+    cy.get('#state-mobileNo').type("0955915150")
+    cy.get('#state-taxCustomerNumber').type("1100201520688")
+    cy.get('[success=""]').click()
 
-    // cy.get('.swal2-confirm').click()
+    cy.get('.swal2-confirm').click()
 
 
+
+    // แท็บรายการซื้อ
+    cy.get('#nav-item-3 > .nav-link > .row')
+        .click()
 
     // เลือกผู้จำหน่าย
-    // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-    //     .click()
+    cy.get('.col-xl-auto > a > .btn-confirm').click()
+
     cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
         .click().type("test").wait(1000).type("{downarrow}{enter}", { force: true })
     cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
+
 
     // รายละเอียดสินค้า
     cy.get('#tab-TIRE').click()
@@ -153,9 +157,9 @@ const Addorder = () => {
     // สินค้าชิ้นที่ 1
     // cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > :nth-child(2) > .primary-blue')
     //     .should("contain.text", "1100 / 10.5 R 12")
-    cy.get(':nth-child(1) > :nth-child(4) > .row > :nth-child(1)')
+    cy.get(':nth-child(1) > :nth-child(4) > .row > :nth-child(1) > input')
         .clear().type("3")
-    cy.get(':nth-child(1) > :nth-child(4) > .row > :nth-child(2)')
+    cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > :nth-child(4) > .row > :nth-child(2) > input')
         .type("1090")
 
     // สินค้าชิ้นที่ 2
@@ -163,31 +167,28 @@ const Addorder = () => {
     //     .should("contain.text", "1100 / 10.5 R 12")
     cy.get(':nth-child(2) > :nth-child(4) > .row > :nth-child(1) > input')
         .clear().type("3")
-    cy.get(':nth-child(2) > :nth-child(4) > .row > :nth-child(2) > input')
+    cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(4) > .row > :nth-child(2) > input')
         .type("1090")
 
     // ราคาต่อหน่วย
-    cy.get(':nth-child(1) > :nth-child(5) > .quantity > input')
+    cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > td.align-middle > .row > .mt-3 > .form-control')
         .clear().type("30")
-    cy.get(':nth-child(2) > :nth-child(5) > .quantity > input')
+    cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > td.align-middle > .row > .mt-3 > .form-control')
         .clear().type("50")
 
     // ราคารวม
+    // ชิ้นที่1
     cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > :nth-child(6)')
         .should("contain.text", "90.00")
+
+    // ชิ้นที่2
     cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(6)')
         .should("contain.text", "150.00")
 
-   
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
-        .click()
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
         .should("contain.text", "240.00 บาท")
 
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > .text-right')
-        .should("contain.text", "256.80 บาท")
-
-
+        
     cy.get('.row.text-right > :nth-child(2) > .btn')
         .click()
 
