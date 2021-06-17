@@ -10,6 +10,8 @@ context("Name lish book", () => {
         loginWorkshop("empGrip01", "password")
         AddEmployee()
         AddEmployee1()
+
+        checkEmploye()
     })
 })
 
@@ -29,12 +31,13 @@ const AddEmployee = () => {
 
 // กรอกข้อมูลพนักงาน
 const AddEmployee1 = () => {
-    cy.get('#pane-employee > .mb-2 > .col-xl-2 > a > .btn').click()
+    cy.get('#pane-employee > :nth-child(1) > .col-xl-2 > a > .btn')
+        .click()
     taxAddEmployee(getRandomNumberAddEmployee(1, 3))
-    cy.get('.el-input__inner').click().type("{downarrow}{downarrow}{enter}")
-    taxAddEmployee1(getRandomNumberAddEmployee(1, 2))
-    cy.get(':nth-child(6) > .form-control').type("password")
+    cy.get('#roleEmp').select("พนักงานขาย")
+    cy.get('#state-password').type("password")
     taxAddEmployee2(getRandomNumberAddEmployee(1, 5))
+    taxAddEmployee1(getRandomNumberAddEmployee(1, 2))
     taxAddEmployee3(getRandomNumberAddEmployee(0, 10))
     cy.get('[success=""]').click()
 
@@ -47,23 +50,35 @@ const getRandomNumberAddEmployee = (min, max) => {
     return Math.random() * (max - min) + min;
 }
 const taxAddEmployee = (textNo) => {
-    cy.get('.row > :nth-child(1) > .form-control')
+    cy.get('#state-nameEmp')
         .type("เพิ่มพนักงาน ขาย").type(textNo)
 }
 const taxAddEmployee1 = (textNo) => {
-    cy.get(':nth-child(5) > .form-control')
+    cy.get('#state-usernameEmp')
         .type("เพิ่มพนักงาน ขาย").type(textNo)
 }
 const taxAddEmployee2 = (textNo) => {
-    cy.get(':nth-child(3) > .form-control')
+    cy.get('#state-emailEmp')
         .type("เพิ่มพนักงาน ขาย").type(textNo).type("@gmail.com")
 
 }
 const taxAddEmployee3 = (textNo) => {
-    cy.get(':nth-child(4) > .form-control')
+    cy.get('#state-telEmp')
         .type(textNo)
 }
-const taxAddEmployee4 = (textNo) => {
-    cy.get(':nth-child(7) > .form-control')
-        .type("ดาวพลูโต").type(textNo)
+
+const checkEmploye = () => {
+    cy.get('#nav-item-6 > .nav-link').click()
+    cy.get('#tab-employee').click()
+
+    // cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(1)')
+    //     .contains("พนักงานขาย")
+
+    cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(4) > .btn')
+        .click()
+
+    cy.get('#roleEmp')
+        .contains("พนักงานขาย")
+
+    cy.get('.mr-5').click()
 }

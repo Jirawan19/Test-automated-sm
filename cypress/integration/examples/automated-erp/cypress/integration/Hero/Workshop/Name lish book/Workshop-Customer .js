@@ -31,10 +31,10 @@ const AddCustomer = () => {
 
 // กรอกข้อมูลลูกค้า
 const AddCustomer1 = () => {
+
+    // กรอกข้อมูลลูกค้า
     cy.get(':nth-child(1) > :nth-child(1) > .ml-xl-auto > a > .btn').click()
 
-    cy.get(':nth-child(7) > .mb-4-CustomStyle > .vth-addr-container > .vth-addr-input-container > .vth-addr-input')
-        .type("กรุงเทพฯ")
     cy.get(':nth-child(9) > .mb-4-CustomStyle > .vth-addr-container > .vth-addr-input-container > .vth-addr-input')
         .type("คลองถนน")
     taxAddCustomer(getRandomNumberAddCustomer(0, 12))
@@ -47,7 +47,8 @@ const AddCustomer1 = () => {
         .clear().type("10220").type("{enter}")
     taxAddCustomer6(getRandomNumberAddCustomer(0, 10))
     taxAddCustomer3(getRandomNumberAddCustomer(0, 3))
-    cy.get('#step0 > .row > [align="right"] > div > :nth-child(2) > .btn').click()
+    cy.get('.md-rows > .btn-select')
+        .click()
 }
 
 const getRandomNumberAddCustomer = (min, max) => {
@@ -58,7 +59,7 @@ const taxAddCustomer = (textNo) => {
     cy.get('.bv-no-focus-ring > #telNo').type(textNo)
 }
 const taxAddCustomer1 = (textNo) => {
-    cy.get('.bv-no-focus-ring > #name')
+    cy.get('#name')
         .type("เพิ่มลูกค้า").type(textNo)
 }
 const taxAddCustomer2 = (textNo) => {
@@ -66,7 +67,7 @@ const taxAddCustomer2 = (textNo) => {
         .type("1100201520688")
 }
 const taxAddCustomer3 = (textNo) => {
-    cy.get('.bv-no-focus-ring > #mobileNo')
+    cy.get('#mobileNo')
         .type(textNo)
 }
 const taxAddCustomer6 = (textNo) => {
@@ -78,18 +79,18 @@ const taxAddCustomer6 = (textNo) => {
 const AddCustomer2 = () => {
     taxAddCustomer4(getRandomNumberAddCustomer(1, 3))
     taxAddCustomer5(getRandomNumberAddCustomer(0, 5))
-    cy.get(':nth-child(5) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{enter}", { force: true })
-    cy.get(':nth-child(6) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
-        .click().wait(2000).type("{downarrow}{enter}")
-    cy.get('#step1 > :nth-child(1) > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
+    cy.get('#input_carBrand')
+        .click().type("{downarrow}{downarrow}{enter}", { force: true })
+    cy.get('#input_carModel')
+        .click()
+    cy.get('[style="min-width: 605px; position: absolute; top: 600px; left: 875px; transform-origin: center top; z-index: 2004;"] > .el-scrollbar > .el-select-dropdown__wrap > .el-scrollbar__view > :nth-child(4)')
+        .click()
+    cy.get('#step2-province')
         .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
-    cy.get(':nth-child(4) > .mb-4-CustomStyle > :nth-child(1) > label')
-        .should("contain.text", "ประเภทรถยนต์")
+
     cy.get(':nth-child(4) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
         .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
-    cy.get('#step1 > :nth-child(1) > :nth-child(7) > .mb-4-CustomStyle > :nth-child(1) > label')
-        .should("contain.text", "โฉมปีรถยนต์")
+
     cy.get(':nth-child(7) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
         .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
     cy.get(':nth-child(8) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')

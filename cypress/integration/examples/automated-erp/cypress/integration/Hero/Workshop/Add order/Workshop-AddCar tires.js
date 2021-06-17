@@ -108,11 +108,11 @@ const checkconfimeCartiees = () => {
 
 // เพิ่มรายการซื้อ
 const Addorder = () => {
+    
+    // เพิ่มผู้จำหน่าย
     cy.get(':nth-child(4) > .nav-link > .row > h6')
         .click()
     cy.get('.col-xl-auto > a > .btn-confirm').click()
-
-    // เพิ่มผู้จำหน่าย
     cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{enter}")
 
@@ -148,33 +148,22 @@ const Addorder = () => {
     // เลือกสินค้า
     cy.get('.d-xl-block > .table > tbody > :nth-child(1) > :nth-child(5) > .btn-details')
         .click()
-    cy.get('.d-xl-block > .table > tbody > :nth-child(2) > :nth-child(5) > .btn-details')
-        .click()
+    
 
     cy.get('.close').click()
 
     // เช็คสินค้าที่เลือก
     // สินค้าชิ้นที่ 1
-    // cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > :nth-child(2) > .primary-blue')
-    //     .should("contain.text", "1100 / 10.5 R 12")
     cy.get(':nth-child(1) > :nth-child(4) > .row > :nth-child(1) > input')
         .clear().type("3")
     cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > :nth-child(4) > .row > :nth-child(2) > input')
         .type("1090")
 
-    // สินค้าชิ้นที่ 2
-    // cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(2) > .primary-blue')
-    //     .should("contain.text", "1100 / 10.5 R 12")
-    cy.get(':nth-child(2) > :nth-child(4) > .row > :nth-child(1) > input')
-        .clear().type("3")
-    cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(4) > .row > :nth-child(2) > input')
-        .type("1090")
 
     // ราคาต่อหน่วย
     cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > td.align-middle > .row > .mt-3 > .form-control')
         .clear().type("30")
-    cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > td.align-middle > .row > .mt-3 > .form-control')
-        .clear().type("50")
+
 
     // ราคารวม
     // ชิ้นที่1
@@ -182,11 +171,10 @@ const Addorder = () => {
         .should("contain.text", "90.00")
 
     // ชิ้นที่2
-    cy.get('.col-12.d-none > .table > tbody > :nth-child(2) > :nth-child(6)')
-        .should("contain.text", "150.00")
+
 
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
-        .should("contain.text", "240.00 บาท")
+        .should("contain.text", "90.00 บาท")
 
         
     cy.get('.row.text-right > :nth-child(2) > .btn')
@@ -200,8 +188,6 @@ const Addorder = () => {
 const checkorder = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
     cy.get('tbody > :nth-child(1) > :nth-child(6)')
-        .should("contain.text", "ยืนยันการส่ง")
-    cy.get('tbody > :nth-child(2) > :nth-child(6)')
         .should("contain.text", "ยืนยันการส่ง")
 
 

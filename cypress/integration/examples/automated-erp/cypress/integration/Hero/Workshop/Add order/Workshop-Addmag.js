@@ -8,10 +8,10 @@ context("Warehouse", () => {
     })
     it("Mag", () => {
         loginWorkshop("empGrip01", "password")
-        AddMag()
-        AddMag1()
-        AddMag2()
-        AddconfimeMag()
+        // AddMag()
+        // AddMag1()
+        // AddMag2()
+        // AddconfimeMag()
 
         Addordermag()
         checkordermag()
@@ -35,7 +35,6 @@ const AddMag = () => {
 // กรอกรายละเอียดสินค้า
 const AddMag1 = () => {
     cy.get('.row.mt-3 > .text-xl-right > .btn-confirm').click()
-    // cy.get('.row.mt-3 > .text-xl-right > a > .btn-confirm').click()
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
         .type("19")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3)')
@@ -49,13 +48,15 @@ const AddMag1 = () => {
     cy.get(':nth-child(5) > :nth-child(1) > .mt-2 > .el-input__inner')
         .type("500")
     cy.get(':nth-child(5) > :nth-child(2) > .mt-2 > .el-input__inner')
-        .type("whit")
+        .click().type("test")
     cy.get(':nth-child(5) > :nth-child(3) > .mt-2 > .el-input__inner')
+        .type("white")
+    cy.get(':nth-child(4) > .mt-2 > .el-input__inner')
         .type("5")
-    cy.get('.pr-5 > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{downarrow}{downarrow}{enter}")
-    cy.get(':nth-child(7) > .pr-0 > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{enter}")
+    cy.get('.pr-5 > .calculator-form > .el-input__inner')
+        .click().clear().type("40")
+    cy.get('.pr-0 > .calculator-form > .el-input__inner')
+        .click().clear().type("17")
 
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .col-sm-12 > .btn-search').click()
 }
@@ -85,16 +86,16 @@ const Addordermag = () => {
     cy.get('.col-xl-auto > a > .btn-confirm').click()
 
     // เพิ่มผู้จำหน่าย
-    cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{enter}")
+    // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
+    //     .click().type("{downarrow}{enter}")
 
-    cy.get('.bv-no-focus-ring > #name').type("test01")
-    cy.get('.bv-no-focus-ring > #address').type("sky")
-    cy.get('.bv-no-focus-ring > #mobileNo').type("0955915150")
-    cy.get('.bv-no-focus-ring > #taxCustomerNumber').type("1100201520688")
-    cy.get('.btn-confirm').click()
+    // cy.get('.bv-no-focus-ring > #name').type("test01")
+    // cy.get('.bv-no-focus-ring > #address').type("sky")
+    // cy.get('.bv-no-focus-ring > #mobileNo').type("0955915150")
+    // cy.get('.bv-no-focus-ring > #taxCustomerNumber').type("1100201520688")
+    // cy.get('.btn-confirm').click()
 
-    cy.get('.swal2-confirm').click()
+    // cy.get('.swal2-confirm').click()
 
 
 
@@ -107,9 +108,9 @@ const Addordermag = () => {
 
     // // รายละเอียดสินค้า
     cy.get('#tab-MAG').click()
-    cy.get(':nth-child(5) > .bv-no-focus-ring > .el-input > .el-input__inner')
+    cy.get('#txtSearchmagbrand')
         .click().type("19")
-    cy.get('#pane-MAG > :nth-child(2) > :nth-child(1) > .btn-search')
+    cy.get('#btnSearchMag')
         .click()
 
 
@@ -119,33 +120,25 @@ const Addordermag = () => {
     cy.get('#pane-MAG > .d-xl-block > .table > tbody > tr > .text-left > :nth-child(3)')
         .should("contain.text", "ยี่ห้อ:19 ")
 
-    cy.get('#pane-MAG > .d-xl-block > .table > tbody > tr > :nth-child(6) > .btn-details')
+    cy.get('#btnAddmagdesk-0')
         .click()
+
     cy.get('.close').click()
 
     // // จำนวน/ราคาต่อหน่วย
-    cy.get('.quantity > input').clear().type("5")
-    cy.get(':nth-child(5) > .form-check > .form-control')
+    cy.get('#nbrQtyReceived_0').clear().type("5")
+    cy.get('#txtPrice_0')
         .clear().type("30")
 
 
     // ราคารวม
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
-        .click()
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(2) > .text-right > .el-switch > .el-switch__core')
-        .click()
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
         .should("contain.text", "150.00")
 
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(3) > .text-right')
-        .should("contain.text", "160.50 บาท")
-
-
-    cy.get('.row.text-right > :nth-child(2) > .btn')
+    cy.get('.row.text-right > :nth-child(2) > #btnCreatePurchaseOrder')
         .click()
 
     cy.get('.swal2-confirm').click()
-
 }
 const checkordermag = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()

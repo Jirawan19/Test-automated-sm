@@ -10,7 +10,7 @@ context("Name lish book", () => {
         loginWorkshop("empGrip01", "password")
         AddSupplier()
         AddSupplier1()
-        AddSupplier2()
+
         checkAddSupplier()
     })
 })
@@ -36,38 +36,41 @@ const AddSupplier1 = () => {
     taxAddSupplier2(getRandomNumberAddSupplier(0, 9))
     taxAddSupplier3(getRandomNumberAddSupplier(0, 10))
     taxAddSupplier4(getRandomNumberAddSupplier(0, 13))
-    cy.get('.btn-confirm').click()
+
+    // ยืนยันเพิ่ม supplier
+    cy.get('[success=""]').click()
+    cy.get('.swal2-confirm').click()
+    
 }
 const getRandomNumberAddSupplier = (min, max) => {
     0, 0
     return Math.random() * (max - min) + min;
 }
 const taxAddSupplier = (textNo) => {
-    cy.get('.bv-no-focus-ring > #name')
+    cy.get('#state-name')
         .type("เพิ่มผู้จำหน่าย").type(textNo)
 }
 const taxAddSupplier1 = (textNo) => {
-    cy.get('.bv-no-focus-ring > #address')
+    cy.get('#state-address')
         .type("ดาวเสาร์").type(textNo)
 }
 const taxAddSupplier2 = (textNo) => {
-    cy.get('.bv-no-focus-ring > #telNo')
+    cy.get('#state-telNo')
         .type(textNo)
 
 }
 const taxAddSupplier3 = (textNo) => {
-    cy.get('.bv-no-focus-ring > #mobileNo')
+    cy.get('#state-mobileNo')
         .type(textNo)
 }
 const taxAddSupplier4 = (textNo) => {
-    cy.get('.bv-no-focus-ring > #taxCustomerNumber')
+    cy.get('#state-taxCustomerNumber')
         .type(textNo)
+
+
+
 }
 
-// ยืนยันเพิ่ม supplier
-const AddSupplier2 = () => {
-    cy.get('.swal2-confirm').click()
-}
 
 // เช็คผู้จำหน่อยที่พึ่งเพิ่ม
 const checkAddSupplier = () => {

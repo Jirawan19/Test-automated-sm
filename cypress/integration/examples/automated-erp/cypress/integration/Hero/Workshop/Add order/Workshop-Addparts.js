@@ -84,8 +84,6 @@ const addconfimeParts = () => {
 }
 const checkconfimeCarparts = () => {
     cy.get('#inventorys-0 > :nth-child(7) > .btn-details').click()
-    // cy.get('#inventorytablepart > .modal-dialog > .modal-content > .modal-body > .form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > .font-weight-bold > :nth-child(2)')
-    //     .should("contain.text", "10")
 
     cy.get('#inventorytablepart > .modal-dialog > .modal-content > .modal-footer > .btn').click()
 
@@ -93,11 +91,11 @@ const checkconfimeCarparts = () => {
 
 // เพิ่มรายการซื้อ
 const Addorderparts = () => {
-    cy.get(':nth-child(4) > .nav-link > .row > h6')
-        .click()
-    cy.get('.col-xl-auto > a > .btn-confirm').click()
-
+    
     // เพิ่มผู้จำหน่าย
+    // cy.get(':nth-child(4) > .nav-link > .row > h6')
+    //     .click()
+    // cy.get('.col-xl-auto > a > .btn-confirm').click()
     // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
     //     .click().type("{downarrow}{enter}")
 
@@ -123,8 +121,8 @@ const Addorderparts = () => {
 
     // รายละเอียดสินค้า
     cy.get('#tab-PART').click()
-    cy.get('#inputSearchParts').click().type("test")
-    cy.get(':nth-child(2) > .btn-search').click()
+    cy.get('#txtinventorySeach').click().type("test")
+    cy.get('#btnSearchPart').click()
 
 
     // เลือกสินค้า
@@ -150,10 +148,6 @@ const Addorderparts = () => {
     cy.get('.col-12.d-none > .table > tbody > tr > :nth-child(6)')
         .should("contain.text", "90.00")
 
-    cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
-        .should("contain.text", "90.00 บาท")
-
-
     cy.get('.row.text-right > :nth-child(2) > .btn')
         .click()
 
@@ -165,12 +159,7 @@ const checkorderparts = () => {
 
     cy.get('tbody > :nth-child(1) > :nth-child(5)')
         .should("contain.text", "90.00")
-    cy.get('tbody > :nth-child(2) > :nth-child(5)')
-        .should("contain.text", "150.00")
 
-
-    cy.get(':nth-child(5) > [colspan="3"]')
-        .should("contain.text", "16.80 บาท")
 
     cy.get('.ml-auto > .nuxt-link-active > .btn').click()
 

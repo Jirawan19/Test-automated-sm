@@ -12,7 +12,7 @@ context("Add Supplier", () => {
         addSupplier1()
     })
     it("Admin", () => {
-        loginAdmin("admin", "admin")
+        loginAdmin("ATP-ADMIN", "16011986")
         Admin1()
         logout()
     })
@@ -20,78 +20,49 @@ context("Add Supplier", () => {
 })
 
 const addSupplier = () => {
-    cy.get('.pl-0 > .text-info').should("contain.text", "สมัครสมาชิก")
     cy.get('.pl-0 > .text-info').click()
 
     // ข้อมูลอู่
-    cy.get(':nth-child(1) > .primary-blue > h5').should("contain.text", "")
     taxAddsupplier8(getRandomTex(1, 5))
 
-    cy.get(':nth-child(2) > .primary-blue > h5').should("contain.text", "")
     taxAddsupplier5(getRandomTex(1, 5))
 
-    cy.get(':nth-child(3) > .primary-blue > h5').should("contain.text", "")
     taxAddsupplier(getRandomTex(1, 13))
 
-    cy.get(':nth-child(4) > .primary-blue').should("contain.text", "เบอร์โทรศัพท์")
     taxAddsupplier1(getRandomTex(1, 10))
 
-    cy.get(':nth-child(5) > .primary-blue').should("contain.text", "อีเมล์")
     taxAddsupplier2(getRandomTex(1, 3))
 
-    cy.get(':nth-child(6) > .primary-blue > h5').should("contain.text", "")
-    cy.get('#workshop-address').type("168/106")
-
-    cy.get(':nth-child(7) > .primary-blue > h5').should("contain.text", "")
+    cy.get('#txtInputAddress_AddressName').type("168/106")
 
     cy.get(':nth-child(7) > .vth-addr-container > .vth-addr-input-container > .vth-addr-input')
         .type("คลองถนน").type("{downarrow}{downarrow}{enter}")
 
-    cy.get('.btn').should("contain.text", "ถัดไป")
-    cy.get('.btn').click()
-
-    // cy.get('.swal2-confirm').click()
-
-    // cy.get('.btn').should("contain.text", "ถัดไป")
-    // cy.get('.btn').click()
+    cy.get('#btnButton_Step-1')
+        .click()
 }
 // ข้อมูลผู้ใช้งาน
 const addSupplier1 = () => {
-    cy.get('[style="flex-basis: 50%; max-width: 50%; z-index: 0;"] > .el-step__main > .el-step__title')
-        .should("contain.text", "ข้อมูลผู้ใช้งาน")
 
-    cy.get(':nth-child(1) > .primary-blue > h5').should("contain.text", "")
     taxAddsupplier7(getRandomTex(1, 3))
 
-    cy.get(':nth-child(2) > .primary-blue > h5').should("contain.text", "")
     cy.get('#last-name').type("01")
 
-    cy.get(':nth-child(3) > .primary-blue').should("contain.text", "เบอร์โทรศัพท์")
-    taxAddsupplier1(getRandomTex(1, 10))
+    taxAddsupplier11(getRandomTex(1, 10))
 
-    cy.get(':nth-child(4) > .primary-blue').should("contain.text", "")
     taxAddsupplier3(getRandomTex(1, 10))
 
-    cy.get(':nth-child(5) > .primary-blue').should("contain.text", "")
     taxAddsupplier6(getRandomTex(1, 10))
 
-    cy.get(':nth-child(6) > .primary-blue').should("contain.text", "")
     cy.get('#password').type("password")
 
     cy.wait(2000)
 
-    cy.get('[success=""]').should("contain.text", "บันทึก")
     cy.get('[success=""]').click()
 
-    // cy.get('.swal2-confirm').click()
 
-    // cy.get('[success=""]').should("contain.text", "บันทึก")
-    // cy.get('[success=""]').click()
 
     // ยืนยัน
-    cy.get('#swal2-title').should("contain.text", "การสมัครเสร็จสมบูรณ์")
-    cy.get('#swal2-content').should("contain.text", "รอให้adminอนุมัติ")
-    cy.get('.swal2-confirm').should("contain.text", "ตกลง")
     cy.get('.swal2-confirm').click()
 }
 
@@ -101,15 +72,15 @@ const getRandomTex = (min, max) => {
     return Math.random() * (max - min) + min;
 }
 const taxAddsupplier = (textNo) => {
-    cy.get('#work-tax')
+    cy.get('#nbrWorkshop_Tax')
         .type(textNo)
 }
 const taxAddsupplier1 = (textNo) => {
-    cy.get('#telNo')
+    cy.get('#nbrState_TelNo')
         .type(textNo)
 }
 const taxAddsupplier2 = (textNo) => {
-    cy.get('#work-email')
+    cy.get('#txtState_Email')
         .type("nam test").type(textNo).type("@gmail.com")
 }
 const taxAddsupplier3 = (textNo) => {
@@ -123,7 +94,7 @@ const taxAddsupplier4 = (textNo) => {
 
 // ต้องคอยเปลี่ยนเพื่อไม่ให้ขึ้นซ้ำ
 const taxAddsupplier5 = (textNo) => {
-    cy.get('#workshop-id')
+    cy.get('#txtWorkshop_WorkshopId')
         .type("ASS").type(textNo)
 }
 
@@ -138,8 +109,12 @@ const taxAddsupplier7 = (textNo) => {
         .type("Supplier").type(textNo)
 }
 const taxAddsupplier8 = (textNo) => {
-    cy.get('#workshop-name')
+    cy.get('#txtWorkshop_Name')
         .type("สมัครอู่").type(textNo)
+}
+const taxAddsupplier11 = (textNo) => {
+    cy.get('#telNo')
+        .type(textNo)
 }
 
 const loginAdmin = (username, password) => {
@@ -151,31 +126,20 @@ const loginAdmin = (username, password) => {
 }
 
 const Admin1 = () => {
-    cy.get('h3').should("contain.text", "")
     cy.get(':nth-child(2) > .nav-link > .row').click()
 
-    cy.get('#customer-0 > :nth-child(3) > a > .btn-details')
-        .should("contain.text", "ดูรายละเอียด")
     cy.get('#customer-0 > :nth-child(3) > a > .btn-details').click()
 
-    cy.get('h3').should("contain.text", "รายละเอียดอู่")
-    cy.get(':nth-child(1) > .primary-blue').should("contain.text", "")
-    cy.get(':nth-child(2) > .primary-blue > h5').should("contain.text", "")
 
-    cy.get('.content > :nth-child(1) > :nth-child(1)').should("contain.text", "แก้ไข")
     cy.get('[warning=""]').click({ force: true })
 
     cy.get('.the-enable').should("contain.text", "ปิดการใช้งาน")
     cy.get('.el-switch__core').click()
     cy.get('.the-enable').should("contain.text", "เปิดการใช้งาน")
 
+    cy.get('[success=""]')
+        .click()
 
-    cy.get('.md-rows > div > .btn').should("contain.text", "บันทึก")
-    cy.get('.md-rows > div > .btn').click()
-
-    cy.get('#swal2-title').should("contain.text", "เรียบร้อย")
-    cy.get('#swal2-content').should("contain.text", "การแก้ไขเสร็จสมบูรณ์")
-    cy.get('.swal2-confirm').should("contain.text", "ตกลง")
     cy.get('.swal2-confirm').click()
 
     cy.get('#customer-0 > :nth-child(3) > a > .btn-details').click()
