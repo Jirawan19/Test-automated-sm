@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-Cypress.config('defaultCommandTimeout', 100000)
 // const viewPorts = ["macbook-16"]
 // viewPorts.map(viewPort => {
 context("add-customer-tax", () => {

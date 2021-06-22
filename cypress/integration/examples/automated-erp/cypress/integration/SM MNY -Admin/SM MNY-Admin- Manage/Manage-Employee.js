@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-Cypress.config('defaultCommandTimeout', 100000)
 
 context("Admin Manage-Add/Employee", () => {
     beforeEach(() => {

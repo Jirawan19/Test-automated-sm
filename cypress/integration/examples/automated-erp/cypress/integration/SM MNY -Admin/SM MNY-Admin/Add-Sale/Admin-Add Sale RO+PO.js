@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-Cypress.config('defaultCommandTimeout', 100000)
 context("Admin Add Sale PO+PO", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/")

@@ -2,7 +2,6 @@
 
 // let textNo
 
-Cypress.config('defaultCommandTimeout', 100000)
 context("AddsellTax-Card", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")

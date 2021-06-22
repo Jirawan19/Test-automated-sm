@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-Cypress.config('defaultCommandTimeout', 100000)
 context("Cancel Order-Sell", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")

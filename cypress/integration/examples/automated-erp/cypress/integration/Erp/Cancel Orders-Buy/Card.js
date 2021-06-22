@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-Cypress.config('defaultCommandTimeout', 100000)
 
 context("Cancel Order-Buy/Card", () => {
     beforeEach(() => {

@@ -2,7 +2,6 @@
 
 /// <reference types="cypress" />
 
-Cypress.config('defaultCommandTimeout', 100000)
 
 context("Add order to Supplier", () => {
     beforeEach(() => {

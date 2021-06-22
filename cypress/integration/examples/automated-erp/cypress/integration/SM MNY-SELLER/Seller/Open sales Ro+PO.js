@@ -5,7 +5,6 @@
 
 /// <reference types="cypress" />
 
-Cypress.config('defaultCommandTimeout', 100000)
 
 context("Seller-Open sales Ro+PO", () => {
     beforeEach(() => {

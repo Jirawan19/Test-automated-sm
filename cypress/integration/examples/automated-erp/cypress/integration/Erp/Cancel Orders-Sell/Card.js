@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-Cypress.config('defaultCommandTimeout', 100000)
 context("AddsellTax-Cash", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")

@@ -2,7 +2,6 @@
 
 let textNo
 
-Cypress.config('defaultCommandTimeout', 100000)
 context("add-buy-Tax-transfer", () => {
     beforeEach(() => {
         cy.visit("https://smdevdemo.autocareth.com/retailer/home")
