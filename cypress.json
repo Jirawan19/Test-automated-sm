@@ -1,5 +1,6 @@
 {
     "viewportWidth": 1500,
     "viewportHeight": 806,
-    "defaultCommandTimeout": 10000
+    "defaultCommandTimeout": 10000,
+    "baseUrl": "https://herodemo.autopair.co"
   }

@@ -10,7 +10,13 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
+Cypress.Commands.add("login", (username, password) => {
+    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
+    cy.get('#username').type(username)
+    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
+    cy.get('#password').type(password)
+    cy.get('.btn-global').click()
+})
 //
 //
 // -- This is a child command --

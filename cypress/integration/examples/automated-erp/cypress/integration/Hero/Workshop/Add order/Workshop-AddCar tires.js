@@ -3,10 +3,11 @@
 
 context("Warehouse", () => {
     beforeEach(() => {
-        cy.visit("https://herodemo.autopair.co/")
+        cy.visit("/")
     })
     it("Car ties", () => {
-        loginWorkshop("empGrip01", "password")
+        // loginWorkshop("empGrip01", "password")
+        cy.login("empGrip01", "password")
         addCartiees()
         addCartiees1()
         addconfimeCartiees()
