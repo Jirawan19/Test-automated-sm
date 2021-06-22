@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-Cypress.config('defaultCommandTimeout', 100000)
-
 context("Name lish book", () => {
     beforeEach(() => {
         cy.visit("https://herodemo.autopair.co/")

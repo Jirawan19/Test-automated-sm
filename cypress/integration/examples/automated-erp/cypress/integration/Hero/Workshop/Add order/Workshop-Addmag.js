@@ -8,10 +8,10 @@ context("Warehouse", () => {
     })
     it("Mag", () => {
         loginWorkshop("empGrip01", "password")
-        // AddMag()
-        // AddMag1()
-        // AddMag2()
-        // AddconfimeMag()
+        AddMag()
+        AddMag1()
+        AddMag2()
+        AddconfimeMag()
 
         Addordermag()
         checkordermag()

@@ -17,7 +17,7 @@ context("Add order to Supplier", () => {
     it("supplier receive", () => {
         loginsupplier("grip-member1", "password")
         supplierreceive()
-        logout()
+        Supllierlogout()
     })
 
     it("workshop receive ", () => {
@@ -29,7 +29,7 @@ context("Add order to Supplier", () => {
 
         // รับรายการยางรถยนต์ แบบบางชิ้น
         receiveSale1()
-        // checkreceive1()
+        checkreceive1()
 
     })
 })
@@ -47,26 +47,23 @@ const Addorderworkshop = () => {
 }
 // เพิ่มรายการซื้อ ยาง
 const Addorderworkshop1 = () => {
-    cy.get('.col-xl-4 > .el-select > .el-input > .el-input__inner')
+    cy.get('#selSelectSupplier')
         .click().type("ต.สยาม คอมเมอร์เชียล จำกัด").type("{downarrow}{enter}")
 
     cy.get('.col-xl-6 > .btn').click()
     cy.get('#tab-0').click()
 
     // หน้ากว้าง
-    cy.get('#searchWidth > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        // cy.get('#searchWidth > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
-        .click().wait(500).type("{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}", { force: true })
-    cy.wait(500)
+    // cy.get('#selSearchTire_Width > .el-input > .el-input__inner')
+    //     .click().type("{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}",{force: true})
 
     // ซีรี่ย์
-    cy.get('#searchSeries > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        // cy.get('#searchSeries > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
+    cy.get('#selSearchTire_Series > .el-input > .el-input__inner')
         .click().type("65").type("{downarrow}{downarrow}{enter}")
     cy.wait(500)
 
     // ค้นหา
-    cy.get('.mt-4 > :nth-child(1) > .btn-search').click()
+    cy.get('#btnSearchTire')
     cy.wait(1000)
 
     // เลือกสินค้า
@@ -83,13 +80,8 @@ const Addorderworkshop1 = () => {
     // จำนวน
     cy.get('.md-flex > .form-control').clear().type("2")
 
-
-
-
-
     cy.get('#for-destop > tfoot > :nth-child(1) > .text-right')
         .contains("5,300.00 บาท")
-
 
     // เปิดรายการขายแบบบวกภาษีเพิ่ม
     cy.get('.d-xl-flex > :nth-child(2) > .btn')
@@ -101,11 +93,11 @@ const Addorderworkshop1 = () => {
 const checkAddopenorder = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
     cy.get('.status-border').contains("รอยืนยันรายการ")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
         .contains("195 / 65 R 15")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
         .contains("NANO ENERGY 3")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
         .contains("TOYO")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(4) > .text-danger')
@@ -119,6 +111,12 @@ const checkAddopenorder = () => {
 const logout = () => {
     cy.get('#dropdownMenuOffset').click()
     cy.get('.dropdown-menu > :nth-child(2)')
+        .click()
+}
+// ออกจากระบบ
+const Supllierlogout = () => {
+    cy.get('#dropdownMenuOffset').click()
+    cy.get('.dropdown-menu > .dropdown-item')
         .click()
 }
 
@@ -145,7 +143,7 @@ const supplierreceive = () => {
     cy.get('.table-order-wrappe > .table > tbody > :nth-child(1) > .text-left')
         .contains("TOYO")
 
-    cy.get('.table-order-wrappe > .table > tbody > :nth-child(4) > .text-danger')
+    cy.get('.the-footer > :nth-child(1) > :nth-child(2)')
         .contains("5,300.00 บาท")
 
     // บันทึกรับรายการขาย
@@ -158,94 +156,102 @@ const supplierreceive = () => {
 
 // รับสินค้าทั้งหมด
 const receiveSale = () => {
-    cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
+    cy.get('#nav-item-3 >').click()
 
+    cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
     // ตรวจเช็ครายการสินค้า
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
+    cy.get('.status-border').contains("รอรับสินค้า")
+
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
         .contains("195 / 65 R 15")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
-        .contains("PRNANO ENERGY 3")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
+        .contains("NANO ENERGY 3")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
         .contains("TOYO")
 
     // กรอกจำนวนและ dot ที่รับสินค้า
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > :nth-child(4) > .row > :nth-child(1) > input')
+    cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
         .clear().type("2")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > :nth-child(4) > .row > :nth-child(2) > input')
+    cy.get('#txtPurchaseOrderItemQtyReceivedDots_Dot_0')
         .clear().type("1903")
 
-    // ตรวจเช็ค ราคาสินค้า
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > :nth-child(5)')
-        .should("contain.text", "2,650.00")
-    cy.get('.table-order-wrapper.d-none > .table > thead > tr > :nth-child(6)')
-        .should("contain.text", "ราคารวม")
-    cy.get('tbody > :nth-child(1) > :nth-child(6)')
-        .should("contain.text", "5,300.00")
+    // กรอก ราคาสินค้า
+    cy.get('#txtPrice_0')
+        .click().clear().type("2000")
 
-    // // ราคาภาษีมูลค่าเพิ่ม
-    // cy.get(':nth-child(4) > [colspan="2"]')
-    //     .should("contain.text", "371.00 บาท")
+    cy.get('#priceTotaltd')
+        .contains("4,000.00 บาท")
 
     // บันทึกรับรายการขาย
-    cy.get('.d-xl-flex > :nth-child(2) > .btn').click()
+    cy.get('#saveConfirm').click()
     cy.get('.swal2-confirm').click()
-
+    cy.wait(1000)
     cy.get('.swal2-confirm').click()
 }
+
 // เช็คสถานะ
 const checkreceive = () => {
+    cy.get('.status-border').contains("รายการเสร็จสิ้น")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
         .should("contain.text", "195 / 65 R 15")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
         .should("contain.text", "NANO ENERGY 3")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
         .should("contain.text", "TOYO")
+    cy.get('tbody > :nth-child(1) > :nth-child(6)')
+        .contains("4,000.00")
+    cy.get('tbody > :nth-child(1) > :nth-child(7)')
+        .contains("ยืนยันการส่ง")
+
 }
+
+
 // รับสินค้าบางชิ้น
 const receiveSale1 = () => {
-    cy.get(':nth-child(4) > .nav-link > .row').click()
+    cy.get('#nav-item-3 >').click()
+
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
-
     // ตรวจเช็ครายการสินค้า
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
-        .contains("195 / 65 R 15")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
-        .contains("NANO ENERGY 3")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
-        .contains("TOYO")
+    cy.get('.status-border').contains("รอรับสินค้า")
 
-    // กรอกจำนวนและ dot ที่รับสินค้า
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > :nth-child(4) > .row > :nth-child(1) > input')
-        .clear().type("1")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > :nth-child(4) > .row > :nth-child(2) > input')
-        .clear().type("1903")
-
-    // ตรวจเช็ค ราคาสินค้า
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > :nth-child(5)')
-        .contains("2,650.00")
-    cy.get('tbody > :nth-child(2) > :nth-child(3)')
-        .contains("5,300.00")
-
-
-    // // ราคาภาษีมูลค่าเพิ่ม
-    // cy.get(':nth-child(4) > [colspan="2"]')
-    //     .should("contain.text", "371.00 บาท")
-
-    // บันทึกรับรายการขาย
-    cy.get('.d-xl-flex > :nth-child(2) > .btn').click()
-    cy.get('.swal2-confirm').click()
-
-    cy.get('.swal2-confirm').click()
-}
-const checkreceive1 = () => {
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
         .contains("195 / 65 R 15")
-        
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
         .contains("NANO ENERGY 3")
-
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
         .contains("TOYO")
 
-    cy.get('.ml-auto > .nuxt-link-active > .btn').click({ force: true })
+    // กรอกจำนวนและ dot ที่รับสินค้า
+    cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
+        .clear().type("1")
+    cy.get('#txtPurchaseOrderItemQtyReceivedDots_Dot_0')
+        .clear().type("1903")
+
+    // กรอก ราคาสินค้า
+    cy.get('#txtPrice_0')
+        .click().clear().type("2000")
+
+    cy.get('#priceTotaltd')
+        .contains("4,000.00 บาท")
+
+    // บันทึกรับรายการขาย
+    cy.get('#saveConfirm').click()
+    cy.get('.swal2-confirm').click()
+    cy.wait(1000)
+    cy.get('.swal2-confirm').click()
+}
+
+
+const checkreceive1 = () => {
+    cy.get('.status-border').contains("รับสินค้าบางส่วน")
+
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
+        .should("contain.text", "195 / 65 R 15")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
+        .should("contain.text", "NANO ENERGY 3")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
+        .should("contain.text", "TOYO")
+    cy.get('tbody > :nth-child(1) > :nth-child(8)')
+        .contains("4,000.00")
+    cy.get('#backtoindex').click()
 }

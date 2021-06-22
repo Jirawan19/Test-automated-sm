@@ -132,9 +132,11 @@ const Admin1 = () => {
 
 
     cy.get('[warning=""]').click({ force: true })
-
+    cy.wait(500)
     cy.get('.the-enable').should("contain.text", "ปิดการใช้งาน")
-    cy.get('.el-switch__core').click()
+    cy.wait(1000)
+    cy.get('.el-switch__core').click({ force: true })
+    // cy.wait(500)
     cy.get('.the-enable').should("contain.text", "เปิดการใช้งาน")
 
     cy.get('[success=""]')

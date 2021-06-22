@@ -10,8 +10,9 @@ context("Workshop Add Repair work", () => {
     })
     it("Add job work", () => {
         loginWorkshop("empGrip01", "password")
-        addCartiees()
-        JobWork() 
+        // addCartiees()
+        // AddTechincianOrWorkjob()
+        JobWork()
 
     })
 })
@@ -27,17 +28,18 @@ const loginWorkshop = (username, password) => {
 const JobWork = () => {
     cy.get(':nth-child(3) > .nav-link > .row').click()
 
-    // cy.wait(500)
     cy.contains('เพิ่มงานซ่อม').click()
 
-    cy.get('.content > :nth-child(1) > :nth-child(1) > :nth-child(2) > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click().type("9กณ5707").type("{downarrow}{enter}")
+    // เลือกลูกค้าและพนักงานซ่อม
+    cy.get('[data-v-1e10e155=""] > :nth-child(1) > :nth-child(2) > :nth-child(1) > .el-select > .el-input > .el-input__inner')
+        .click().type("9กณ").type("{downarrow}{enter}")
 
     cy.get(':nth-child(2) > :nth-child(3) > .el-select > .el-input > .el-input__inner')
-        .click().type("nam test api").type("{downarrow}{enter}")
+        .click().type("เพิ่มช่างซ่อม").type("{downarrow}{enter}")
 
     cy.get('.col-xl-3 > .btn').click()
 
+    // ค้นหาสินค้า
     cy.get('#searchWidth > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
         .click().type("1100").type("{downarrow}{enter}")
 
@@ -47,13 +49,40 @@ const JobWork = () => {
     cy.get('#searchRimSize > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
         .click().type("12").type("{downarrow}{enter}")
 
-    cy.get(':nth-child(2) > :nth-child(1) > .btn-search').click()
-    cy.get('#pane-TIRE > .col-12.mt-2 > .table > tbody > :nth-child(1) > .text-left')
-        .contains("1100")
+    // ค้นหาสินค้า
+    cy.get('#pane-TIRE > :nth-child(1) > :nth-child(3) > :nth-child(1) > .btn-search')
+        .click()
+
+    cy.get('#pane-TIRE > .col-12.mt-2 > .table > tbody > :nth-child(1) > :nth-child(2)')
+        .contains("test")
+
+    // เลือกสินค้า
+    cy.get('#pane-TIRE > .col-12.mt-2 > .table > tbody > :nth-child(1) > :nth-child(5) > .btn-details')
+        .click()
+    cy.get('#dotModal-30 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(1)')
+        .should("contain.text", "0319")
+    cy.get('#dotModal-30 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(3) > .el-input-number > .el-input-number__increase > .el-icon-plus')
+        .click().click().click()
+    cy.get('#dotModal-30 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(2)')
+        .should("contain.text", "47")
+    cy.get('#dotModal-30 > .modal-dialog > .modal-content > .modal-footer > .btn-primary')
+        .click()
+
+    cy.get('.el-notification__closeBtn').click()
+    cy.get('.modal-content > :nth-child(1) > .modal-header > .close')
+        .click()
+
+    // เช็ครายการที่เลือก
+    cy.get('.d-xl-block > .table > tbody > tr > :nth-child(3)')
+        .contains("test")
+
+    // ราคาต่อหน่วย
+    cy.get('.d-xl-block > .table > tbody > tr > :nth-child(5) > .form-check > #productlatestSalePrice')
+        .type("200")
 
 
 }
-// รายละเอียดสินค้า
+// เพิ่มสินค้า รายละเอียดสินค้า
 const addCartiees = () => {
     cy.get(':nth-child(5) > .nav-link > .row').click()
     cy.get('#tab-TIRE').click()
@@ -129,3 +158,44 @@ const taxCartiees4 = (textNo) => {
         .type("test").type(textNo)
 }
 
+// เพิ่มลูกค้า
+const AddTechincianOrWorkjob = () => {
+    // เข้าหน้าเพิ่มพนักงาน
+    cy.get(':nth-child(7) > .nav-link > .row').click()
+    cy.get('#tab-employee').click()
+
+    // กรอกข้อมูลพนักงาน
+    cy.get('#pane-employee > :nth-child(1) > .col-xl-2 > a > .btn')
+        .click()
+    taxAddEmployee(getRandomNumberAddEmployee(1, 3))
+    cy.get('#roleEmp').select("ช่างซ่อม")
+    cy.get('#state-password').type("password")
+    taxAddEmployee2(getRandomNumberAddEmployee(1, 5))
+    taxAddEmployee1(getRandomNumberAddEmployee(1, 2))
+    taxAddEmployee3(getRandomNumberAddEmployee(0, 10))
+    cy.get('[success=""]').click()
+
+    cy.get('.swal2-confirm').click()
+
+}
+const getRandomNumberAddEmployee = (min, max) => {
+    0, 0
+    return Math.random() * (max - min) + min;
+}
+const taxAddEmployee = (textNo) => {
+    cy.get('#state-nameEmp')
+        .type("เพิ่มช่างซ่อม").type(textNo)
+}
+const taxAddEmployee1 = (textNo) => {
+    cy.get('#state-usernameEmp')
+        .type("เพิ่มช่างซ่อม").type(textNo)
+}
+const taxAddEmployee2 = (textNo) => {
+    cy.get('#state-emailEmp')
+        .type("เพิ่มช่างซ่อม").type(textNo).type("@gmail.com")
+
+}
+const taxAddEmployee3 = (textNo) => {
+    cy.get('#state-telEmp')
+        .type(textNo)
+}

@@ -22,22 +22,11 @@ const loginWorkshop = (username, password) => {
 }
 // กรอกรายละเอียดสินค้า
 const Parts = () => {
-    cy.get('.CardheadTitle > h3').should("contain.text", "รายการซื้อ")
-    cy.get(':nth-child(6) > .nav-link > .row > h6').click()
-    // cy.get(':nth-child(5) > .nav-link > .row').click()
-    cy.get('h3').should("contain.text", "คลังสินค้า")
-    cy.get('#tab-PART').should("contain.text", "อะไหล่")
+    cy.get('#nav-item-4 >').click()
     cy.get('#tab-PART').click()
     
-    // cy.get('.form-label').should("contain.text", "ค้นหาสินค้า")
     cy.get('.col-xl-auto > .btn-confirm > .el-icon-circle-plus-outline').click()
-    // cy.get('.col-xl-auto > a > .btn-confirm').click()
-    cy.get('#pane-PART > .col-xl-12 > .col-12 > .el-steps > [style="flex-basis: 50%; margin-right: 0px;"] > .el-step__main > .el-step__title')
-        .should("contain.text", "รายละเอียดสินค้า")
-    cy.get('#pane-PART > .col-xl-12 > .col-12 > .fromitem > .row > :nth-child(1) > h5')
-        .should("contain.text", "รายละเอียดสินค้า รหัสสินค้า ")
     taxParts(getRandomNumberParts(1, 10))
-    cy.get('.form-row.mt-3 > .col-md-2 > .primary-blue').should("contain.text", "ตำแหน่ง")
     cy.get('.col-md-2 > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{enter}")
     taxParts1(getRandomNumberParts(1, 10))
@@ -73,8 +62,6 @@ const taxParts3 = (textNo) => {
 }
 // รายละเอียดราคา
 const Parts1 = () => {
-    cy.get('#pane-PART > .col-xl-12 > .col-12 > .el-steps > [style="flex-basis: 50%; max-width: 50%;"] > .el-step__main > .el-step__title')
-        .should("contain.text", "รายละเอียดราคา")
     cy.get(':nth-child(1) > .mt-2 > .el-input__inner').type("10")
     cy.get('.pl-xl-5 > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{enter}")
@@ -87,9 +74,6 @@ const Parts1 = () => {
 
 // ยืนยันเพิ่มสินค้า
 const confimeParts = () => {
-    cy.get('#swal2-title').should("contain.text", "สำเร็จ")
-    cy.get('#swal2-content').should("contain.text", "เพิ่มสินค้าเข้าคลังเสร็จสิ้น")
-    cy.get('.swal2-confirm').should("contain.text", "OK")
     cy.get('.swal2-confirm').click()
     cy.get('#tab-PART').click()
 }
