@@ -11,6 +11,7 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add("login", (username, password) => {
+    cy.visit("/")
     cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
     cy.get('#username').type(username)
     cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")

@@ -1,12 +1,7 @@
 /// <reference types="cypress" />
 
-
 context("Warehouse", () => {
-    beforeEach(() => {
-        cy.visit("/")
-    })
     it("Car ties", () => {
-        // loginWorkshop("empGrip01", "password")
         cy.login("empGrip01", "password")
         addCartiees()
         addCartiees1()
@@ -18,15 +13,6 @@ context("Warehouse", () => {
     })
 
 })
-
-
-const loginWorkshop = (username, password) => {
-    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
-    cy.get('#username').type(username)
-    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
-    cy.get('#password').type(password)
-    cy.get('.btn-global').click()
-}
 
 // รายละเอียดสินค้า
 const addCartiees = () => {
