@@ -24,14 +24,20 @@ const loginWorkshop = (username, password) => {
 }
 
 const Mag = () => {
-    cy.get('#nav-item-4')
+    cy.get('#nav-item-6')
         .click()
-    cy.get('#tab-MAG').click()
+    cy.get('#tab-inventory')
+        .click()
+    cy.get('#pane-inventory > .mb-2 > .col-xl-2 > a > .btn')
+        .click()
+    cy.get('#tab-MAG')
+        .click()
+
 }
 
 // กรอกรายละเอียดสินค้า
 const Mag1 = () => {
-    cy.get('.row.mt-3 > .text-xl-right > .btn-confirm').click()
+    // cy.get('.row.mt-3 > .text-xl-right > .btn-confirm').click()
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
         .type("เพิ่มแม็ก 19")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3)')

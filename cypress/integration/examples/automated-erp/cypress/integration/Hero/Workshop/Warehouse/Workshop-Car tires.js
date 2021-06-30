@@ -24,10 +24,13 @@ const loginWorkshop = (username, password) => {
 
 // รายละเอียดสินค้า
 const Cartiees = () => {
-    cy.get('#nav-item-4')
+    cy.get('#nav-item-6')
         .click()
+    cy.get('#tab-inventory')
+        .click()
+    cy.get('#pane-inventory > .mb-2 > .col-xl-2 > a > .btn').click()
     cy.get('#tab-TIRE').click()
-    cy.get('.row.mt-4 > .text-xl-right > .btn-confirm').click()
+
     taxCartiees(getRandomNumberCartiees(0, 10))
     taxCartiees1(getRandomNumberCartiees(0, 10))
     taxCartiees2(getRandomNumberCartiees(0, 10))

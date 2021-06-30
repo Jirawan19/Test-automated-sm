@@ -21,11 +21,16 @@ const loginWorkshop = (username, password) => {
 }
 // กรอกรายละเอียดสินค้า
 const Parts = () => {
-    cy.get('#nav-item-4')
+    cy.get('#nav-item-6')
+        .click()
+    cy.get('#tab-inventory')
+        .click()
+    cy.get('#pane-inventory > .mb-2 > .col-xl-2 > a > .btn')
         .click()
     cy.get('#tab-PART').click()
 
-    cy.get('.col-xl-auto > .btn-confirm > .el-icon-circle-plus-outline').click()
+
+    // cy.get('.col-xl-auto > .btn-confirm > .el-icon-circle-plus-outline').click()
     taxParts(getRandomNumberParts(1, 10))
     cy.get('.col-md-2 > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{enter}")
