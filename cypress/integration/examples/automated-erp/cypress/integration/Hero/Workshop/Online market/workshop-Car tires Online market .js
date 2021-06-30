@@ -13,24 +13,24 @@ context("Add order to Supplier", () => {
         logout()
     })
 
-    it("supplier receive", () => {
-        loginsupplier("grip-member1", "password")
-        supplierreceive()
-        Supllierlogout()
-    })
+    // it("supplier receive", () => {
+    //     loginsupplier("grip-member1", "password")
+    //     supplierreceive()
+    //     Supllierlogout()
+    // })
 
-    it("workshop receive ", () => {
-        loginWorkshop("empGrip01", "password")
+    // it("workshop receive ", () => {
+    //     loginWorkshop("empGrip01", "password")
 
-        // // รับรายการยางรถยนต์ แบบทั้งหมด
-        // receiveSale()
-        // checkreceive()
+    //     // // รับรายการยางรถยนต์ แบบทั้งหมด
+    //     // receiveSale()
+    //     // checkreceive()
 
-        // รับรายการยางรถยนต์ แบบบางชิ้น
-        receiveSale1()
-        checkreceive1()
+    //     // รับรายการยางรถยนต์ แบบบางชิ้น
+    //     receiveSale1()
+    //     checkreceive1()
 
-    })
+    // })
 })
 
 const loginWorkshop = (username, password) => {
@@ -42,7 +42,8 @@ const loginWorkshop = (username, password) => {
 }
 // เข้าหน้าเพิ่มรายการซื้อ
 const Addorderworkshop = () => {
-    cy.get(':nth-child(1) > .nav-link > .row > h6').click()
+    cy.get('#nav-item-0')
+        .click()
 }
 // เพิ่มรายการซื้อ ยาง
 const Addorderworkshop1 = () => {

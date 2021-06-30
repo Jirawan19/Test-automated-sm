@@ -24,7 +24,7 @@ const loginWorkshop = (username, password) => {
 
 // เข้าหน้าเพิ่มพนักงาน
 const AddTechincian = () => {
-    cy.get(':nth-child(7) > .nav-link > .row').click()
+    cy.get('#nav-item-6').click()
     cy.get('#tab-employee').click()
 }
 

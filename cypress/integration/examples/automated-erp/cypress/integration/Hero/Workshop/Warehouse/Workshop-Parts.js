@@ -21,9 +21,10 @@ const loginWorkshop = (username, password) => {
 }
 // กรอกรายละเอียดสินค้า
 const Parts = () => {
-    cy.get('#nav-item-4 >').click()
+    cy.get('#nav-item-4')
+        .click()
     cy.get('#tab-PART').click()
-    
+
     cy.get('.col-xl-auto > .btn-confirm > .el-icon-circle-plus-outline').click()
     taxParts(getRandomNumberParts(1, 10))
     cy.get('.col-md-2 > .el-select > .el-input > .el-input__inner')
@@ -43,21 +44,21 @@ const getRandomNumberParts = (min, max) => {
 
 const taxParts = (textNo) => {
     cy.get('.col-md-4 > .el-autocomplete > .el-input > .el-input__inner')
-        .type("test Parts").type(textNo)
+        .type("เพิ่มอะไหล่").type(textNo)
 
 }
 
 const taxParts1 = (textNo) => {
     cy.get('#pane-PART > .col-xl-12 > .col-12 > .fromitem > .form-row.mt-3 > .col-md-6 > .el-autocomplete > .el-input > .el-input__inner')
-        .type("test Parts").type(textNo)
+        .type("เพิ่มอะไหล่").type(textNo)
 }
 const taxParts2 = (textNo) => {
     cy.get('#pane-PART > .col-xl-12 > .col-12 > .fromitem > .form-row.mt-2 > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("test Parts").type(textNo)
+        .type("เพิ่มอะไหล่").type(textNo)
 }
 const taxParts3 = (textNo) => {
     cy.get('.pl-xl-5 > .mt-2 > .el-input__inner')
-        .type("test Parts").type(textNo)
+        .type("เพิ่มอะไหล่").type(textNo)
 }
 // รายละเอียดราคา
 const Parts1 = () => {

@@ -7,7 +7,7 @@ context("Service", () => {
     })
     it("Add Service", () => {
         loginWorkshop("empGrip01", "password")
-        // AddService()
+        AddService()
         checkservice()
     })
 })
@@ -21,7 +21,7 @@ const loginWorkshop = (username, password) => {
 
 // เข้ารายการ บริการ
 const AddService = () => {
-    cy.get('#nav-item-5 > ').click()
+    cy.get('#nav-item-5').click()
 
     // เพิ่มบริการ
     cy.get('.el-button').click()
@@ -39,15 +39,16 @@ const AddService = () => {
 
 // เช็คบริการที่เพิ่มใหม่
 const checkservice = () => {
-    cy.get('#nav-item-5 > ').click()
+    cy.get('#nav-item-5')
+        .click()
 
-    cy.get('#servicename').click().type("test")
+    cy.get('#servicename').click().type("เพิ่มบริการ")
 
     cy.get('label').click()
     cy.get('label').click()
     cy.wait(500)
 
-    cy.get('tbody > tr > :nth-child(1)').contains("test")
+    cy.get('tbody > tr > :nth-child(1)').contains("เพิ่มบริการ")
     cy.get(':nth-child(1) > .text-center > .btn').click()
 
 
@@ -61,10 +62,10 @@ const getRandomAddService = (min, max) => {
 }
 const taxAddService = (textNo) => {
     cy.get('#state-name')
-        .type("test Service").type(textNo)
+        .type("เพิ่มบริการ").type(textNo)
 }
 const taxAddService1 = (textNo) => {
     cy.get('#description')
-        .type("test Service").type(textNo)
+        .type("เพิ่มบริการ").type(textNo)
 }
 

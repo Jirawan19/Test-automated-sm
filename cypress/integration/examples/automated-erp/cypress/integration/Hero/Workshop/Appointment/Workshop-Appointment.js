@@ -7,7 +7,7 @@ context("Service", () => {
     })
     it("Add Appointment", () => {
         loginWorkshop("empGrip01", "password")
-        // addcustomer00()
+        addcustomer00()
         AddAppointment()
 
     })
@@ -40,7 +40,7 @@ const addcustomer00 = () => {
         .clear().type("10220").type("{enter}")
     taxAddCustomer6(getRandomNumberAddCustomer(0, 10))
     taxAddCustomer3(getRandomNumberAddCustomer(0, 3))
-    cy.get('.md-rows > .btn-select')
+    cy.get('#step0 > .row > .step_row_footer > .btn-select')
         .click()
 
 
@@ -62,40 +62,37 @@ const addcustomer00 = () => {
         .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
     cy.get('#latestMileages').type("500")
 
-    cy.get(':nth-child(2) > .btn').click()
+    cy.get('#step1 > .row > .step_row_footer > .btn-select').click()
 
 
     // สถานะการชำระเงินและรับข่าวสาร
     // ชำระเงินสด
-    cy.get('.col-12.mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{enter}", { force: true })
+    cy.get('#creditLimits')
+        .click().type("{downarrow}{enter}")
     // โอนชำระ
     // cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
     //     .click().type("{downarrow}{downarrow}{enter}", { force: true })
     // เช็ค
     // cy.get('#step2 > .row > :nth-child(2) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
     //     .click().type("{downarrow}{downarrow}{downarrow}{downarrow}{enter}")
-    cy.get('.btn-confirm').click()
+    cy.get('.md-btn-success').click()
 
     cy.get('.swal2-confirm').click()
 }
 const AddAppointment = () => {
 
-    cy.get(':nth-child(2) > .nav-link > .row > h6').click()
+    cy.get('#nav-item-1').click()
 
-    cy.get('h3').should("contain.text", "ตารางนัดหมายลูกค้า")
-    cy.get('.col-6 > .el-button').should("contain.text", "เพิ่มนัดหมาย")
-    cy.get('.col-6 > .el-button').click()
+    cy.get('.text-right > .el-button').click()
 
-    cy.get('h3').should("contain.text", "เพิ่มนัดหมายลูกค้า")
-    cy.get('.el-select > .el-input > .el-input__inner')
+    cy.get('#car-id')
         .click().type("9กณ").wait(2000).type("{downarrow}{enter}")
     cy.get('#date-1')
         .click()
-    cy.get('.el-icon-d-arrow-right')
+    cy.get(':nth-child(6) > :nth-child(4) > div')
         .click()
-    cy.get('.el-date-table > tbody > :nth-child(3) > :nth-child(3) > div')
-        .click()
+    // cy.get('.el-date-table > tbody > :nth-child(3) > :nth-child(3) > div')
+    //     .click()
     cy.get('#time')
         .click().type("{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}")
     cy.get('#customer-story')

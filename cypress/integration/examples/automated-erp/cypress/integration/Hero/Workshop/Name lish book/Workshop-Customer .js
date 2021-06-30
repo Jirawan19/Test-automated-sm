@@ -45,7 +45,7 @@ const AddCustomer1 = () => {
         .clear().type("10220").type("{enter}")
     taxAddCustomer6(getRandomNumberAddCustomer(0, 10))
     taxAddCustomer3(getRandomNumberAddCustomer(0, 3))
-    cy.get('.md-rows > .btn-select')
+    cy.get('#step0 > .row > .step_row_footer > .btn-select')
         .click()
 }
 
@@ -78,11 +78,9 @@ const AddCustomer2 = () => {
     taxAddCustomer4(getRandomNumberAddCustomer(1, 3))
     taxAddCustomer5(getRandomNumberAddCustomer(0, 5))
     cy.get('#input_carBrand')
-        .click().type("{downarrow}{downarrow}{enter}", { force: true })
-    cy.get('#input_carModel')
-        .click()
-    cy.get('[style="min-width: 605px; position: absolute; top: 600px; left: 875px; transform-origin: center top; z-index: 2004;"] > .el-scrollbar > .el-select-dropdown__wrap > .el-scrollbar__view > :nth-child(4)')
-        .click()
+        .click().type("{downarrow}{downarrow}{enter}", { force: true }).tab()
+    // cy.get('#input_carModel')
+        .click().type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
     cy.get('#step2-province')
         .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
 
@@ -94,7 +92,7 @@ const AddCustomer2 = () => {
     cy.get(':nth-child(8) > .mb-4-CustomStyle > .el-select > .el-input > .el-input__inner')
         .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
     cy.get('#latestMileages').type("500")
-    cy.get('#step1 > :nth-child(1) > [align="right"] > div > :nth-child(2) > .btn').click()
+    cy.get('#step1 > .row > .step_row_footer > .btn-select').click()
 }
 const taxAddCustomer4 = (textNo) => {
     cy.get('#carRegistrationNumber')

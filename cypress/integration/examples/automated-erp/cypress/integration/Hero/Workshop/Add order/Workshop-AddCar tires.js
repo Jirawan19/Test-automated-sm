@@ -16,7 +16,7 @@ context("Warehouse", () => {
 
 // รายละเอียดสินค้า
 const addCartiees = () => {
-    cy.get(':nth-child(5) > .nav-link > .row').click()
+    cy.get('#nav-item-4').click()
     cy.get('#tab-TIRE').click()
     cy.get('.row.mt-4 > .text-xl-right > .btn-confirm').click()
     taxCartiees(getRandomNumberCartiees(0, 10))
@@ -94,26 +94,26 @@ const checkconfimeCartiees = () => {
 
 // เพิ่มรายการซื้อ
 const Addorder = () => {
-    
+
     // เพิ่มผู้จำหน่าย
-    cy.get(':nth-child(4) > .nav-link > .row > h6')
-        .click()
-    cy.get('.col-xl-auto > a > .btn-confirm').click()
-    cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{enter}")
+    // cy.get('#nav-item-3')
+    //     .click()
+    // cy.get('.col-xl-auto > a > .btn-confirm').click()
+    // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
+    //     .click().type("{downarrow}{enter}")
 
-    cy.get('#state-name').type("test01")
-    cy.get('#state-address').type("sky")
-    cy.get('#state-mobileNo').type("0955915150")
-    cy.get('#state-taxCustomerNumber').type("1100201520688")
-    cy.get('[success=""]').click()
+    // cy.get('#state-name').type("test01")
+    // cy.get('#state-address').type("sky")
+    // cy.get('#state-mobileNo').type("0955915150")
+    // cy.get('#state-taxCustomerNumber').type("1100201520688")
+    // cy.get('[success=""]').click()
 
-    cy.get('.swal2-confirm').click()
+    // cy.get('.swal2-confirm').click()
 
 
 
     // แท็บรายการซื้อ
-    cy.get('#nav-item-3 > .nav-link > .row')
+    cy.get('#nav-item-3')
         .click()
 
     // เลือกผู้จำหน่าย
@@ -130,11 +130,11 @@ const Addorder = () => {
         .click().type("{downarrow}{downarrow}{enter}", { force: true })
     cy.get('#searchRimSize > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{enter}", { force: true })
+    cy.get('#btnsearchTire')
+        .click()
 
     // เลือกสินค้า
-    cy.get('.d-xl-block > .table > tbody > :nth-child(1) > :nth-child(5) > .btn-details')
-        .click()
-    
+    cy.get('#btnAddtiredesk-0').click()
 
     cy.get('.close').click()
 
@@ -156,13 +156,10 @@ const Addorder = () => {
     cy.get('.col-12.d-none > .table > tbody > :nth-child(1) > :nth-child(6)')
         .should("contain.text", "90.00")
 
-    // ชิ้นที่2
-
-
     cy.get('.col-12.d-none > .table > tfoot > :nth-child(1) > .text-right')
         .should("contain.text", "90.00 บาท")
 
-        
+
     cy.get('.row.text-right > :nth-child(2) > .btn')
         .click()
 

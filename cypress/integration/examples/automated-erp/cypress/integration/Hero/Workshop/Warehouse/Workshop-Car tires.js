@@ -24,7 +24,7 @@ const loginWorkshop = (username, password) => {
 
 // รายละเอียดสินค้า
 const Cartiees = () => {
-    cy.get('#nav-item-4 >')
+    cy.get('#nav-item-4')
         .click()
     cy.get('#tab-TIRE').click()
     cy.get('.row.mt-4 > .text-xl-right > .btn-confirm').click()
@@ -50,23 +50,23 @@ const getRandomNumberCartiees = (min, max) => {
 }
 const taxCartiees = (textNo) => {
     cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("test Cartiees").type(textNo)
+        .type("เพิ่มยาง").type(textNo)
 }
 const taxCartiees1 = (textNo) => {
     cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3) > .el-autocomplete > .el-input > .el-input__inner')
-        .type("test").type(textNo)
+        .type("เพิ่มยาง").type(textNo)
 }
 const taxCartiees2 = (textNo) => {
     cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > :nth-child(3) > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("test").type(textNo)
+        .type("เพิ่มยาง").type(textNo)
 }
 const taxCartiees3 = (textNo) => {
     cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > :nth-child(3) > :nth-child(2) > .mt-2 > .el-input__inner')
-        .type("test").type(textNo)
+        .type("เพิ่มยาง").type(textNo)
 }
 const taxCartiees4 = (textNo) => {
     cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > .form-group.mt-2 > .el-textarea > .el-textarea__inner')
-        .type("test").type(textNo)
+        .type("เพิ่มยาง").type(textNo)
 }
 
 // รายละเอียดราคา

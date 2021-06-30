@@ -24,7 +24,8 @@ const loginWorkshop = (username, password) => {
 }
 
 const Mag = () => {
-    cy.get('#nav-item-4 >').click()
+    cy.get('#nav-item-4')
+        .click()
     cy.get('#tab-MAG').click()
 }
 
@@ -32,9 +33,9 @@ const Mag = () => {
 const Mag1 = () => {
     cy.get('.row.mt-3 > .text-xl-right > .btn-confirm').click()
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("19")
+        .type("เพิ่มแม็ก 19")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3)')
-        .type("19")
+        .type("เพิ่มแม็ก 19")
     cy.get('.col-md-10 > .mt-2 > .el-input__inner')
         .type("19")
     cy.get(':nth-child(4) > :nth-child(1) > .mt-2').type("5")

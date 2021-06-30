@@ -27,7 +27,7 @@ const loginWorkshop = (username, password) => {
 }
 
 const AddMag = () => {
-    cy.get(':nth-child(5) > .nav-link > .row').click()
+    cy.get('#nav-item-4').click()
     cy.get('#tab-MAG').click()
 }
 
@@ -80,7 +80,7 @@ const AddconfimeMag = () => {
 
 // เพิ่มรายการซื้อ
 const Addordermag = () => {
-    cy.get(':nth-child(4) > .nav-link > .row > h6')
+    cy.get('#nav-item-3')
         .click()
     cy.get('.col-xl-auto > a > .btn-confirm').click()
 
@@ -116,8 +116,8 @@ const Addordermag = () => {
     // เช็คและเลือกสินค้า
 
     // สินค้าชิ้นที่ 1
-    cy.get('#pane-MAG > .d-xl-block > .table > tbody > tr > .text-left > :nth-child(3)')
-        .should("contain.text", "ยี่ห้อ:19 ")
+    cy.get('#pane-MAG > .d-xl-block >')
+        .contains("19")
 
     cy.get('#btnAddmagdesk-0')
         .click()

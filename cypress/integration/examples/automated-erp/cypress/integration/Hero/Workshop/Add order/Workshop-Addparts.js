@@ -26,7 +26,7 @@ const loginWorkshop = (username, password) => {
 }
 // กรอกรายละเอียดสินค้า
 const addParts = () => {
-    cy.get(':nth-child(5) > .nav-link > .row').click()
+    cy.get('#nav-item-4').click()
     cy.get('#tab-PART').click()
     cy.get('.col-xl-auto > .btn-confirm')
         .click()
@@ -108,7 +108,7 @@ const Addorderparts = () => {
 
 
     // แท็บรายการซื้อ
-    cy.get('#nav-item-3 > .nav-link > .row')
+    cy.get('#nav-item-3')
         .click()
 
     // เลือกผู้จำหน่าย

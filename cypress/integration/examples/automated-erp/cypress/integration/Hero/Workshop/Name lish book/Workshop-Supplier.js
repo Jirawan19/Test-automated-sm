@@ -23,7 +23,7 @@ const loginWorkshop = (username, password) => {
 }
 // เข้าหน้าเพิ่มพนักงาน
 const AddSupplier = () => {
-    cy.get(':nth-child(7) > .nav-link > .row').click()
+    cy.get('#nav-item-6').click()
     cy.get('#tab-supplier').click()
 }
 
@@ -39,7 +39,7 @@ const AddSupplier1 = () => {
     // ยืนยันเพิ่ม supplier
     cy.get('[success=""]').click()
     cy.get('.swal2-confirm').click()
-    
+
 }
 const getRandomNumberAddSupplier = (min, max) => {
     0, 0
@@ -65,14 +65,18 @@ const taxAddSupplier3 = (textNo) => {
 const taxAddSupplier4 = (textNo) => {
     cy.get('#state-taxCustomerNumber')
         .type(textNo)
-
-
-
 }
-
 
 // เช็คผู้จำหน่อยที่พึ่งเพิ่ม
 const checkAddSupplier = () => {
-    cy.get(':nth-child(7) > .nav-link > .row').click()
+    cy.get('#nav-item-6').click()
+    cy.get('#tab-supplier').click()
+    cy.get('#pane-supplier > :nth-child(2) > .d-none > .table > tbody > :nth-child(1) > :nth-child(1)')
+        .contains("เพิ่มผู้จำหน่าย")
+    cy.get('#pane-supplier > :nth-child(2) > .d-none > .table > tbody > :nth-child(1) > :nth-child(4) > .btn')
+        .click()
+    // cy.get('#state-name')
+    //     .contains("เพิ่มผู้จำหน่าย")
+    cy.get('.mr-5').click()
     cy.get('#tab-supplier').click()
 }

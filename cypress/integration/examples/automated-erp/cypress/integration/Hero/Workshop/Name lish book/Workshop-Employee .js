@@ -24,7 +24,7 @@ const loginWorkshop = (username, password) => {
 
 // เข้าหน้าเพิ่มพนักงาน
 const AddEmployee = () => {
-    cy.get(':nth-child(7) > .nav-link > .row').click()
+    cy.get('#nav-item-6').click()
     cy.get('#tab-employee').click()
 }
 
@@ -67,11 +67,11 @@ const taxAddEmployee3 = (textNo) => {
 }
 
 const checkEmploye = () => {
-    cy.get('#nav-item-6 > .nav-link').click()
+    cy.get('#nav-item-6').click()
     cy.get('#tab-employee').click()
 
     // cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(1)')
-    //     .contains("พนักงานขาย")
+    //     .contains("เพิ่มพนักงานขาย")
 
     cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(4) > .btn')
         .click()
