@@ -2,11 +2,8 @@
 
 
 context("Name lish book", () => {
-    beforeEach(() => {
-        cy.visit("https://herodemo.autopair.co/")
-    })
     it("Add Employee", () => {
-        loginWorkshop("empGrip01", "password")
+        cy.login("empGrip01", "password")
         AddHead()
         AddHead1()
 
@@ -26,12 +23,12 @@ const loginWorkshop = (username, password) => {
 const AddHead = () => {
     cy.get('#nav-item-6').click()
     cy.get('#tab-employee').click()
+    cy.get('#btn-addEmp')
+        .click()
 }
 
 // กรอกข้อมูลพนักงาน
 const AddHead1 = () => {
-    cy.get('#pane-employee > :nth-child(1) > .col-xl-2 > a > .btn')
-        .click()
     taxAddEmployee(getRandomNumberAddEmployee(1, 3))
     cy.get('#roleEmp').select("แอดมิน")
     cy.get('#state-password').type("password")
@@ -70,9 +67,6 @@ const checkHead = () => {
     cy.get('#nav-item-6').click()
     cy.get('#tab-employee').click()
 
-    // cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(1)')
-    //     .contains("พนักงานขาย")
-
     cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(4) > .btn')
         .click()
 
@@ -80,7 +74,7 @@ const checkHead = () => {
         .contains("แอดมิน")
 
     cy.get('.mr-5').click()
-    
+
     cy.get('#tab-employee')
         .click()
 }

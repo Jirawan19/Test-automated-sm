@@ -2,24 +2,13 @@
 
 
 context("Service", () => {
-    beforeEach(() => {
-        cy.visit("https://herodemo.autopair.co/")
-    })
     it("Add Appointment", () => {
-        loginWorkshop("empGrip01", "password")
+        cy.login("empGrip01", "password")
         addcustomer00()
         AddAppointment()
 
     })
 })
-
-const loginWorkshop = (username, password) => {
-    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
-    cy.get('#username').type(username)
-    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
-    cy.get('#password').type(password)
-    cy.get('.btn-global').click()
-}
 
 const addcustomer00 = () => {
     // เพิ่มลูกค้า
@@ -32,9 +21,9 @@ const addcustomer00 = () => {
         .type("คลองถนน")
     taxAddCustomer(getRandomNumberAddCustomer(0, 12))
     taxAddCustomer1(getRandomNumberAddCustomer(0, 2))
-    cy.get('.bv-no-focus-ring > #idCardNumber').type("1100201520688")
-    cy.get('.bv-no-focus-ring > #address').type("168/106")
-    cy.get(':nth-child(8) > .mb-4-CustomStyle > .vth-addr-container > .vth-addr-input-container > .vth-addr-input')
+    cy.get('#idCardNumber').type("1100201520688")
+    cy.get('.form-group > div > #address').type("168/106")
+    cy.get(':nth-child(9) > .mb-4-CustomStyle > .vth-addr-container > .vth-addr-input-container > .vth-addr-input')
         .clear().type("สายไหม").type("{enter}")
     cy.get('.bv-no-focus-ring > .vth-addr-container > .vth-addr-input-container > .vth-addr-input')
         .clear().type("10220").type("{enter}")
@@ -121,14 +110,14 @@ const getRandomNumberAddCustomer = (min, max) => {
     return Math.random() * (max - min) + min;
 }
 const taxAddCustomer = (textNo) => {
-    cy.get('.bv-no-focus-ring > #telNo').type(textNo)
+    cy.get('#telNo').type(textNo)
 }
 const taxAddCustomer1 = (textNo) => {
     cy.get('#name')
         .type("test customer test").type(textNo)
 }
 const taxAddCustomer2 = (textNo) => {
-    cy.get('.bv-no-focus-ring > #idCardNumber')
+    cy.get('#idCardNumber')
         .type("1100201520688")
 }
 const taxAddCustomer3 = (textNo) => {
@@ -136,6 +125,6 @@ const taxAddCustomer3 = (textNo) => {
         .type(textNo)
 }
 const taxAddCustomer6 = (textNo) => {
-    cy.get('.bv-no-focus-ring > #email')
+    cy.get('#email')
         .click().type("test").type(textNo).type("@gmail.com")
 }

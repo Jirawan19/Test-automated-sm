@@ -4,26 +4,17 @@
 
 
 context("Workshop Add Repair work", () => {
-    beforeEach(() => {
-        cy.visit("https://herodemo.autopair.co/")
-    })
+
     it("Add job work", () => {
-        loginWorkshop("empGrip01", "password")
+        cy.login("empGrip01", "password")
         // AddSupplierJob()
         // addCartiees()
         // AddTechincianOrWorkjob()
+        
         JobWork()
 
     })
 })
-
-const loginWorkshop = (username, password) => {
-    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
-    cy.get('#username').type(username)
-    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
-    cy.get('#password').type(password)
-    cy.get('.btn-global').click()
-}
 
 const JobWork = () => {
     cy.get('#nav-item-2')
@@ -42,13 +33,19 @@ const JobWork = () => {
         .click()
 
     // ค้นหาสินค้า
-    cy.get('#searchWidth > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
+    cy.wait(5000)
+
+    cy.get('#selSearchTire_Width')
         .click().type("1100").type("{downarrow}{enter}")
 
-    cy.get('#searchSeries > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
+    cy.wait(2000)
+
+    cy.get('#selSearchTire_Series')
         .click().type("10.5").type("{downarrow}{enter}")
 
-    cy.get('#searchRimSize > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
+    cy.wait(2000)
+
+    cy.get('#selSearchTire_Rim')
         .click().type("12").type("{downarrow}{enter}")
 
     // ค้นหาสินค้า
@@ -63,7 +60,8 @@ const JobWork = () => {
         .click()
     cy.get('.modal-body > .table > tbody > tr > :nth-child(1)')
         .should("contain.text", "0319")
-    cy.get('#dotModal-10602 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(3) > #amount\=0 > .el-input-number__increase > .el-icon-plus').click().click().click()
+    cy.get('.el-icon-plus')
+        .click().click().click()
     cy.get('.modal-body > .table > tbody > tr > :nth-child(2)')
         .should("contain.text", "47")
     cy.get('.btn-primary')
@@ -97,7 +95,7 @@ const JobWork = () => {
 const addCartiees = () => {
     cy.get('#nav-item-6').click()
     cy.get('#tab-inventory').click()
-    cy.get('#pane-inventory > .mb-2 > .col-xl-2 > a > .btn')
+    cy.get('#pane-inventory > .md-ai-center > .text-xl-right > a > .btn')
         .click()
     taxCartiees(getRandomNumberCartiees(0, 10))
     taxCartiees1(getRandomNumberCartiees(0, 10))
@@ -111,11 +109,9 @@ const addCartiees = () => {
         .click().type("{downarrow}{downarrow}{enter}")
     cy.get(':nth-child(5) > :nth-child(2) > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{enter}")
-    cy.get(':nth-child(5) > .pr-0 > .el-select')
+    cy.get(':nth-child(3) > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{enter}")
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .col-sm-12 > .btn-search')
-        .should("contain.text", "ถัดไป")
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .col-sm-12 > .btn-search')
+    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > :nth-child(3) > :nth-child(2) > .btn')
         .click()
 
     // รายละเอียดราคา
@@ -125,7 +121,8 @@ const addCartiees = () => {
         .clear().type("50")
     cy.get('.col-md-6 > .mt-2').clear().type("0319")
     cy.get(':nth-child(4) > .col-md-4 > .mt-2 > .el-input__inner').clear().type("50")
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .col-sm-12 > .btn-confirm').click()
+    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > :nth-child(3) > :nth-child(2) > .btn')
+        .click()
 
     // ยืนยันเพิ่มสินค้า
     cy.get('.swal2-confirm').click()
@@ -222,7 +219,7 @@ const AddSupplierJob = () => {
     cy.get('#nav-item-6').click()
     cy.get('#tab-supplier').click()
 
-    cy.get('#pane-supplier > .mb-2 > .col-xl-2 > a > .btn').click()
+    cy.get('#pane-supplier > .md-ai-center > .text-xl-right > a > .btn').click()
     taxAddSupplier(getRandomNumberAddSupplier(0, 5))
     taxAddSupplier1(getRandomNumberAddSupplier(0, 5))
     taxAddSupplier2(getRandomNumberAddSupplier(0, 9))

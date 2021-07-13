@@ -7,6 +7,7 @@ context("Warehouse", () => {
         addCartiees1()
         addconfimeCartiees()
         checkconfimeCartiees()
+        supplier()
         Addorder()
         checkorder()
 
@@ -16,9 +17,12 @@ context("Warehouse", () => {
 
 // รายละเอียดสินค้า
 const addCartiees = () => {
-    cy.get('#nav-item-4').click()
+    cy.get('#nav-item-6')
+        .click()
+    cy.get('#tab-inventory')
+        .click()
+    cy.get('#btn-addInventory').click()
     cy.get('#tab-TIRE').click()
-    cy.get('.row.mt-4 > .text-xl-right > .btn-confirm').click()
     taxCartiees(getRandomNumberCartiees(0, 10))
     taxCartiees1(getRandomNumberCartiees(0, 10))
     taxCartiees2(getRandomNumberCartiees(0, 10))
@@ -29,9 +33,9 @@ const addCartiees = () => {
         .click().type("{downarrow}{downarrow}{enter}")
     cy.get(':nth-child(5) > :nth-child(2) > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{enter}")
-    cy.get(':nth-child(5) > .pr-0 > .el-select')
+    cy.get(':nth-child(3) > .el-select > .el-input > .el-input__inner')
         .click().type("{downarrow}{downarrow}{enter}")
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .col-sm-12 > .btn-search')
+    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > :nth-child(3) > :nth-child(2) > .btn')
         .click()
 }
 
@@ -68,7 +72,7 @@ const addCartiees1 = () => {
         .clear().type("50")
     cy.get('.col-md-6 > .mt-2').clear().type("0319")
     cy.get(':nth-child(4) > .col-md-4 > .mt-2 > .el-input__inner').clear().type("50")
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .col-sm-12 > .btn-confirm').click()
+    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > :nth-child(3) > :nth-child(2) > .btn').click()
 }
 
 // ยืนยันเพิ่มสินค้า
@@ -91,45 +95,41 @@ const checkconfimeCartiees = () => {
         .click()
 
 }
+const supplier = () => {
+    // เพิ่มผู้จำหน่าย
+    cy.get('#nav-item-4').click()
+    cy.get('#btnCreate_Other_Tire_PurchaseOrder').click()
+    cy.get('#selSupplierId > .el-input > .el-input__inner')
+        .click().type("เพิ่มผู้").type("{downarrow}{enter}")
 
+    cy.get('#state-name').type("test01")
+    cy.get('#state-address').type("sky")
+    cy.get('#state-mobileNo').type("0955915150")
+    cy.get('#state-taxCustomerNumber').type("1100201520688")
+    cy.get('[success=""]').click()
+
+    cy.get('.swal2-confirm').click()
+}
 // เพิ่มรายการซื้อ
 const Addorder = () => {
-
-    // เพิ่มผู้จำหน่าย
-    // cy.get('#nav-item-3')
-    //     .click()
-    // cy.get('.col-xl-auto > a > .btn-confirm').click()
-    // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-    //     .click().type("{downarrow}{enter}")
-
-    // cy.get('#state-name').type("test01")
-    // cy.get('#state-address').type("sky")
-    // cy.get('#state-mobileNo').type("0955915150")
-    // cy.get('#state-taxCustomerNumber').type("1100201520688")
-    // cy.get('[success=""]').click()
-
-    // cy.get('.swal2-confirm').click()
-
-
-
+    cy.get('#nav-item-4').click()
     // แท็บรายการซื้อ
-    cy.get('#nav-item-3')
-        .click()
+    cy.get('#nav-item-4').click()
 
     // เลือกผู้จำหน่าย
-    cy.get('.col-xl-auto > a > .btn-confirm').click()
+    cy.get('#btnCreate_Other_Tire_PurchaseOrder').click()
+    cy.get('#selSupplierId > .el-input > .el-input__inner')
+        .click().type("test").wait(500).type("{downarrow}{enter}")
 
-    cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click().type("test").wait(1000).type("{downarrow}{enter}", { force: true })
-    cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
+    cy.get('#txtAddProductalt').click()
 
 
     // รายละเอียดสินค้า
     cy.get('#tab-TIRE').click()
-    cy.get('#searchWidth > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{downarrow}{enter}", { force: true })
-    cy.get('#searchRimSize > .bv-no-focus-ring > .el-select > .el-input > .el-input__inner')
-        .click().type("{downarrow}{downarrow}{enter}", { force: true })
+    cy.get('#selsearchTireseries')
+        .click().type("10.5").type("{downarrow}{downarrow}{enter}", { force: true })
+    cy.get('#selsearchTirerim')
+        .click().type("12").type("{downarrow}{downarrow}{enter}", { force: true })
     cy.get('#btnsearchTire')
         .click()
 

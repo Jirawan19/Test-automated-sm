@@ -26,12 +26,12 @@ const loginWorkshop = (username, password) => {
 const AddTechincian = () => {
     cy.get('#nav-item-6').click()
     cy.get('#tab-employee').click()
+    cy.get('#btn-addEmp')
+        .click()
 }
 
 // กรอกข้อมูลพนักงาน
 const AddTechincian1 = () => {
-    cy.get('#pane-employee > :nth-child(1) > .col-xl-2 > a > .btn')
-        .click()
     taxAddEmployee(getRandomNumberAddEmployee(1, 3))
     cy.get('#roleEmp').select("ช่างซ่อม")
     cy.get('#state-password').type("password")
@@ -70,8 +70,6 @@ const checkTechincian = () => {
     cy.get('#nav-item-6').click()
     cy.get('#tab-employee').click()
 
-    // cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(1)')
-    //     .contains("พนักงานขาย")
 
     cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(4) > .btn')
         .click()

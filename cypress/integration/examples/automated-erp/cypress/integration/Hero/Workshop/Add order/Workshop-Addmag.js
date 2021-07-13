@@ -6,11 +6,9 @@ context("Warehouse", () => {
         cy.visit("https://herodemo.autopair.co/")
     })
     it("Mag", () => {
-        loginWorkshop("empGrip01", "password")
+        cy.login("empGrip01", "password")
         AddMag()
-        AddMag1()
-        AddMag2()
-        AddconfimeMag()
+        supplier()
 
         Addordermag()
         checkordermag()
@@ -18,22 +16,13 @@ context("Warehouse", () => {
     })
 })
 
-const loginWorkshop = (username, password) => {
-    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
-    cy.get('#username').type(username)
-    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
-    cy.get('#password').type(password)
-    cy.get('.btn-global').click()
-}
-
 const AddMag = () => {
-    cy.get('#nav-item-4').click()
-    cy.get('#tab-MAG').click()
-}
+    cy.get('#nav-item-6').click()
+    cy.get('#tab-inventory').click()
+    cy.get('#pane-inventory > .md-ai-center > .text-xl-right > a > .btn').click()
 
-// กรอกรายละเอียดสินค้า
-const AddMag1 = () => {
-    cy.get('.row.mt-3 > .text-xl-right > .btn-confirm').click()
+    // กรอกรายละเอียดสินค้า
+    cy.get('#tab-MAG').click()
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
         .type("19")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3)')
@@ -43,65 +32,66 @@ const AddMag1 = () => {
     cy.get(':nth-child(4) > :nth-child(1) > .mt-2').type("5")
     cy.get(':nth-child(4) > .col-md-6 > .mt-2').type("5")
     cy.get('.w-auto').type("5")
-    // **
-    cy.get(':nth-child(5) > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("500")
-    cy.get(':nth-child(5) > :nth-child(2) > .mt-2 > .el-input__inner')
+    cy.get('.mt-mobile > .el-textarea > .el-textarea__inner')
         .click().type("test")
     cy.get(':nth-child(5) > :nth-child(3) > .mt-2 > .el-input__inner')
         .type("white")
     cy.get(':nth-child(4) > .mt-2 > .el-input__inner')
         .type("5")
-    cy.get('.pr-5 > .calculator-form > .el-input__inner')
+    cy.get(':nth-child(5) > :nth-child(1) > .mt-2 > .el-input__inner')
+        .type("500")
+    cy.get(':nth-child(5) > :nth-child(2) > .mt-2 > .el-input__inner')
+        .type("123")
+    cy.get(':nth-child(1) > .calculator-form > .el-input__inner')
         .click().clear().type("40")
-    cy.get('.pr-0 > .calculator-form > .el-input__inner')
+    cy.get(':nth-child(2) > .calculator-form > .el-input__inner')
         .click().clear().type("17")
 
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .col-sm-12 > .btn-search').click()
-}
+    cy.get('#pane-MAG > .col-xl-12 > .col-12 > :nth-child(3) > :nth-child(2) > .btn')
+        .click()
 
-// รายละเอียดราคา
-// เพิ่มสินค้าตัวเดิมยิดในคลังจะต้องเพิ่ม
-const AddMag2 = () => {
+    // รายละเอียดราคา
+
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(2) > .mt-2 > .el-input__inner')
         .clear().type("5")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(3) > .mt-2 > .el-input__inner')
         .clear().type("30")
     cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(4) > .mt-2 > .el-input__inner')
         .clear().type("20")
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .col-sm-12 > .btn-confirm').click()
-}
+    cy.get('#pane-MAG > .col-xl-12 > .col-12 > :nth-child(3) > :nth-child(2) > .btn').click()
 
-// ยืนยันเพิ่มสินค้า
-const AddconfimeMag = () => {
+    // ยืนยันเพิ่มสินค้า
     cy.get('.swal2-confirm').click()
     cy.get('#tab-MAG').click()
 }
 
+
+
+const supplier = () => {
+    cy.get('#nav-item-4').click()
+    cy.get('#btnCreate_Other_Mag_PurchaseOrder').click()
+    cy.get('#selSupplierId > .el-input > .el-input__inner')
+        .click().type("เพิ่มผู้").type("{downarrow}{enter}")
+
+    cy.get('#state-name').type("test01")
+    cy.get('#state-address').type("sky")
+    cy.get('#state-mobileNo').type("0955915150")
+    cy.get('#state-taxCustomerNumber').type("1100201520688")
+    cy.get('[success=""]').click()
+
+    cy.get('.swal2-confirm').click()
+}
 // เพิ่มรายการซื้อ
 const Addordermag = () => {
-    cy.get('#nav-item-3')
+    cy.get('#nav-item-4')
         .click()
-    cy.get('.col-xl-auto > a > .btn-confirm').click()
-
-    // เพิ่มผู้จำหน่าย
-    // cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-    //     .click().type("{downarrow}{enter}")
-
-    // cy.get('.bv-no-focus-ring > #name').type("test01")
-    // cy.get('.bv-no-focus-ring > #address').type("sky")
-    // cy.get('.bv-no-focus-ring > #mobileNo').type("0955915150")
-    // cy.get('.bv-no-focus-ring > #taxCustomerNumber').type("1100201520688")
-    // cy.get('.btn-confirm').click()
-
-    // cy.get('.swal2-confirm').click()
-
-
+    cy.get('#tab-MAG')
+        .click()
+    cy.get('#btnCreate_Other_Mag_PurchaseOrder')
+        .click()
 
     // เลือกผู้จำหน่าย
-    cy.get('.col-xl-auto > a > .btn-confirm')
-        .click()
-    cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
+    cy.get('#selSupplierId > .el-input > .el-input__inner')
         .click().type("test").type("{downarrow}{enter}", { force: true })
     cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
 

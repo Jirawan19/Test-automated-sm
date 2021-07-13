@@ -2,23 +2,13 @@
 
 
 context("Service", () => {
-    beforeEach(() => {
-        cy.visit("https://herodemo.autopair.co/")
-    })
+
     it("Add Service", () => {
-        loginWorkshop("empGrip01", "password")
+        cy.login("empGrip01", "password")
         AddService()
         checkservice()
     })
 })
-const loginWorkshop = (username, password) => {
-    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
-    cy.get('#username').type(username)
-    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
-    cy.get('#password').type(password)
-    cy.get('.btn-global').click()
-}
-
 // เข้ารายการ บริการ
 const AddService = () => {
     cy.get('#nav-item-5').click()
@@ -49,10 +39,14 @@ const checkservice = () => {
     cy.wait(500)
 
     cy.get('tbody > tr > :nth-child(1)').contains("เพิ่มบริการ")
-    cy.get(':nth-child(1) > .text-center > .btn').click()
+    cy.get(':nth-child(2) > .btn')
+        .click()
 
 
-    cy.get('.mr-5').click()
+    cy.get('.text-center > #btnEditBy-0 > img')
+        .click()
+    cy.get('.mr-5')
+        .click()
 
 }
 

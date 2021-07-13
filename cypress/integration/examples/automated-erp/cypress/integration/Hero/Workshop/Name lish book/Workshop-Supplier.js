@@ -2,11 +2,9 @@
 
 
 context("Name lish book", () => {
-    beforeEach(() => {
-        cy.visit("https://herodemo.autopair.co/")
-    })
+
     it("Add Supplier", () => {
-        loginWorkshop("empGrip01", "password")
+        cy.login("empGrip01", "password")
         AddSupplier()
         AddSupplier1()
 
@@ -14,22 +12,16 @@ context("Name lish book", () => {
     })
 })
 
-const loginWorkshop = (username, password) => {
-    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
-    cy.get('#username').type(username)
-    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
-    cy.get('#password').type(password)
-    cy.get('.btn-global').click()
-}
 // เข้าหน้าเพิ่มพนักงาน
 const AddSupplier = () => {
     cy.get('#nav-item-6').click()
     cy.get('#tab-supplier').click()
+    cy.get('#btn-addSupplier')
+        .click()
 }
 
 // กรอกข้อมูล Sopplier
 const AddSupplier1 = () => {
-    cy.get('#pane-supplier > .mb-2 > .col-xl-2 > a > .btn').click()
     taxAddSupplier(getRandomNumberAddSupplier(0, 5))
     taxAddSupplier1(getRandomNumberAddSupplier(0, 5))
     taxAddSupplier2(getRandomNumberAddSupplier(0, 9))
