@@ -1,9 +1,9 @@
-// ตลาดค้าส่งออนไลน์ ยาง/สินค้าส่งด่วน
+// ตลาดค้าส่งออนไลน์ ยาง/สินค้าส่งไม่ด่วน
 
 /// <reference types="cypress" />
 
-context("Add order to Supplier", () => {
-    it("Add order-car tires", () => {
+context("workshop-expressCar tires", () => {
+    it("workshop-expressCar tires", () => {
         cy.login("empGrip01", "password")
         orderExpressTires()
         orderExpressTires1()
@@ -11,24 +11,24 @@ context("Add order to Supplier", () => {
         logout()
     })
 
-    // it("supplier receive", () => {
-    //     cy.login("atpf-member1", "atpf16011986")
-    //     supplierreceive()
-    //     Supllierlogout()
-    // })
+    it("supplier receive", () => {
+        cy.login("grip-member1", "password")
+        supplierreceive()
+        Supllierlogout()
+    })
 
-    // it("workshop receive ", () => {
-    //     cy.login("empGrip01", "password")
+    it("workshop receive ", () => {
+        cy.login("empGrip01", "password")
 
-    //     // รับรายการยางรถยนต์ แบบทั้งหมด
-    //     receiveSale()
-    //     checkreceive()
+        // รับรายการยางรถยนต์ แบบทั้งหมด
+        // receiveSale()
+        // checkreceive()
 
-    //     // รับรายการยางรถยนต์ แบบบางชิ้น
-    //     // receiveSale1()
-    //     // checkreceive1()
+        // รับรายการยางรถยนต์ แบบบางชิ้น
+        receiveSale1()
+        checkreceive1()
 
-    // })
+    })
 })
 // เข้าหน้าเพิ่มรายการซื้อ
 const orderExpressTires = () => {
@@ -36,21 +36,28 @@ const orderExpressTires = () => {
         .click()
 
     cy.get('#btnMenu-0')
-        .click().wait(2000)
+        .click()
 
 }
 // เพิ่มรายการซื้อ ยาง
 const orderExpressTires1 = () => {
     // หน้ากว้าง
     cy.get('#txtSelectWidth')
-        .type("195").wait(500).type("{downarrow}{downarrow}{enter}")
+        .type("195").wait(500).type("{enter}")
 
     // ซีรี่ย์
-    cy.get('#vs2__combobox > .vs__selected-options > #txtSelectSeries')
-        .type("65").wait(500).type("{downarrow}{downarrow}{enter}")
+    cy.get('#txtSelectSeries')
+        .type("65").wait(500).type("{enter}")
+
+    cy.get('#txtSelectRim')
+        .type("15").wait(500).type("{enter}")
+
+    cy.get('#txtSelectBrand')
+        .type("TOYO").wait(500).type("{enter}")
+
 
     // เลือกสินค้า
-    cy.get('#btnAddCartById-27506')
+    cy.get('#btnAddCartById-49')
         .click()
 
     cy.get('.el-notification__closeBtn').click()
@@ -61,17 +68,17 @@ const orderExpressTires1 = () => {
 
     // เช็ครายการสินค้า
     cy.get('.td-list-text > :nth-child(1)')
-        .contains("195 / 65 R 15 (CITY TOUR)")
+        .contains("195 / 65 R 15 (NANO ENERGY 3)")
 
     // จำนวน
     cy.get('#txtQtyReciveBySupplyIndex-0-0')
         .click().clear().type("2")
 
     cy.get('thead > [style="cursor: pointer;"] > :nth-child(4)')
-        .contains("850.00")
+        .contains("2,650.00")
 
     cy.get('.total-price')
-        .contains("1,700.00 บาท")
+        .contains("5,300.00 บาท")
 
     // ยืนยันการซื้อสินค้า
     cy.get(':nth-child(2) > .btn')
@@ -91,7 +98,7 @@ const checkOrderExpressTires = () => {
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
         .contains("195 / 65 R 15")
     cy.get('#totalNettd')
-        .contains("1,700.00 บาท")
+        .contains("5,300.00 บาท")
 
     cy.get('#backtoindex')
         .click()
@@ -129,12 +136,12 @@ const supplierreceive = () => {
     cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > .primary-blue')
         .contains("195 / 65 R 15")
     cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(3)')
-        .contains("CITY TOUR")
+        .contains("NANO ENERGY 3")
     cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(5)')
-        .contains("POWERTRAC")
+        .contains("TOYO")
 
     cy.get('.the-footer > :nth-child(3) > :nth-child(2)')
-        .contains("1,700.00 บาท")
+        .contains("5,300.00 บาท")
 
     // บันทึกรับรายการขาย
     cy.get(':nth-child(2) > span > .btn').click()
@@ -157,9 +164,9 @@ const receiveSale = () => {
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
         .contains("195 / 65 R 15")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
-        .contains("CITY TOUR")
+        .contains("NANO ENERGY 3")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
-        .contains("POWERTRAC")
+        .contains("TOYO")
 
     // กรอกจำนวนและ dot ที่รับสินค้า
     cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
@@ -188,9 +195,9 @@ const checkreceive = () => {
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
         .should("contain.text", "195 / 65 R 15")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
-        .should("contain.text", "CITY TOUR")
+        .should("contain.text", "NANO ENERGY 3")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
-        .should("contain.text", "POWERTRAC")
+        .should("contain.text", "TOYO")
     cy.get('#totalNettd')
         .contains("4,000.00 บาท")
     cy.get('tbody > :nth-child(1) > :nth-child(7)')
@@ -213,9 +220,9 @@ const receiveSale1 = () => {
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
         .contains("195 / 65 R 15")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
-        .contains("CITY TOUR")
+        .contains("NANO ENERGY 3")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
-        .contains("POWERTRAC")
+        .contains("TOYO")
 
     // กรอกจำนวนและ dot ที่รับสินค้า
     cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
@@ -244,9 +251,9 @@ const checkreceive1 = () => {
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
         .should("contain.text", "195 / 65 R 15")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(3)')
-        .should("contain.text", "CITY TOUR")
+        .should("contain.text", "NANO ENERGY 3")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)')
-        .should("contain.text", "POWERTRAC")
+        .should("contain.text", "TOYO")
     cy.get('tbody > :nth-child(1) > :nth-child(8)')
         .contains("4,000.00")
     cy.get('#backtoindex').click()

@@ -1,19 +1,20 @@
+// อะไหล่ ช่วงล่างและบังคับเลี้ยว ไม่ด่วน
+
+
 /// <reference types="cypress" />
 
-context("Add order to Supplier", () => {
-    beforeEach(() => {
-        cy.visit("https://herodemo.autopair.co/")
-    })
+context("workshop-expressPartsShockAbsorber", () => {
+
     it("Add order-parts", () => {
         cy.login("empGrip01", "password")
-        orderExpressBrake()
-        orderExpressBrake1()
-        checkorderExpressBrake()
+        orderExpressShock()
+        orderExpressShock1()
+        checkorderExpressShock()
         logout()
     })
 
     it("supplier receiveATP", () => {
-        cy.login("atpf-member1", "atpf16011986")
+        cy.login("atp-member1", "atp16011986")
         supplierreceive()
         Supllierlogout()
     })
@@ -32,21 +33,30 @@ context("Add order to Supplier", () => {
 })
 
 // เข้าหน้าเพิ่มรายการซื้อ
-const orderExpressBrake = () => {
+const orderExpressShock = () => {
     cy.get('#nav-item-0')
         .click()
 
-    cy.get('.swiper-slide-next > .menu-col')
+    cy.get('#btnMenu-2')
         .click().wait(1000)
 }
 
 // เพิ่มรายการซื้ออะไหล่ ระบบเบรก
-const orderExpressBrake1 = () => {
-    cy.get('#selSearchPart')
-        .click().type("{downarrow}{enter}")
+const orderExpressShock1 = () => {
+    cy.get('#vs6__combobox')
+        .wait(2000).click().type("โช้คอัพ").type("{enter}")
 
-    cy.get('#btnAddCartById-25280')
+    cy.get('#vs7__combobox')
+        .wait(2000).click().type("หลัง").type("{enter}")
+
+
+    cy.get('#vs8__combobox')
+        .wait(2000).click().type("TOKICO").type("{enter}")
+
+
+    cy.get('#btnAddCartById-6364')
         .click()
+
     cy.get('.el-notification__closeBtn')
         .click()
 
@@ -57,17 +67,17 @@ const orderExpressBrake1 = () => {
 
     // เช็ครายการสินค้า
     cy.get('.td-list-text > :nth-child(1)')
-        .contains("ผ้าดิสเบรค หลัง (NC-1511)")
+        .contains("โช้คอัพ หลัง (2771)")
 
     // จำนวน
     cy.get('#txtQtyReciveBySupplyIndex-0-0')
         .clear().type("3")
     // ราคา
     cy.get('thead > [style="cursor: pointer;"] > :nth-child(4)')
-        .contains("290.00")
+        .contains("399.91")
 
     cy.get('.total-price')
-        .contains("870.00 บาท")
+        .contains("1,199.74 บาท")
 
     cy.get(':nth-child(2) > .btn')
         .click()
@@ -77,16 +87,16 @@ const orderExpressBrake1 = () => {
 }
 
 // เช็ครายการสินค้าที่พึ่งเปิด
-const checkorderExpressBrake = () => {
+const checkorderExpressShock = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
         .click()
 
     cy.get('.status-border')
         .contains("รอยืนยันรายการ")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("NC-1511")
+        .contains("2771")
     cy.get('#totalNettd')
-        .contains("870.00 บาท")
+        .contains("1,199.74 บาท")
 
     cy.get('#backtoindex')
         .click()
@@ -103,14 +113,6 @@ const Supllierlogout = () => {
     cy.get('.dropdown-menu > .dropdown-item')
         .click()
 }
-
-const loginsupplierATP = (username, password) => {
-    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
-    cy.get('#username').type(username)
-    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
-    cy.get('#password').type(password)
-    cy.get('.btn-global').click()
-}
 const supplierreceive = () => {
     // เข้าหน้ารับรายการขาย
     cy.get(':nth-child(1) > .nav-link > .row > h6').click()
@@ -119,13 +121,11 @@ const supplierreceive = () => {
     // เช็คสินค้าและราคา
     cy.get('.status-border').contains("รอยืนยันรายการ")
 
-    cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > .primary-blue')
-        .contains("NC-1511")
     cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(4)')
-        .contains("ผ้าดิสเบรค หลัง")
+        .contains("โช้คอัพ หลัง")
 
     cy.get('.the-footer > :nth-child(3) > :nth-child(2)')
-        .contains("870.00 บาท")
+        .contains("1,199.74 บาท")
 
     // บันทึกรับรายการขาย
     cy.get(':nth-child(2) > span > .btn').click()
@@ -144,18 +144,18 @@ const receiveSaleparts = () => {
     cy.get('.status-border').contains("รอรับสินค้า")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("NC-1511")
+        .contains("2771")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("ผ้าดิสเบรค หลัง")
+        .contains("โช้คอัพ หลัง")
 
     cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
         .clear().type("3")
 
     cy.get('tbody > :nth-child(1) > :nth-child(7)')
-        .contains("870.00")
+        .contains("1,199.74")
 
     cy.get('#totalNettd')
-        .contains("870.00 บาท")
+        .contains("1,199.74 บาท")
 
 
     // บันทึกรายการ
@@ -173,12 +173,13 @@ const checkreceiveparts = () => {
     cy.get('.status-border').contains("รายการเสร็จสิ้น")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .should("contain.text", "NC-1511")
+        .should("contain.text", "2771")
+
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .should("contain.text", "ผ้าดิสเบรค")
+        .contains("โช้คอัพ หลัง")
 
     cy.get('#totalNettd')
-        .contains("870.00 บาท")
+        .contains("1,199.74 บาท")
 
     cy.get('tbody > :nth-child(1) > :nth-child(7)')
         .contains("ยืนยันการส่ง")
@@ -189,35 +190,35 @@ const checkreceiveparts = () => {
 // workshop รับรายการอะไหล่ แบบบางชิ้น
 const receiveSaleparts1 = () => {
     cy.get('#nav-item-3')
-    .click()
+        .click()
 
-cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
-    .click()
-// ตรวจเช็ครายการสินค้า
-cy.get('.status-border').contains("รอรับสินค้า")
+    cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
+        .click()
+    // ตรวจเช็ครายการสินค้า
+    cy.get('.status-border').contains("รอรับสินค้า")
 
-cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-    .contains("NC-1511")
-cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-    .contains("ผ้าดิสเบรค หลัง")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
+        .contains("2771")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
+        .contains("โช้คอัพ หลัง")
 
-cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
-    .clear().type("2")
+    cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
+        .clear().type("2")
 
-cy.get('tbody > :nth-child(1) > :nth-child(7)')
-    .contains("870.00")
+    cy.get('tbody > :nth-child(1) > :nth-child(7)')
+        .contains("1,199.74")
 
-cy.get('#totalNettd')
-    .contains("870.00 บาท")
+    cy.get('#totalNettd')
+        .contains("1,199.74 บาท")
 
 
-// บันทึกรายการ
-cy.get('.d-xl-flex > :nth-child(2) > .btn').click()
-cy.get('.swal2-confirm').click()
+    // บันทึกรายการ
+    cy.get('.d-xl-flex > :nth-child(2) > .btn').click()
+    cy.get('.swal2-confirm').click()
 
-cy.wait(500)
+    cy.wait(500)
 
-cy.get('.swal2-confirm').click()
+    cy.get('.swal2-confirm').click()
 
 
 }
@@ -226,12 +227,12 @@ const checkreceiveparts1 = () => {
     cy.get('.status-border').contains("รับสินค้าบางส่วน")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .should("contain.text", "NC-1511")
+        .should("contain.text", "2771")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .should("contain.text", "ผ้าดิสเบรค")
+        .contains("โช้คอัพ หลัง")
 
     cy.get('#totalNettd')
-        .contains("870.00 บาท")
+        .contains("1,199.74 บาท")
 
 
     cy.get('#backtoindex').click()

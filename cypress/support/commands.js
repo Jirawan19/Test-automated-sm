@@ -18,6 +18,12 @@ Cypress.Commands.add("login", (username, password) => {
     cy.get('#password').type(password)
     cy.get('.btn-global').click()
 })
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
+  })
 //
 //
 // -- This is a child command --

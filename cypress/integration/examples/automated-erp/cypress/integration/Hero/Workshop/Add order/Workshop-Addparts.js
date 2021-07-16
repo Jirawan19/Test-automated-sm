@@ -2,9 +2,6 @@
 
 
 context("Warehouse", () => {
-    beforeEach(() => {
-        cy.visit("https://herodemo.autopair.co/")
-    })
     it("Parts", () => {
         cy.login("empGrip01", "password")
         addParts()
@@ -20,29 +17,33 @@ const addParts = () => {
         .click()
     cy.get('#tab-inventory')
         .click()
-    cy.get('#pane-inventory > .md-ai-center > .text-xl-right > a > .btn')
+    cy.get('#btn-addInventory')
         .click()
-    cy.get('#tab-PART')
-        .click()
+    cy.get('#tab-PART').click()
+
     taxParts(getRandomNumberParts(1, 10))
-    cy.get('.col-md-2 > .el-select > .el-input > .el-input__inner')
+    cy.get('#fitmentDetail')
         .click().type("{downarrow}{enter}")
     taxParts1(getRandomNumberParts(1, 10))
     taxParts2(getRandomNumberParts(1, 10))
     taxParts3(getRandomNumberParts(1, 10))
-    cy.get('#pane-PART > .col-xl-12 > .col-12 > .fromitem > .form-group.mt-2 > .el-textarea > .el-textarea__inner')
-        .type("test")
-    cy.get('#pane-PART > .col-xl-12 > .col-12 > .col-sm-12 > .btn-search').click()
+    cy.get('#itemDescription')
+        .type("เพิ่มอะไหล่")
+
+    cy.get('#btnNextPart')
+        .click()
 
     // รายละเอียดราคา
-    cy.get(':nth-child(1) > .mt-2 > .el-input__inner').type("10")
-    cy.get('.pl-xl-5 > .el-select > .el-input > .el-input__inner')
+    cy.get('#amountRemainStock')
+        .clear().type("10")
+    cy.get('#unit')
         .click().type("{downarrow}{enter}")
-    cy.get('#pane-PART > .col-xl-12 > .col-12 > .fromitem > :nth-child(2) > :nth-child(3) > .mt-2 > .el-input__inner')
+    cy.get(':nth-child(3) > .mt-2 > #salesPricePart')
         .clear().type("200")
-    cy.get('#pane-PART > .col-xl-12 > .col-12 > .fromitem > :nth-child(2) > :nth-child(4) > .mt-2 > .el-input__inner')
+    cy.get(':nth-child(4) > .mt-2 > #salesPricePart')
         .clear().type("150")
-    cy.get('#pane-PART > .col-xl-12 > .col-12 > .col-sm-12 > .btn-confirm').click()
+    cy.get('#btnsaveInventoryPart')
+        .click()
 
     // ยืนยันเพิ่มสินค้า
     cy.get('.swal2-confirm').click()
@@ -59,35 +60,29 @@ const getRandomNumberParts = (min, max) => {
 }
 
 const taxParts = (textNo) => {
-    cy.get('.col-md-4 > .el-autocomplete > .el-input > .el-input__inner')
-        .type("test Parts").type(textNo)
-
+    cy.get('#itemName')
+        .type("เพิ่มอะไหล่").type(textNo)
 }
-
 const taxParts1 = (textNo) => {
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("test Parts").type(textNo)
+    cy.get('#brand')
+        .type("เพิ่มอะไหล่").type(textNo)
 }
 const taxParts2 = (textNo) => {
-    cy.get('#pane-PART > .col-xl-12 > .col-12 > .fromitem > .form-row.mt-2 > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("test Parts").type(textNo)
+    cy.get('#manufacturerNo')
+        .type("เพิ่มอะไหล่").type(textNo)
 }
 const taxParts3 = (textNo) => {
-    cy.get('.pl-xl-5 > .mt-2 > .el-input__inner')
-        .type("test Parts").type(textNo)
+    cy.get('#oeNo')
+        .type("เพิ่มอะไหล่").type(textNo)
 }
 
-const checkconfimeCarparts = () => {
-
-
-}
 const supplier = () => {
     cy.get('#nav-item-4').click()
-    cy.get('#btnCreate_Other_Mag_PurchaseOrder').click()
+    cy.get('#btnCreate_Other_Part_PurchaseOrder').click()
     cy.get('#selSupplierId > .el-input > .el-input__inner')
         .click().type("เพิ่มผู้").type("{downarrow}{enter}")
 
-    cy.get('#state-name').type("test01")
+    cy.get('#state-name').type("เพิ่มอะไหล่")
     cy.get('#state-address').type("sky")
     cy.get('#state-mobileNo').type("0955915150")
     cy.get('#state-taxCustomerNumber').type("1100201520688")
@@ -100,28 +95,32 @@ const supplier = () => {
 const Addorderparts = () => {
 
     // แท็บรายการซื้อ
-    cy.get('#nav-item-3')
+    cy.get('#nav-item-4')
+        .click()
+    cy.get('#tab-PART')
+        .click()
+    cy.get('#btnCreate_Other_Part_PurchaseOrder')
         .click()
 
-    // เลือกผู้จำหน่าย
-    cy.get('.col-xl-auto > a > .btn-confirm').click()
-
     cy.get('.row > :nth-child(1) > .el-select > .el-input > .el-input__inner')
-        .click().type("test").wait(500).type("{downarrow}{enter}", { force: true })
+        .click().type("test").wait(500).type("{downarrow}{enter}")
     cy.get('.d-xl-flex > .col-xl-6 > .btn').click()
 
     // รายละเอียดสินค้า
     cy.get('#tab-PART').click()
-    cy.get('#txtinventorySeach').click().type("test")
+    cy.wait(10000)
+    cy.get('#txtpartBrand')
+        .click().type("เพิ่มอะไหล่")
     cy.get('#btnSearchPart').click()
 
 
     // เลือกสินค้า
-    cy.get('#pane-PART > .d-xl-block > .table > tbody > tr > :nth-child(1)')
-        .contains("test")
+    cy.get('#pane-PART > .d-xl-block > .table > tbody > :nth-child(1) > :nth-child(1)')
+        .contains("เพิ่มอะไหล่")
 
-    cy.get('#pane-PART > .d-xl-block > .table > tbody > :nth-child(1) > :nth-child(6) > .btn-details')
-        .click()
+
+    cy.get('#btnAddPartdesk-0')
+        .click({ force: true })
 
 
     cy.get('.close').click()
@@ -150,6 +149,8 @@ const checkorderparts = () => {
 
     cy.get('tbody > :nth-child(1) > :nth-child(5)')
         .should("contain.text", "90.00")
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left')
+        .contains("เพิ่มอะไหล่")
 
 
     cy.get('.ml-auto > .nuxt-link-active > .btn').click()

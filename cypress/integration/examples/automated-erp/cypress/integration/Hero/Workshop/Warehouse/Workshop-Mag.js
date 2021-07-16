@@ -6,7 +6,7 @@ context("Warehouse", () => {
         cy.visit("https://herodemo.autopair.co/")
     })
     it("Mag", () => {
-        loginWorkshop("empGrip01", "password")
+        cy.login("empGrip01", "password")
         Mag()
         Mag1()
         Mag2()
@@ -15,20 +15,12 @@ context("Warehouse", () => {
     })
 })
 
-const loginWorkshop = (username, password) => {
-    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
-    cy.get('#username').type(username)
-    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
-    cy.get('#password').type(password)
-    cy.get('.btn-global').click()
-}
-
 const Mag = () => {
     cy.get('#nav-item-6')
         .click()
     cy.get('#tab-inventory')
         .click()
-    cy.get('#pane-inventory > .mb-2 > .col-xl-2 > a > .btn')
+    cy.get('#btn-addInventory')
         .click()
     cy.get('#tab-MAG')
         .click()
@@ -37,42 +29,47 @@ const Mag = () => {
 
 // กรอกรายละเอียดสินค้า
 const Mag1 = () => {
-    // cy.get('.row.mt-3 > .text-xl-right > .btn-confirm').click()
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
+    cy.get('#ItemCodeMag')
+        .type("เพิ่มแม็ก")
+    cy.get('#brandMag')
         .type("เพิ่มแม็ก 19")
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3)')
-        .type("เพิ่มแม็ก 19")
-    cy.get('.col-md-10 > .mt-2 > .el-input__inner')
+    cy.get('#cb-0')
         .type("19")
-    cy.get(':nth-child(4) > :nth-child(1) > .mt-2').type("5")
-    cy.get(':nth-child(4) > .col-md-6 > .mt-2').type("5")
-    cy.get('.w-auto').type("5")
-    cy.get(':nth-child(5) > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("500")
-    cy.get(':nth-child(5) > :nth-child(3) > .mt-2 > .el-input__inner')
-        .type("whit")
-    cy.get(':nth-child(5) > :nth-child(2) > .mt-2 > .el-input__inner')
+    cy.get('#pcdhod-0')
         .type("5")
-    cy.get(':nth-child(4) > .mt-2 > .el-input__inner').type("25")
-    cy.get('.pr-5 > .calculator-form > ')
+    cy.get('#pcdsize-0')
+        .type("5")
+    cy.get('#pcddec-0')
+        .type("5")
+    cy.get('#itemoffsetMag')
+        .type("500")
+    cy.get('#itemcolorMag')
+        .type("white")
+    cy.get('#model_mag')
+        .type("5")
+    cy.get('#skuMag')
+        .type("25")
+    cy.get('#widthMag')
         .click().type("40")
-    cy.get('.pr-0 > .calculator-form > .el-input__inner')
+    cy.get('#rimMag')
         .click().type("17")
 
-    cy.get('#pane-MAG > .col-xl-12 > .col-md-12 > .col-sm-12 > .btn-search')
+    cy.get('#btnnextMag')
         .click()
 }
 
 // รายละเอียดราคา
 // เพิ่มสินค้าตัวเดิมยิดในคลังจะต้องเพิ่ม
 const Mag2 = () => {
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(2) > .mt-2 > .el-input__inner')
+    cy.get('#amountMag')
         .clear().type("5")
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(3) > .mt-2 > .el-input__inner')
+    cy.get('#salesPriceMag')
         .clear().type("30")
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .fromitem > .form-row > :nth-child(4) > .mt-2 > .el-input__inner')
+    cy.get('#promotionMag')
         .clear().type("20")
-    cy.get('#pane-MAG > .col-xl-12 > .col-12 > .col-sm-12 > .btn-confirm').click()
+
+    cy.get('#btnsaveInventorymag')
+        .click()
 }
 
 // ยืนยันเพิ่มสินค้า

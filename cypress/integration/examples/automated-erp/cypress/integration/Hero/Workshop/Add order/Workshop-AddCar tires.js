@@ -18,24 +18,27 @@ context("Warehouse", () => {
 // รายละเอียดสินค้า
 const addCartiees = () => {
     cy.get('#nav-item-6')
-        .click()
-    cy.get('#tab-inventory')
-        .click()
-    cy.get('#btn-addInventory').click()
-    cy.get('#tab-TIRE').click()
+    .click()
+cy.get('#tab-inventory')
+    .click()  
+cy.get('#btn-addInventory')
+    .click()
+cy.get('#tab-TIRE').click()
+
     taxCartiees(getRandomNumberCartiees(0, 10))
     taxCartiees1(getRandomNumberCartiees(0, 10))
     taxCartiees2(getRandomNumberCartiees(0, 10))
     taxCartiees3(getRandomNumberCartiees(0, 10))
     taxCartiees4(getRandomNumberCartiees(0, 10))
 
-    cy.get(':nth-child(5) > :nth-child(1) > .el-select > .el-input > .el-input__inner')
+    cy.get('#widthTire')
         .click().type("{downarrow}{downarrow}{enter}")
-    cy.get(':nth-child(5) > :nth-child(2) > .el-select > .el-input > .el-input__inner')
+    cy.get('#serieTire')
         .click().type("{downarrow}{downarrow}{enter}")
-    cy.get(':nth-child(3) > .el-select > .el-input > .el-input__inner')
+    cy.get('#rimTire')
         .click().type("{downarrow}{downarrow}{enter}")
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > :nth-child(3) > :nth-child(2) > .btn')
+        
+    cy.get('#btnnextTirestep')
         .click()
 }
 
@@ -44,35 +47,39 @@ const getRandomNumberCartiees = (min, max) => {
     return Math.random() * (max - min) + min;
 }
 const taxCartiees = (textNo) => {
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("test Cartiees").type(textNo)
+    cy.get('#ItemCodeTire')
+        .type("เพิ่มยาง").type(textNo)
 }
 const taxCartiees1 = (textNo) => {
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > .mt-3 > :nth-child(3) > .el-autocomplete > .el-input > .el-input__inner')
-        .type("test").type(textNo)
+    cy.get('#brandTire')
+        .type("เพิ่มยาง").type(textNo)
 }
 const taxCartiees2 = (textNo) => {
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > :nth-child(3) > :nth-child(1) > .mt-2 > .el-input__inner')
-        .type("test").type(textNo)
+    cy.get('#itemtagTire')
+        .type("เพิ่มยาง").type(textNo)
 }
 const taxCartiees3 = (textNo) => {
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > :nth-child(3) > :nth-child(2) > .mt-2 > .el-input__inner')
-        .type("test").type(textNo)
+    cy.get('#skuTire')
+        .type("เพิ่มยาง").type(textNo)
 }
 const taxCartiees4 = (textNo) => {
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > .form-group.mt-2 > .el-textarea > .el-textarea__inner')
-        .type("test").type(textNo)
+    cy.get('#itemDescriptionTire')
+        .type("เพิ่มยาง").type(textNo)
 }
 
 // รายละเอียดราคา
 const addCartiees1 = () => {
     cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > :nth-child(2) > :nth-child(2) > .mt-2 > .el-input__inner')
-        .clear().type("100")
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > :nth-child(2) > :nth-child(3) > .mt-2 > .el-input__inner')
-        .clear().type("50")
-    cy.get('.col-md-6 > .mt-2').clear().type("0319")
-    cy.get(':nth-child(4) > .col-md-4 > .mt-2 > .el-input__inner').clear().type("50")
-    cy.get('#pane-TIRE > .col-xl-12 > .col-12 > :nth-child(3) > :nth-child(2) > .btn').click()
+    .clear().type("100")
+
+cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .fromitem > :nth-child(2) > :nth-child(3) > .mt-2 > .el-input__inner')
+    .clear().type("50")
+
+cy.get('.col-md-6 > .mt-2').clear().type("0319")
+
+cy.get(':nth-child(4) > .col-md-4 > .mt-2 > .el-input__inner').clear().type("50")
+
+cy.get('#pane-TIRE > .col-xl-12 > .col-12 > .col-sm-12 > .btn-confirm').click()
 }
 
 // ยืนยันเพิ่มสินค้า
