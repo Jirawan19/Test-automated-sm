@@ -3,13 +3,13 @@
 
 /// <reference types="cypress" />
 
-context("workshop-expressPartsShockAbsorber", () => {
+context("workshop-OnlinePartsShockAbsorber", () => {
 
     it("Add order-parts", () => {
         cy.login("empGrip01", "password")
-        orderExpressShock()
-        orderExpressShock1()
-        checkorderExpressShock()
+        orderOnlineShock()
+        orderOnlineShock1()
+        checkorderOnlineShock()
         logout()
     })
 
@@ -33,7 +33,7 @@ context("workshop-expressPartsShockAbsorber", () => {
 })
 
 // เข้าหน้าเพิ่มรายการซื้อ
-const orderExpressShock = () => {
+const orderOnlineShock = () => {
     cy.get('#nav-item-0')
         .click()
 
@@ -42,15 +42,15 @@ const orderExpressShock = () => {
 }
 
 // เพิ่มรายการซื้ออะไหล่ ระบบเบรก
-const orderExpressShock1 = () => {
-    cy.get('#vs6__combobox')
+const orderOnlineShock1 = () => {
+    cy.get('#selSearchPart')
         .wait(2000).click().type("โช้คอัพ").type("{enter}")
 
-    cy.get('#vs7__combobox')
+    cy.get('#vs11__combobox > .vs__selected-options > #selSearchPartPositions')
         .wait(2000).click().type("หลัง").type("{enter}")
 
 
-    cy.get('#vs8__combobox')
+    cy.get('#vs12__combobox > .vs__selected-options > #selSearchPartBrands')
         .wait(2000).click().type("TOKICO").type("{enter}")
 
 
@@ -87,7 +87,7 @@ const orderExpressShock1 = () => {
 }
 
 // เช็ครายการสินค้าที่พึ่งเปิด
-const checkorderExpressShock = () => {
+const checkorderOnlineShock = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
         .click()
 

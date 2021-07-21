@@ -1,15 +1,15 @@
-// อะไหล่ สายพาน ไม่ด่วน
+// อะไหล่ ลูกปืน ไม่ด่วน
 
 
 /// <reference types="cypress" />
 
-context("workshop-expressPartsSaipan ", () => {
+context("workshop-OnlinePartsBallBearing", () => {
 
     it("Add order-parts", () => {
         cy.login("empGrip01", "password")
-        orderExpressSaipan()
-        orderExpressSaipan1()
-        checkorderExpressSaipan()
+        orderOnlineBallBearing()
+        orderOnlineBallBearing1()
+        checkorderOnlineBallBearing()
         logout()
     })
 
@@ -33,20 +33,24 @@ context("workshop-expressPartsSaipan ", () => {
 })
 
 // เข้าหน้าเพิ่มรายการซื้อ
-const orderExpressSaipan = () => {
+const orderOnlineBallBearing = () => {
     cy.get('#nav-item-0')
         .click()
 
-    cy.get('#btnMenu-3')
+    cy.get('#btnMenu-6')
         .click().wait(1000)
 }
 
 // เพิ่มรายการซื้ออะไหล่ ระบบเบรก
-const orderExpressSaipan1 = () => {
+const orderOnlineBallBearing1 = () => {
     cy.get('#selSearchPart')
-        .wait(2000).click().type("สายพานไดร์ชาร์จ (หน้าเครื่อง)").type("{enter}")
+        .wait(2000).click().type("ลูกปืนล้อ").type("{enter}")
 
-    cy.get('#btnAddCartById-28944')
+    cy.get('#vs12__combobox > .vs__selected-options > #selSearchPartBrands')
+        .wait(2000).click().type("GSP").type("{enter}")
+
+
+    cy.get('#btnAddCartById-29499')
         .click()
 
     cy.get('.el-notification__closeBtn')
@@ -59,17 +63,17 @@ const orderExpressSaipan1 = () => {
 
     // เช็ครายการสินค้า
     cy.get('.td-list-text > :nth-child(1)')
-        .contains("สายพานไดร์ชาร์จ (หน้าเครื่อง) (9.5x925(FAN))")
+        .contains("ลูกปืนล้อ หน้า (9135006.0)")
 
     // จำนวน
     cy.get('#txtQtyReciveBySupplyIndex-0-0')
         .clear().type("3")
     // ราคา
     cy.get('thead > [style="cursor: pointer;"] > :nth-child(4)')
-        .contains("56.18")
+        .contains("119.00")
 
     cy.get('.total-price')
-        .contains("168.52 บาท")
+        .contains("357.00 บาท")
 
     cy.get(':nth-child(2) > .btn')
         .click()
@@ -79,22 +83,16 @@ const orderExpressSaipan1 = () => {
 }
 
 // เช็ครายการสินค้าที่พึ่งเปิด
-const checkorderExpressSaipan = () => {
+const checkorderOnlineBallBearing = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
         .click()
 
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("9.5x925(FAN)")
-
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("สายพานไดร์ชาร์จ (หน้าเครื่อง)")
-
-
     cy.get('.status-border')
         .contains("รอยืนยันรายการ")
-
+    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
+        .contains("9135006.0")
     cy.get('#totalNettd')
-        .contains("168.52 บาท")
+        .contains("357.00 บาท")
 
     cy.get('#backtoindex')
         .click()
@@ -119,13 +117,11 @@ const supplierreceive = () => {
     // เช็คสินค้าและราคา
     cy.get('.status-border').contains("รอยืนยันรายการ")
 
-    cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > .primary-blue')
-        .contains("9.5x925(FAN)")
     cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(4)')
-        .contains("สายพานไดร์ชาร์จ (หน้าเครื่อง)")
+        .contains("ลูกปืนล้อ หน้า")
 
     cy.get('.the-footer > :nth-child(3) > :nth-child(2)')
-        .contains("168.52 บาท")
+        .contains("357.00 บาท")
 
     // บันทึกรับรายการขาย
     cy.get(':nth-child(2) > span > .btn').click()
@@ -144,18 +140,15 @@ const receiveSaleparts = () => {
     cy.get('.status-border').contains("รอรับสินค้า")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("9.5x925(FAN)")
+        .contains("9135006.0")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("สายพานไดร์ชาร์จ (หน้าเครื่อง)")
+        .contains("ลูกปืนล้อ หน้า")
 
     cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
         .clear().type("3")
 
-    cy.get('tbody > :nth-child(1) > :nth-child(7)')
-        .contains("168.52")
-
     cy.get('#totalNettd')
-        .contains("168.52 บาท")
+        .contains("357.00 บาท")
 
 
     // บันทึกรายการ
@@ -173,13 +166,13 @@ const checkreceiveparts = () => {
     cy.get('.status-border').contains("รายการเสร็จสิ้น")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .should("contain.text", "9.5x925(FAN)")
+        .should("contain.text", "9135006.0")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("สายพานไดร์ชาร์จ (หน้าเครื่อง)")
+        .contains("ลูกปืนล้อ หน้า")
 
     cy.get('#totalNettd')
-        .contains("168.52 บาท")
+        .contains("357.00 บาท")
 
     cy.get('tbody > :nth-child(1) > :nth-child(7)')
         .contains("ยืนยันการส่ง")
@@ -198,18 +191,15 @@ const receiveSaleparts1 = () => {
     cy.get('.status-border').contains("รอรับสินค้า")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("9.5x925(FAN)")
+        .contains("9135006.0")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("สายพานไดร์ชาร์จ (หน้าเครื่อง)")
+        .contains("ลูกปืนล้อ หน้า")
 
     cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
         .clear().type("2")
 
-    cy.get('tbody > :nth-child(1) > :nth-child(7)')
-        .contains("168.52")
-
     cy.get('#totalNettd')
-        .contains("168.52 บาท")
+        .contains("357.00 บาท")
 
 
     // บันทึกรายการ
@@ -227,12 +217,12 @@ const checkreceiveparts1 = () => {
     cy.get('.status-border').contains("รับสินค้าบางส่วน")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .should("contain.text", "9.5x925(FAN)")
+        .should("contain.text", "9135006.0")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("สายพานไดร์ชาร์จ (หน้าเครื่อง)")
+        .contains("ลูกปืนล้อ หน้า")
 
     cy.get('#totalNettd')
-        .contains("168.52 บาท")
+        .contains("357.00 บาท")
 
 
     cy.get('#backtoindex').click()

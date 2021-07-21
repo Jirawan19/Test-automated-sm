@@ -1,15 +1,15 @@
-// อะไหล่ ใส้กรอง ไม่ด่วน
+// อะไหล่ ระบบส่งกำลังและเกีร์ย ไม่ด่วน
 
 
 /// <reference types="cypress" />
 
-context("workshop-expressPartsFilter", () => {
+context("workshop-OnlinePartsGear", () => {
 
     it("Add order-parts", () => {
         cy.login("empGrip01", "password")
-        orderExpressFilter()
-        orderExpressFilter1()
-        checkorderExpressFilter()
+        orderOnlineGear()
+        orderOnlineGear1()
+        checkorderOnlineGear()
         logout()
     })
 
@@ -33,24 +33,24 @@ context("workshop-expressPartsFilter", () => {
 })
 
 // เข้าหน้าเพิ่มรายการซื้อ
-const orderExpressFilter = () => {
+const orderOnlineGear = () => {
     cy.get('#nav-item-0')
         .click()
 
-    cy.get('#btnMenu-5')
+    cy.get('#btnMenu-4')
         .click().wait(1000)
 }
 
 // เพิ่มรายการซื้ออะไหล่ ระบบเบรก
-const orderExpressFilter1 = () => {
-    cy.get('#vs10__combobox')
-        .wait(2000).click().type("ไส้กรองแอร์").type("{enter}")
+const orderOnlineGear1 = () => {
+    cy.get('#selSearchPart')
+        .wait(2000).click().type("หัวเพลาขับ").type("{enter}")
 
-    cy.get('#vs11__combobox')
-        .wait(2000).click().type("FAME").type("{enter}")
+    cy.get('#vs12__combobox > .vs__selected-options > #selSearchPartBrands')
+        .wait(2000).click().type("KNK").type("{enter}")
 
 
-    cy.get('#btnAddCartById-8699')
+    cy.get('#btnAddCartById-8771')
         .click()
 
     cy.get('.el-notification__closeBtn')
@@ -63,17 +63,17 @@ const orderExpressFilter1 = () => {
 
     // เช็ครายการสินค้า
     cy.get('.td-list-text > :nth-child(1)')
-        .contains("ไส้กรองแอร์ (27277-1H0A)")
+        .contains("หัวเพลาขับ (H21-6005)")
 
     // จำนวน
     cy.get('#txtQtyReciveBySupplyIndex-0-0')
         .clear().type("3")
     // ราคา
     cy.get('thead > [style="cursor: pointer;"] > :nth-child(4)')
-        .contains("80.00")
+        .contains("512.00")
 
     cy.get('.total-price')
-        .contains("240.00 บาท")
+        .contains("1,536.00 บาท")
 
     cy.get(':nth-child(2) > .btn')
         .click()
@@ -83,22 +83,22 @@ const orderExpressFilter1 = () => {
 }
 
 // เช็ครายการสินค้าที่พึ่งเปิด
-const checkorderExpressFilter = () => {
+const checkorderOnlineGear = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
         .click()
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("27277-1H0A")
+        .contains("H21-6005")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("ไส้กรองแอร์")
+        .contains("หัวเพลาขับ")
 
 
     cy.get('.status-border')
         .contains("รอยืนยันรายการ")
 
     cy.get('#totalNettd')
-        .contains("240.00 บาท")
+        .contains("1,536.00 บาท")
 
     cy.get('#backtoindex')
         .click()
@@ -124,12 +124,12 @@ const supplierreceive = () => {
     cy.get('.status-border').contains("รอยืนยันรายการ")
 
     cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > .primary-blue')
-        .contains("27277-1H0A")
+        .contains("H21-6005")
     cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(4)')
-        .contains("ไส้กรองแอร์")
+        .contains("หัวเพลาขับ")
 
     cy.get('.the-footer > :nth-child(3) > :nth-child(2)')
-        .contains("240.00 บาท")
+        .contains("1,536.00 บาท")
 
     // บันทึกรับรายการขาย
     cy.get(':nth-child(2) > span > .btn').click()
@@ -148,15 +148,15 @@ const receiveSaleparts = () => {
     cy.get('.status-border').contains("รอรับสินค้า")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("27277-1H0A")
+        .contains("H21-6005")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("ไส้กรองแอร์")
+        .contains("หัวเพลาขับ")
 
     cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
         .clear().type("3")
 
     cy.get('#totalNettd')
-        .contains("240.00 บาท")
+        .contains("1,536.00 บาท")
 
 
     // บันทึกรายการ
@@ -174,13 +174,13 @@ const checkreceiveparts = () => {
     cy.get('.status-border').contains("รายการเสร็จสิ้น")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .should("contain.text", "27277-1H0A")
+        .should("contain.text", "H21-6005")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("ไส้กรองแอร์")
+        .contains("หัวเพลาขับ")
 
     cy.get('#totalNettd')
-        .contains("240.00 บาท")
+        .contains("1,536.00 บาท")
 
     cy.get('tbody > :nth-child(1) > :nth-child(7)')
         .contains("ยืนยันการส่ง")
@@ -199,18 +199,18 @@ const receiveSaleparts1 = () => {
     cy.get('.status-border').contains("รอรับสินค้า")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("27277-1H0A")
+        .contains("H21-6005")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("ไส้กรองแอร์")
+        .contains("หัวเพลาขับ")
 
     cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
         .clear().type("2")
 
     cy.get('tbody > :nth-child(1) > :nth-child(7)')
-        .contains("240.00")
+        .contains("1,536.00")
 
     cy.get('#totalNettd')
-        .contains("240.00 บาท")
+        .contains("1,536.00 บาท")
 
 
     // บันทึกรายการ
@@ -228,12 +228,12 @@ const checkreceiveparts1 = () => {
     cy.get('.status-border').contains("รับสินค้าบางส่วน")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .should("contain.text", "27277-1H0A")
+        .should("contain.text", "H21-6005")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("ไส้กรองแอร์")
+        .contains("หัวเพลาขับ")
 
     cy.get('#totalNettd')
-        .contains("240.00 บาท")
+        .contains("1,536.00 บาท")
 
 
     cy.get('#backtoindex').click()

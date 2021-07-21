@@ -1,15 +1,15 @@
-// อะไหล่ ระบบส่งกำลังและเกีร์ย ไม่ด่วน
+// อะไหล่ สายพาน ไม่ด่วน
 
 
 /// <reference types="cypress" />
 
-context("workshop-expressPartsGear", () => {
+context("workshop-OnlinePartsSaipan ", () => {
 
     it("Add order-parts", () => {
         cy.login("empGrip01", "password")
-        orderExpressGear()
-        orderExpressGear1()
-        checkorderExpressGear()
+        orderOnlineSaipan()
+        orderOnlineSaipan1()
+        checkorderOnlineSaipan()
         logout()
     })
 
@@ -33,24 +33,23 @@ context("workshop-expressPartsGear", () => {
 })
 
 // เข้าหน้าเพิ่มรายการซื้อ
-const orderExpressGear = () => {
+const orderOnlineSaipan = () => {
     cy.get('#nav-item-0')
         .click()
 
-    cy.get('#btnMenu-4')
+    cy.get('#btnMenu-3')
         .click().wait(1000)
 }
 
 // เพิ่มรายการซื้ออะไหล่ ระบบเบรก
-const orderExpressGear1 = () => {
+const orderOnlineSaipan1 = () => {
     cy.get('#selSearchPart')
-        .wait(2000).click().type("หัวเพลาขับ").type("{enter}")
+        .wait(2000).click().type("สายพานแอร์").type("{enter}")
 
     cy.get('#vs12__combobox > .vs__selected-options > #selSearchPartBrands')
-        .wait(2000).click().type("KNK").type("{enter}")
-
-
-    cy.get('#btnAddCartById-8771')
+        .wait(2000).click().type("MITSUBOSHI").type("{enter}")
+ 
+    cy.get('#btnAddCartById-28946')
         .click()
 
     cy.get('.el-notification__closeBtn')
@@ -63,17 +62,17 @@ const orderExpressGear1 = () => {
 
     // เช็ครายการสินค้า
     cy.get('.td-list-text > :nth-child(1)')
-        .contains("หัวเพลาขับ (H21-6005)")
+        .contains("สายพานแอร์")
 
     // จำนวน
     cy.get('#txtQtyReciveBySupplyIndex-0-0')
         .clear().type("3")
     // ราคา
     cy.get('thead > [style="cursor: pointer;"] > :nth-child(4)')
-        .contains("512.00")
+        .contains("55.37")
 
     cy.get('.total-price')
-        .contains("1,536.00 บาท")
+        .contains("166.12 บาท")
 
     cy.get(':nth-child(2) > .btn')
         .click()
@@ -83,22 +82,23 @@ const orderExpressGear1 = () => {
 }
 
 // เช็ครายการสินค้าที่พึ่งเปิด
-const checkorderExpressGear = () => {
+const checkorderOnlineSaipan = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
         .click()
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("H21-6005")
+        .contains("9.5x900(A/C)")
+
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("หัวเพลาขับ")
+        .contains("สายพานแอร์")
 
 
     cy.get('.status-border')
         .contains("รอยืนยันรายการ")
 
     cy.get('#totalNettd')
-        .contains("1,536.00 บาท")
+        .contains("166.12 บาท")
 
     cy.get('#backtoindex')
         .click()
@@ -124,12 +124,12 @@ const supplierreceive = () => {
     cy.get('.status-border').contains("รอยืนยันรายการ")
 
     cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > .primary-blue')
-        .contains("H21-6005")
+        .contains("9.5x900(A/C)")
     cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(4)')
-        .contains("หัวเพลาขับ")
+        .contains("สายพานแอร์")
 
     cy.get('.the-footer > :nth-child(3) > :nth-child(2)')
-        .contains("1,536.00 บาท")
+        .contains("166.12 บาท")
 
     // บันทึกรับรายการขาย
     cy.get(':nth-child(2) > span > .btn').click()
@@ -148,15 +148,16 @@ const receiveSaleparts = () => {
     cy.get('.status-border').contains("รอรับสินค้า")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("H21-6005")
+        .contains("9.5x900(A/C)")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("หัวเพลาขับ")
+        .contains("สายพานแอร์")
 
     cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
         .clear().type("3")
 
+
     cy.get('#totalNettd')
-        .contains("1,536.00 บาท")
+        .contains("166.12 บาท")
 
 
     // บันทึกรายการ
@@ -174,13 +175,13 @@ const checkreceiveparts = () => {
     cy.get('.status-border').contains("รายการเสร็จสิ้น")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .should("contain.text", "H21-6005")
+        .should("contain.text", "9.5x900(A/C)")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("หัวเพลาขับ")
+        .contains("สายพานแอร์")
 
     cy.get('#totalNettd')
-        .contains("1,536.00 บาท")
+        .contains("166.12 บาท")
 
     cy.get('tbody > :nth-child(1) > :nth-child(7)')
         .contains("ยืนยันการส่ง")
@@ -199,18 +200,15 @@ const receiveSaleparts1 = () => {
     cy.get('.status-border').contains("รอรับสินค้า")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("H21-6005")
+        .contains("9.5x900(A/C)")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("หัวเพลาขับ")
+        .contains("สายพานแอร์")
 
     cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
         .clear().type("2")
 
-    cy.get('tbody > :nth-child(1) > :nth-child(7)')
-        .contains("1,536.00")
-
     cy.get('#totalNettd')
-        .contains("1,536.00 บาท")
+        .contains("166.12 บาท")
 
 
     // บันทึกรายการ
@@ -228,12 +226,12 @@ const checkreceiveparts1 = () => {
     cy.get('.status-border').contains("รับสินค้าบางส่วน")
 
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .should("contain.text", "H21-6005")
+        .should("contain.text", "9.5x900(A/C)")
     cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("หัวเพลาขับ")
+        .contains("สายพานแอร์")
 
     cy.get('#totalNettd')
-        .contains("1,536.00 บาท")
+        .contains("166.12 บาท")
 
 
     cy.get('#backtoindex').click()

@@ -2,12 +2,12 @@
 
 /// <reference types="cypress" />
 
-context("workshop-expressCar tires", () => {
-    it("workshop-expressCar tires", () => {
+context("workshop-OnlineCar tires", () => {
+    it("workshop-OnlineCar tires", () => {
         cy.login("empGrip01", "password")
-        orderExpressTires()
-        orderExpressTires1()
-        checkOrderExpressTires()
+        orderOnlineTires()
+        orderOnlineTires1()
+        checkOrderOnlineTires()
         logout()
     })
 
@@ -21,17 +21,17 @@ context("workshop-expressCar tires", () => {
         cy.login("empGrip01", "password")
 
         // รับรายการยางรถยนต์ แบบทั้งหมด
-        // receiveSale()
-        // checkreceive()
+        receiveSale()
+        checkreceive()
 
         // รับรายการยางรถยนต์ แบบบางชิ้น
-        receiveSale1()
-        checkreceive1()
+        // receiveSale1()
+        // checkreceive1()
 
     })
 })
 // เข้าหน้าเพิ่มรายการซื้อ
-const orderExpressTires = () => {
+const orderOnlineTires = () => {
     cy.get('#nav-item-0')
         .click()
 
@@ -40,7 +40,7 @@ const orderExpressTires = () => {
 
 }
 // เพิ่มรายการซื้อ ยาง
-const orderExpressTires1 = () => {
+const orderOnlineTires1 = () => {
     // หน้ากว้าง
     cy.get('#txtSelectWidth')
         .type("195").wait(500).type("{enter}")
@@ -57,7 +57,7 @@ const orderExpressTires1 = () => {
 
 
     // เลือกสินค้า
-    cy.get('#btnAddCartById-49')
+    cy.get('#btnAddCartById-333')
         .click()
 
     cy.get('.el-notification__closeBtn').click()
@@ -89,7 +89,7 @@ const orderExpressTires1 = () => {
 }
 
 // เช็ครายการสินค้าที่พึ่งเปิด
-const checkOrderExpressTires = () => {
+const checkOrderOnlineTires = () => {
     cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
         .click()
 

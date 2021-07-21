@@ -7,9 +7,9 @@ context("Workshop Add Repair work", () => {
 
     it("Add job work", () => {
         cy.login("empGrip01", "password")
-        // AddSupplierJob()
-        // AddTechincianOrWorkjob()
-        // addService()
+        AddSupplierJob()
+        AddTechincianOrWorkjob()
+        addService()
 
         JobWork()
         JobWork1()
