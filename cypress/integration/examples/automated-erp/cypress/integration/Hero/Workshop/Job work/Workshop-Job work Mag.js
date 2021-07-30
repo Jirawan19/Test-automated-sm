@@ -7,13 +7,12 @@ context("Workshop Add Repair work", () => {
 
     it("Add job work", () => {
         cy.login("empGrip01", "password")
-        AddCustomerJob()
-        AddTechincianOrWorkjob()
-        addCartiees()
+        // AddCustomerJob()
+        // AddTechincianOrWorkjob()
+        addMag()
 
         JobWork()
         JobWork1()
-
     })
 })
 
@@ -34,33 +33,26 @@ const JobWork = () => {
         .click()
 
     // ค้นหาสินค้า
-    cy.wait(2000)
+    cy.wait(1000)
 
-    cy.get('#txtSelectWidth')
-        .click().type("185").type("{enter}")
-
-    cy.wait(2000)
-
-    cy.get('#txtSelectSeries')
-        .click().type("16").type("{enter}")
-
-    cy.get('#btnSearchTire')
+    cy.get('#tab-MAG')
         .click()
 
-    // ค้นหาสินค้า
-    cy.get('#trTireCatalog0 > .text-left')
-        .contains("เพิ่มยาง")
+    cy.get('#searchMagswidth')
+        .click().type("40").type("{enter}")
 
-    // เลือกสินค้า
-    cy.get('#dotM-1')
+    cy.get('#searchMagsrim')
+        .click().type("17").type("{enter}")
+
+    cy.get('#btnsearchmag')
         .click()
-    cy.get('.modal-body > .table > tbody > tr > :nth-child(1)')
-        .should("contain.text", "0319")
-    cy.get('.el-icon-plus')
-        .click().click().click()
-    cy.get('.modal-body > .table > tbody > tr > :nth-child(2)')
-        .should("contain.text", "47")
-    cy.get('.btn-primary')
+
+    // เลือกสินค้า,ค้นหาสินค้า
+
+    cy.get('.d-xl-block > .table > tbody > tr > .text-left > .primary-blue')
+        .contains("40")
+
+    cy.get('#addMagPo-5')
         .click()
 
     cy.get('.el-notification__closeBtn')
@@ -69,116 +61,91 @@ const JobWork = () => {
     cy.get('#Product > .modal-dialog > .modal-content > .modal-header > .close')
         .click()
 
-    // เช็ครายการที่เลือก
-    cy.get('#tiredata-0 > :nth-child(3)')
-        .contains("เพิ่มยาง")
 
+    // ตรวจเช็ครายละเอียดสินค้า
+    cy.get('#magdata-0')
+        .contains("เพิ่มแม็ก 19")
+
+    cy.get('#magqty-0')
+        .click().clear().type("2")
     // ราคาต่อหน่วย
-    cy.get('#tireendUserPriceList-0')
-        .clear().type("200")
+    cy.get('#magmastotal-0')
+        .contains("60.00")
 
-    // เช็คราคาของรายการงานซ่อม
-    cy.get('#pricetotal')
-        .contains("600.00")
+    // ราคาสุทธิ
     cy.get('#paymentPrice')
-        .contains("642.00 บาท")
+        .contains("64.20 บาท")
 
-    //  บันทึกรายากร
+    cy.get('#txtNote')
+        .click().type("test")
+
+    //  เปิดรายการซ่อม
     cy.get('#btncreateWalkInWorkshopJob')
         .click()
 
     cy.get('.swal2-confirm')
         .click()
 }
+
+
 const JobWork1 = () => {
     cy.get('#btnJobdetail-0')
         .click()
 }
+
 // เพิ่มสินค้า รายละเอียดสินค้า
-const addCartiees = () => {
+const addMag = () => {
     cy.get('#nav-item-7')
         .click()
     cy.get('#tab-inventory')
         .click()
     cy.get('#btn-addInventory')
         .click()
-    cy.get('#tab-TIRE').click()
+    cy.get('#tab-MAG').click()
 
-    taxCartiees(getRandomNumberCartiees(0, 10))
-    taxCartiees1(getRandomNumberCartiees(0, 10))
-    taxCartiees2(getRandomNumberCartiees(0, 10))
-    taxCartiees3(getRandomNumberCartiees(0, 10))
-    taxCartiees4(getRandomNumberCartiees(0, 10))
+    cy.get('#ItemCodeMag')
+        .type("เพิ่มแม็ก")
+    cy.get('#brandMag')
+        .type("เพิ่มแม็ก 19")
+    cy.get('#cb-0')
+        .type("19")
+    cy.get('#pcdhod-0')
+        .type("5")
+    cy.get('#pcdsize-0')
+        .type("5")
+    cy.get('#pcddec-0')
+        .type("5")
+    cy.get('#itemoffsetMag')
+        .type("500")
+    cy.get('#itemcolorMag')
+        .type("white")
+    cy.get('#model_mag')
+        .type("5")
+    cy.get('#skuMag')
+        .type("25")
+    cy.get('#widthMag')
+        .click().type("40")
+    cy.get('#rimMag')
+        .click().type("17")
 
-    cy.get('#txtSelectWidth')
-        .click().type("185").type("{enter}")
-    cy.get('#txtSelectSeries')
-        .click().type("16").type("{enter}")
-    cy.get('#txtSelectRim')
-        .click().type("15").type("{enter}")
-
-    cy.get('#btnnextTirestep')
+    cy.get('#btnnextMag')
         .click()
 
     // รายละเอียดราคา
-    cy.get('#salesPriceTire')
-        .clear().type("100")
+    cy.get('#amountMag')
+        .clear().type("5")
+    cy.get('#salesPriceMag')
+        .clear().type("30")
+    cy.get('#promotionMag')
+        .clear().type("20")
 
-    cy.get('#promotionTire')
-        .clear().type("50")
-
-    cy.get('#tiredot-0')
-        .clear().type("0319")
-
-    cy.get('#tireamount-0')
-        .clear().type("50")
-
-    cy.get('#saveInventoryTire').click()
+    cy.get('#btnsaveInventorymag')
+        .click()
 
     // ยืนยันเพิ่มสินค้า
     cy.get('.swal2-confirm').click()
-    cy.get('#tab-TIRE').click()
-
-    // เช็คสินค้าที่เพิ่ม
-    cy.get('#pane-TIRE > #ordersTable > .d-none > .table > tbody > #inventorys-0 > :nth-child(6) > .btn-details')
-        .click()
-    cy.get('.form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > #inventorys-0 > :nth-child(1)')
-        .should("contain.text", "0319")
-    cy.get('#inventorytabletire > .modal-dialog > .modal-content > .modal-body > .form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > .font-weight-bold > :nth-child(2)')
-        .should("contain.text", "50")
-
-    cy.get('#inventorytabletire > .modal-dialog > .modal-content > .modal-footer > .btn')
-        .click()
-
-
+    cy.get('#tab-MAG').click()
 }
-
-const getRandomNumberCartiees = (min, max) => {
-    0, 0
-    return Math.random() * (max - min) + min;
-}
-const taxCartiees = (textNo) => {
-    cy.get('#ItemCodeTire')
-        .type("เพิ่มยาง").type(textNo)
-}
-const taxCartiees1 = (textNo) => {
-    cy.get('#brandTire')
-        .type("เพิ่มยาง").type(textNo)
-}
-const taxCartiees2 = (textNo) => {
-    cy.get('#itemtagTire')
-        .type("เพิ่มยาง").type(textNo)
-}
-const taxCartiees3 = (textNo) => {
-    cy.get('#skuTire')
-        .type("เพิ่มยาง").type(textNo)
-}
-const taxCartiees4 = (textNo) => {
-    cy.get('#itemDescriptionTire')
-        .type("เพิ่มยาง").type(textNo)
-}
-
-
 // เข้าหน้าเพิ่มพนักงาน
 const AddTechincianOrWorkjob = () => {
     cy.get('#nav-item-7').click()
@@ -221,7 +188,7 @@ const taxAddEmployee3 = (textNo) => {
 }
 // เข้าหน้าเพิ่มพนักงาน
 const AddSupplier = () => {
-    cy.get('#nav-item-6').click()
+    cy.get('#nav-item-7').click()
     cy.get('#tab-supplier').click()
 }
 
