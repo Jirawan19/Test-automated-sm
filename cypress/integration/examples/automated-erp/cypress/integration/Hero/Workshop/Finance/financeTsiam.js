@@ -5,16 +5,23 @@ context("finance", () => {
 
     it("financeTsiam", () => {
         cy.login("empGrip01", "password")
-        // ShopTsiam()
+        ShopTsiam()
 
-        // cy.login("grip-member1", "password")
-        // tsiamReceive()
+        cy.login("grip-member1", "password")
+        tsiamReceive()
 
-        // cy.login("empGrip01", "password")
-        // receiveSale()
+        cy.login("empGrip01", "password")
+        receiveSale()
         checkFinance()
 
+        pay()
     })
+
+    // it("pay", () => {
+    //     cy.login("empGrip01", "password")
+    //     pay()
+
+    // })
 })
 
 const ShopTsiam = () => {
@@ -181,8 +188,55 @@ const checkFinance = () => {
 
     cy.get('tbody > tr > :nth-child(1)')
         .contains("ต.สยาม คอมเมอร์เชียล จำกัด")
-
-    cy.get('[aria-describedby="el-tooltip-7213"] > img')
+    cy.get('#btnShowBy-undefined > img')
         .click()
 
+    cy.get('#txtFindOrderPo')
+        .click().type("POTSIAM")
+    cy.get('#txtSelectMonth')
+        .click().type("กัน").type("{enter}")
+
+    cy.get('.the-contents > .mt-5 > .table > tbody > :nth-child(1) > :nth-child(1)')
+        .contains("POTSIAM")
+    cy.get('tbody > :nth-child(1) > :nth-child(4)')
+        .contains("4,000.00")
+
+    cy.wait(1000)
+
+    cy.get('.for-destop').click()
+
+
+}
+
+const pay = () => {
+    // cy.get('#nav-item-6').click()
+    // cy.get('#btnShowBy-undefined > img').click()
+
+    // cy.get('#txtSelectMonth')
+    //     .click().type("กัน").type("{enter}")
+    // cy.get('.for-destop').click()
+
+    cy.get('#vs13__combobox')
+        .type("กันยายน").type("{enter}")
+    cy.get('#btnModalFind').click()
+
+    cy.get('[data-v-c8d3d270=""] > .mt-5 > .table > tbody > :nth-child(1) > :nth-child(2)')
+        .contains("POTSIAM")
+    cy.get('tbody > :nth-child(1) > :nth-child(5)')
+        .contains("4,000.00")
+
+    cy.get(':nth-child(1) > :nth-child(1) > .md-label-form > span')
+        .click()
+    cy.get('#btnSubmit')
+        .click()
+    cy.get('.swal2-confirm')
+        .click()
+    cy.get('.swal2-confirm')
+        .click()
+}
+const checkPay = () => {
+    cy.get('tbody > :nth-child(1) > :nth-child(2)')
+        .contains("POTSIAM")
+    cy.get('tbody > :nth-child(1) > :nth-child(5)')
+        .contains("4,000.00")
 }
