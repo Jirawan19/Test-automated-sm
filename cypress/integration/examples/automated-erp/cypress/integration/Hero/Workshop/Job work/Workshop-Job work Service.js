@@ -3,6 +3,7 @@
 /// <reference types="cypress" />
 
 
+
 context("Workshop Add Repair work", () => {
 
     it("Add job work", () => {
@@ -20,52 +21,54 @@ const JobWork = () => {
     cy.get('#nav-item-2')
         .click()
 
-    cy.contains('เพิ่มงานซ่อม').click()
+    cy.contains('เพิ่มงานซ่อม').click({ force: true })
 
     // เลือกลูกค้าและพนักงานซ่อม
     cy.get('#selSelectCar')
-        .click().type("9กณ").type("{downarrow}{enter}")
+        .click({ force: true }).type("9กณ").type("{downarrow}{enter}")
 
     cy.get('#selSelectmechanicId')
-        .click().type("เพิ่มช่างซ่อม").type("{downarrow}{enter}")
+        .click({ force: true }).type("เพิ่มช่างซ่อม").type("{downarrow}{enter}")
 
     cy.get('#btnAddProduct')
-        .click()
+        .click({ force: true })
 
     // ค้นหาสินค้า
     cy.wait(500)
 
     cy.get('#tab-SERVICE')
-        .click()
+        .click({ force: true })
 
     cy.wait(500)
 
     cy.get('#serviceName')
-        .click().type("เพิ่มบริการ").type("{enter}")
+        .click({ force: true }).type("เพิ่มบริการ").type("{enter}")
 
     cy.wait(500)
 
 
     // เลือกสินค้า,ค้นหาสินค้า
     cy.get('#serviceSearch')
-        .click()
+        .click({ force: true })
 
     // cy.wait(1000)
 
-    cy.get('#addservicePo-NF-6')
-        .click()
+    cy.get('#addservicePo-NF-254')
+        .click({ force: true })
 
     cy.get('.el-notification__closeBtn')
-        .click()
+        .click({ force: true })
 
     cy.get('#Product > .modal-dialog > .modal-content > .modal-header > .close')
-        .click()
+        .click({ force: true })
 
     cy.get('#poservicedata-0')
         .contains("เพิ่มบริการ")
 
     cy.get('#poserviceamount-0')
-        .click().clear().type("3")
+        .click({ force: true }).clear({ force: true }).type("3", { force: true })
+    cy.get(':nth-child(3) > .th-retail-style')
+        .click()
 
     cy.get('#poservicetotalprice-0')
         .contains("450.00")
@@ -81,8 +84,9 @@ const JobWork = () => {
 
 }
 const JobWork1 = () => {
-    cy.get('#btnJobdetail-0')
-        .click()
+    cy.get('table>tbody>tr:first>td:last>a').then(rs => {
+        cy.visit(Cypress.config().baseUrl + rs[0].getAttribute("href"))
+    })
 }
 
 // เพิ่มบริการ

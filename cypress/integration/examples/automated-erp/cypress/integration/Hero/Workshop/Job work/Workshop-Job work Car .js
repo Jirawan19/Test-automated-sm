@@ -2,9 +2,6 @@
 
 /// <reference types="cypress" />
 
-const { cli } = require("cypress")
-
-
 context("Workshop Add Repair work", () => {
 
     // เปิดงานซ่อม
@@ -32,8 +29,8 @@ context("Workshop Add Repair work", () => {
 const JobWork = () => {
     cy.get('#nav-item-2')
         .click()
-
-    cy.contains('เพิ่มงานซ่อม').click()
+    cy.get('#btn-addRepairJob')
+    cy.contains('เพิ่มงานซ่อม').click({ force: true })
 
     // เลือกลูกค้าและพนักงานซ่อม
     cy.get('#selSelectCar')
@@ -52,30 +49,30 @@ const JobWork = () => {
     cy.wait(2000)
 
     cy.get('#txtSelectWidth')
-        .click().type("185").type("{enter}")
+        .click({ force: true }).type("185").type("{downarrow}{enter}")
 
     cy.wait(2000)
 
     cy.get('#txtSelectSeries')
-        .click().type("16").type("{enter}")
+        .click({ force: true }).type("16").type("{downarrow}{enter}")
 
     cy.get('#btnSearchTire')
-        .click()
+        .click({ force: true })
 
     // ค้นหาสินค้า
     cy.get('#trTireCatalog0 > .text-left')
         .contains("เพิ่มยาง")
 
     // เลือกสินค้า
-    cy.get('#dotM-5')
+    cy.get('#dotM-11919')
         .click()
-    cy.get('.modal-body > .table > tbody > tr > :nth-child(1)')
+    cy.get('#dotModal-11919 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(1)')
         .should("contain.text", "0319")
-    cy.get('#dotModal-5 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(3) > #amount-0 > .el-input-number__increase > .el-icon-plus')
+    cy.get('#dotModal-11919 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(3) > #amount-0 > .el-input-number__increase > .el-icon-plus')
         .click().click().click()
-    cy.get('.modal-body > .table > tbody > tr > :nth-child(2)')
-        .should("contain.text", "47")
-    cy.get('#dotModal-5 > .modal-dialog > .modal-content > .modal-footer > .btn-primary')
+    // cy.get('.modal-body > .table > tbody > tr > :nth-child(2)')
+    //     .should("contain.text", "47")
+    cy.get('#dotModal-11919 > .modal-dialog > .modal-content > .modal-footer > .btn-primary')
         .click()
 
     cy.get('.el-notification__closeBtn')
@@ -107,7 +104,7 @@ const JobWork = () => {
 }
 const JobWork1 = () => {
     cy.get('#btnJobdetail-0')
-        .click()
+        .click({ force: true })
 }
 // เพิ่มสินค้า รายละเอียดสินค้า
 const addCartiees = () => {
@@ -331,7 +328,7 @@ const taxAddCustomer6 = (textNo) => {
 }
 
 const jobwork = () => {
-    cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0007")
+    cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0004")
     cy.get('.status-border').contains("รอซ่อมบำรุง")
     cy.get('#podata-0 > :nth-child(3)')
         .contains("เพิ่มยาง")

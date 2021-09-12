@@ -14,10 +14,10 @@ context("Name lish book", () => {
 // เข้าหน้าเพิ่มพนักงาน
 const AddHead = () => {
     cy.get('#nav-item-7').click()
-    cy.get('#tab-employee').click()
+    cy.get('#tab-employee').click({ force: true })
     cy.wait(500)
     cy.get('#btn-addEmp')
-        .click()
+        .click({ force: true })
 }
 
 // กรอกข้อมูลพนักงาน

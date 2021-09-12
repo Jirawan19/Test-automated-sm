@@ -14,29 +14,40 @@ context("Workshop Add Repair work", () => {
         JobWork()
         JobWork1()
     })
+
+    // ซ่อมบำรุง นำเลขออเดอร์ที่พึ่งเปิดงานซ่อมมาใส่ทุกครั้ง
+    it("job work", () => {
+        cy.login("empGrip01", "password")
+        cy.wait(2000)
+        jobwork()
+        cy.wait(2000)
+        checkStatus()
+        checkStatus1()
+    })
 })
 
 const JobWork = () => {
     cy.get('#nav-item-2')
         .click()
 
-    cy.contains('เพิ่มงานซ่อม').click()
+    cy.contains('เพิ่มงานซ่อม').click({ force: true })
 
     // เลือกลูกค้าและพนักงานซ่อม
     cy.get('#selSelectCar')
-        .click().type("9กณ").type("{downarrow}{enter}")
-
+        .click({ force: true }).type("9กณ").type("{downarrow}{enter}")
     cy.get('#selSelectmechanicId')
-        .click().type("เพิ่มช่างซ่อม").type("{downarrow}{enter}")
+        .click({ force: true }).type("เพิ่มช่างซ่อม").type("{downarrow}{enter}")
+    cy.get('#selSelectSales')
+        .click({ force: true }).type("เพิ่มพนักงาน").type("{downarrow}{enter}")
 
     cy.get('#btnAddProduct')
-        .click()
+        .click({ force: true })
 
     // ค้นหาสินค้า
     cy.wait(1000)
 
     cy.get('#tab-MAG')
-        .click()
+        .click({ force: true })
 
     cy.get('#searchMagswidth')
         .click().type("40").type("{enter}")
@@ -52,7 +63,7 @@ const JobWork = () => {
     cy.get('.d-xl-block > .table > tbody > tr > .text-left > .primary-blue')
         .contains("40")
 
-    cy.get('#addMagPo-5')
+    cy.get('#addMagPo-11921')
         .click()
 
     cy.get('.el-notification__closeBtn')
@@ -67,7 +78,10 @@ const JobWork = () => {
         .contains("เพิ่มแม็ก 19")
 
     cy.get('#magqty-0')
-        .click().clear().type("2")
+        .click({ force: true }).clear({ force: true }).type("2", { force: true })
+
+    cy.get('#endpricemag-0')
+        .click({ force: true }).clear({ force: true }).type("30", { force: true })
     // ราคาต่อหน่วย
     cy.get('#magmastotal-0')
         .contains("60.00")
@@ -90,7 +104,7 @@ const JobWork = () => {
 
 const JobWork1 = () => {
     cy.get('#btnJobdetail-0')
-        .click()
+        .click({ force: true })
 }
 
 // เพิ่มสินค้า รายละเอียดสินค้า
@@ -98,10 +112,10 @@ const addMag = () => {
     cy.get('#nav-item-7')
         .click()
     cy.get('#tab-inventory')
-        .click()
+        .click({ force: true })
     cy.get('#btn-addInventory')
-        .click()
-    cy.get('#tab-MAG').click()
+        .click({ force: true })
+    cy.get('#tab-MAG').click({ force: true })
 
     cy.get('#ItemCodeMag')
         .type("เพิ่มแม็ก")
@@ -143,8 +157,8 @@ const addMag = () => {
         .click()
 
     // ยืนยันเพิ่มสินค้า
-    cy.get('.swal2-confirm').click()
-    cy.get('#tab-MAG').click()
+    cy.get('.swal2-confirm').click({ force: true })
+    cy.get('#tab-MAG').click({ force: true })
 }
 // เข้าหน้าเพิ่มพนักงาน
 const AddTechincianOrWorkjob = () => {
@@ -282,4 +296,53 @@ const taxAddCustomer5 = (textNo) => {
 const taxAddCustomer6 = (textNo) => {
     cy.get('#email')
         .click().type("test").type(textNo).type("@gmail.com")
+}
+const jobwork = () => {
+    cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0006")
+    cy.get('.status-border').contains("รอซ่อมบำรุง")
+    cy.get('#podata-0 > :nth-child(4)')
+        .contains("เพิ่มแม็ก")
+    cy.get('#po-0 > :nth-child(4)')
+        .contains("30.00")
+    cy.get('#po-0 > :nth-child(5)')
+        .contains("60.00")
+    cy.get('#totalPriceFinal')
+        .contains("64.20 บาท")
+    cy.get('#paymentPrice')
+        .contains("64.20 บาท")
+
+    cy.get('#btnrecheckConfirmstart')
+        .click()
+    cy.get('.swal2-confirm')
+        .click()
+    cy.wait(500)
+    cy.get('.swal2-confirm')
+        .click()
+}
+
+const checkStatus = () => {
+    cy.get('.status-border')
+        .contains("กำลังซ่อมบำรุง")
+    cy.get('#paymentPrice')
+        .contains("64.20 บาท")
+    cy.get('#paymentModal')
+        .click()
+
+    cy.get('#paymentType')
+        .click().type("เงินสด").type("{downarrow}{enter}")
+    cy.get('#btnrecheckConfirmfinish')
+        .click()
+
+    cy.get('.swal2-confirm')
+        .click()
+    cy.wait(500)
+    cy.get('.swal2-confirm')
+        .click()
+}
+
+const checkStatus1 = () => {
+    cy.get('.status-border')
+        .contains("รายการเสร็จสิ้น")
+    cy.get('#btnBack')
+        .click()
 }

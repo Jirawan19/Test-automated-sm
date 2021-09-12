@@ -14,9 +14,9 @@ context("Name lish book", () => {
 // เข้าหน้าเพิ่มพนักงาน
 const AddEmployee = () => {
     cy.get('#nav-item-7').click()
-    cy.get('#tab-employee').click()
+    cy.get('#tab-employee').click({ force: true })
     cy.get('#btn-addEmp')
-        .click()
+        .click({ force: true })
 }
 
 // กรอกข้อมูลพนักงาน
