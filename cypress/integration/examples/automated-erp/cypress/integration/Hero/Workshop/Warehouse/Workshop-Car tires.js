@@ -14,13 +14,14 @@ context("Warehouse", () => {
 })
 // รายละเอียดสินค้า
 const Cartiees = () => {
-    cy.get('#nav-item-6')
+    cy.get('#nav-item-7')
         .click()
     cy.get('#tab-inventory')
         .click()
+    cy.wait(2000)
     cy.get('#btn-addInventory')
         .click()
-    cy.get('#tab-TIRE').click()
+    cy.get('#tab-TIRE').click({ force: true })
 
     taxCartiees(getRandomNumberCartiees(0, 10))
     taxCartiees1(getRandomNumberCartiees(0, 10))

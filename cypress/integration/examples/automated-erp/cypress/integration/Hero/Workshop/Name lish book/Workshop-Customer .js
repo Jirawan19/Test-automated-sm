@@ -15,7 +15,7 @@ context("Name lish book", () => {
 
 
 const AddCustomer = () => {
-    cy.get('#nav-item-6').click()
+    cy.get('#nav-item-7').click()
     cy.get('#tab-customer').click()
     cy.get('#btn-addCustomer').click()
 }
@@ -24,18 +24,18 @@ const AddCustomer = () => {
 const AddCustomer1 = () => {
 
     // กรอกข้อมูลลูกค้า
-    cy.get('#txtIdCardNumber').type("1100201520688")
-    cy.get('#txtAddress').type("168/106")
-    cy.get('#txtDistrict > .vth-addr-input-container > .vth-addr-input')
-        .type("คลองถนน")
-    cy.get('#txtPostCode > .vth-addr-input-container > .vth-addr-input')
-        .clear().type("10220").type("{enter}")
-    taxAddCustomer(getRandomNumberAddCustomer(0, 12))
     taxAddCustomer1(getRandomNumberAddCustomer(0, 2))
+    // taxAddCustomer3(getRandomNumberAddCustomer(0, 3))
+    cy.get('#txtIdCardNumber').click().type("1100201520688")
+    // taxAddCustomer(getRandomNumberAddCustomer(0, 12))
+    cy.get('#txtAddress').click().type("168/106")
+    cy.get('#txtDistrict > .vth-addr-input-container > .vth-addr-input')
+        .click().type("คลองถนน")
+    cy.get('#txtPostCode > .vth-addr-input-container > .vth-addr-input')
+        .clear().click().type("10220").type("{enter}")
     cy.get('#txtSubDistrict > .vth-addr-input-container > .vth-addr-input')
-        .clear().type("สายไหม").type("{enter}")
+        .clear().click().type("สายไหม").type("{enter}")
     taxAddCustomer6(getRandomNumberAddCustomer(0, 10))
-    taxAddCustomer3(getRandomNumberAddCustomer(0, 3))
     cy.get('#step0 > .row > .step_row_footer > .btn-select')
         .click()
 }
@@ -45,19 +45,19 @@ const getRandomNumberAddCustomer = (min, max) => {
     return Math.random() * (max - min) + min;
 }
 const taxAddCustomer = (textNo) => {
-    cy.get('#txtTelNo').type(textNo)
+    cy.get('#txtTelNo').click().type(textNo)
 }
 const taxAddCustomer1 = (textNo) => {
     cy.get('#txtName')
-        .type("เพิ่มลูกค้า").type(textNo)
+        .type("เพิ่มลูกค้า").type(textNo).tab().tab().tab().tab().wait(1000).type("0955915150")
 }
 const taxAddCustomer2 = (textNo) => {
     cy.get('.bv-no-focus-ring > #idCardNumber')
-        .type("1100201520688")
+        .click().type("1100201520688")
 }
 const taxAddCustomer3 = (textNo) => {
     cy.get('#txtMobileNo')
-        .type(textNo)
+        .click().type(textNo)
 }
 const taxAddCustomer6 = (textNo) => {
     cy.get('#email')
@@ -82,9 +82,10 @@ const AddCustomer2 = () => {
         .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
     cy.get('#selCarGear')
         .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
-    cy.get('#latestMileages').type("500")
+    cy.get('#latestMileages').click().type("500")
+    cy.wait(2000)
 
-    cy.get('#btnNext-2').click()
+    cy.get('#btnNext-2').click({ force: true })
 }
 const taxAddCustomer4 = (textNo) => {
     cy.get('#txtCarRegistrationNumber')
@@ -98,6 +99,7 @@ const taxAddCustomer5 = (textNo) => {
 // สถานะการชำระเงินและรับข่าวสาร
 const AddCustomer3 = () => {
     // ชำระเงินสด
+    cy.wait(2000)
     cy.get('#selPaymentType')
         .click().type("{downarrow}{enter}", { force: true })
     // โอนชำระ
@@ -117,12 +119,12 @@ const AddCustomer4 = () => {
 }
 // เช็คผู้จำหน่อยที่พึ่งเพิ่ม
 const checkAddCustomer = () => {
-    cy.get('#nav-item-6')
+    cy.get('#nav-item-7')
         .click()
     cy.get('#tab-customer').click()
 
     cy.get(':nth-child(1) > [style="width: 11rem;"] > .btn')
         .click()
-        
+
     cy.get('#btnBack-1').click()
 }

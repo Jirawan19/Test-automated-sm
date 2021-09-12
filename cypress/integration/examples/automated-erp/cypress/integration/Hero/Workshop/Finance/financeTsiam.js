@@ -14,14 +14,14 @@ context("finance", () => {
         receiveSale()
         checkFinance()
 
-        pay()
+        // pay()
     })
 
-    // it("pay", () => {
-    //     cy.login("empGrip01", "password")
-    //     pay()
-
-    // })
+    it("pay", () => {
+        cy.login("empGrip01", "password")
+        pay()
+        checkPay()
+    })
 })
 
 const ShopTsiam = () => {
@@ -188,7 +188,7 @@ const checkFinance = () => {
 
     cy.get('tbody > tr > :nth-child(1)')
         .contains("ต.สยาม คอมเมอร์เชียล จำกัด")
-    cy.get('#btnShowBy-undefined > img')
+    cy.get('#btnShowBy-0 > img')
         .click()
 
     cy.get('#txtFindOrderPo')
@@ -203,24 +203,25 @@ const checkFinance = () => {
 
     cy.wait(1000)
 
-    cy.get('.for-destop').click()
 
 
 }
 
 const pay = () => {
-    // cy.get('#nav-item-6').click()
-    // cy.get('#btnShowBy-undefined > img').click()
+    cy.get('#nav-item-6').click()
+    cy.get('#btnShowBy-0 > img')
+        .click()
 
-    // cy.get('#txtSelectMonth')
-    //     .click().type("กัน").type("{enter}")
-    // cy.get('.for-destop').click()
+    cy.get('#btnOpenModal').click()
 
-    cy.get('#vs13__combobox')
+    cy.wait(2000)
+    cy.get('#txtFindOrder')
+        .click().type("POTSIAM")
+    cy.get('#selModalForMonth')
         .type("กันยายน").type("{enter}")
     cy.get('#btnModalFind').click()
 
-    cy.get('[data-v-c8d3d270=""] > .mt-5 > .table > tbody > :nth-child(1) > :nth-child(2)')
+    cy.get('tbody > :nth-child(1) > :nth-child(2)')
         .contains("POTSIAM")
     cy.get('tbody > :nth-child(1) > :nth-child(5)')
         .contains("4,000.00")
@@ -231,6 +232,7 @@ const pay = () => {
         .click()
     cy.get('.swal2-confirm')
         .click()
+    cy.wait(1000)
     cy.get('.swal2-confirm')
         .click()
 }

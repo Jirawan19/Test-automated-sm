@@ -6,7 +6,7 @@ context("Seller-Manage-AddShop", () => {
         cy.visit("https://smdevdemo.autocareth.com/")
     })
     it("Seller-Manage-AddShop", () => {
-        SellerManageAddShop("Test-Seller 00", "test-seller 00")
+        SellerManageAddShop("MNY-SELLER-1", "MNYSeller1")
 
         // ขั้นตอนเพิ่มร้านค้า
         SellerManageAddShop1()

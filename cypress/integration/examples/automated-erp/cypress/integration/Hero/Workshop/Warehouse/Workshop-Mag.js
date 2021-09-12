@@ -16,14 +16,14 @@ context("Warehouse", () => {
 })
 
 const Mag = () => {
-    cy.get('#nav-item-6')
+    cy.get('#nav-item-7')
         .click()
     cy.get('#tab-inventory')
         .click()
     cy.get('#btn-addInventory')
         .click()
     cy.get('#tab-MAG')
-        .click()
+        .click({ force: true })
 
 }
 

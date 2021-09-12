@@ -11,18 +11,11 @@ context("Name lish book", () => {
     })
 })
 
-const loginWorkshop = (username, password) => {
-    cy.get('.my-4 > .text-left > span').should("contain.text", "ชื่อผู้ใช้งาน")
-    cy.get('#username').type(username)
-    cy.get('.mb-3 > .text-left > span').should("contain.text", "รหัสผ่าน")
-    cy.get('#password').type(password)
-    cy.get('.btn-global').click()
-}
-
 // เข้าหน้าเพิ่มพนักงาน
 const AddHead = () => {
-    cy.get('#nav-item-6').click()
+    cy.get('#nav-item-7').click()
     cy.get('#tab-employee').click()
+    cy.wait(500)
     cy.get('#btn-addEmp')
         .click()
 }
@@ -64,7 +57,7 @@ const taxAddEmployee3 = (textNo) => {
 }
 
 const checkHead = () => {
-    cy.get('#nav-item-6').click()
+    cy.get('#nav-item-7').click()
     cy.get('#tab-employee').click()
 
     cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(4) > .btn')

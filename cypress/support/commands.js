@@ -19,6 +19,7 @@ Cypress.Commands.add("login", (username, password) => {
     cy.get('.btn-global').click()
 })
 
+
 Cypress.on('uncaught:exception', (err, runnable) => {
     // returning false here prevents Cypress from
     // failing the test

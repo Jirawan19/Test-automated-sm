@@ -13,7 +13,7 @@ context("Name lish book", () => {
 
 // เข้าหน้าเพิ่มพนักงาน
 const AddEmployee = () => {
-    cy.get('#nav-item-6').click()
+    cy.get('#nav-item-7').click()
     cy.get('#tab-employee').click()
     cy.get('#btn-addEmp')
         .click()
@@ -57,7 +57,7 @@ const taxAddEmployee3 = (textNo) => {
 }
 
 const checkEmploye = () => {
-    cy.get('#nav-item-6').click()
+    cy.get('#nav-item-7').click()
     cy.get('#tab-employee').click()
 
     cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(4) > .btn')

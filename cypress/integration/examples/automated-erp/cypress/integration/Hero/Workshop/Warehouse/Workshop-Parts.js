@@ -12,13 +12,13 @@ context("Warehouse", () => {
 
 // กรอกรายละเอียดสินค้า
 const Parts = () => {
-    cy.get('#nav-item-6')
+    cy.get('#nav-item-7')
         .click()
     cy.get('#tab-inventory')
         .click()
     cy.get('#btn-addInventory')
         .click()
-    cy.get('#tab-PART').click()
+    cy.get('#tab-PART').click({ force: true })
 
 
     taxParts(getRandomNumberParts(1, 10))

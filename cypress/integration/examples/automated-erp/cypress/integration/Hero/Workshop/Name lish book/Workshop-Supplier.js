@@ -14,10 +14,10 @@ context("Name lish book", () => {
 
 // เข้าหน้าเพิ่มพนักงาน
 const AddSupplier = () => {
-    cy.get('#nav-item-6').click()
+    cy.get('#nav-item-7').click()
     cy.get('#tab-supplier').click()
     cy.get('#btn-addSupplier')
-        .click()
+        .click({ force: true })
 }
 
 // กรอกข้อมูล Sopplier
@@ -61,12 +61,12 @@ const taxAddSupplier4 = (textNo) => {
 
 // เช็คผู้จำหน่อยที่พึ่งเพิ่ม
 const checkAddSupplier = () => {
-    cy.get('#nav-item-6').click()
+    cy.get('#nav-item-7').click()
     cy.get('#tab-supplier').click()
     cy.get('#pane-supplier > :nth-child(2) > .d-none > .table > tbody > :nth-child(1) > :nth-child(1)')
         .contains("เพิ่มผู้จำหน่าย")
     cy.get('#pane-supplier > :nth-child(2) > .d-none > .table > tbody > :nth-child(1) > :nth-child(4) > .btn')
-        .click()
+        .click({ force: true })
     // cy.get('#state-name')
     //     .contains("เพิ่มผู้จำหน่าย")
     cy.get('.mr-5').click()
