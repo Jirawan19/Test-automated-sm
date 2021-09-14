@@ -3,375 +3,361 @@
 /// <reference types="cypress" />
 
 context("Workshop Add Repair work", () => {
+  // เปิดงานซ่อม
+  it("Add job work", () => {
+    cy.login("empGrip01", "password");
+    // AddCustomerJob();
+    // AddTechincianOrWorkjob();
+    // addCartiees();
 
-    // เปิดงานซ่อม
-    it("Add job work", () => {
-        cy.login("empGrip01", "password")
-        // AddCustomerJob()
-        // AddTechincianOrWorkjob()
-        // addCartiees()
+    JobWork();
+    JobWork1();
+  });
 
-        JobWork()
-        JobWork1()
-    })
-
-    // ซ่อมบำรุง นำเลขออเดอร์ที่พึ่งเปิดงานซ่อมมาใส่ทุกครั้ง
+  //   ซ่อมบำรุง นำเลขออเดอร์ที่พึ่งเปิดงานซ่อมมาใส่ทุกครั้ง
     it("job work", () => {
-        cy.login("empGrip01", "password")
-        cy.wait(2000)
-        jobwork()
-        cy.wait(2000)
-        checkStatus()
-        checkStatus1()
-    })
-})
+      cy.login("empGrip01", "password");
+      cy.wait(2000);
+      jobwork();
+      cy.wait(2000);
+      checkStatus();
+      checkStatus1();
+    });
+});
 
 const JobWork = () => {
-    cy.get('#nav-item-2')
-        .click()
-    cy.get('#btn-addRepairJob')
-    cy.contains('เพิ่มงานซ่อม').click({ force: true })
+  cy.get("#nav-item-2").click();
+  cy.get("#btn-addRepairJob");
+  cy.contains("เพิ่มงานซ่อม").click({ force: true });
 
-    // เลือกลูกค้าและพนักงานซ่อม
-    cy.get('#selSelectCar')
-        .click({ force: true }).type("9กณ").type("{downarrow}{enter}")
+  // เลือกลูกค้าและพนักงานซ่อม
 
-    cy.get('#selSelectmechanicId')
-        .click({ force: true }).type("เพิ่มช่างซ่อม").type("{downarrow}{enter}")
+  cy.get("#selSelectCar")
+    .click({ force: true })
+    .type("9กณ")
+    .type("{downarrow}{enter}");
 
-    cy.get('#selSelectSales')
-        .click({ force: true }).type("เพิ่มพนักงาน").type("{downarrow}{enter}")
+  cy.get("#selSelectmechanicId")
+    .click({ force: true })
+    .type("เพิ่มช่างซ่อม")
+    .type("{downarrow}{enter}");
 
-    cy.get('#btnAddProduct')
-        .click({ force: true })
+  cy.get("#selSelectSales")
+    .click({ force: true })
+    .type("เพิ่มพนักงาน")
+    .type("{downarrow}{enter}");
 
-    // ค้นหาสินค้า
-    cy.wait(2000)
+  cy.get("#btnAddProduct").click({ force: true });
 
-    cy.get('#txtSelectWidth')
-        .click({ force: true }).type("185").type("{downarrow}{enter}")
+  // ค้นหาสินค้า
+  cy.wait(4000);
 
-    cy.wait(2000)
+  cy.get("#txtSelectWidth")
+    .click({ force: true })
+    .wait(1000)
+    .type("185")
+    .type("{downarrow}{enter}");
 
-    cy.get('#txtSelectSeries')
-        .click({ force: true }).type("16").type("{downarrow}{enter}")
+  cy.wait(2000);
 
-    cy.get('#btnSearchTire')
-        .click({ force: true })
+  cy.get("#txtSelectSeries")
+    .click({ force: true })
+    .wait(1000)
+    .type("16")
+    .type("{downarrow}{enter}");
 
-    // ค้นหาสินค้า
-    cy.get('#trTireCatalog0 > .text-left')
-        .contains("เพิ่มยาง")
+  cy.get("#btnSearchTire").click({ force: true });
 
-    // เลือกสินค้า
-    cy.get('#dotM-11919')
-        .click()
-    cy.get('#dotModal-11919 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(1)')
-        .should("contain.text", "0319")
-    cy.get('#dotModal-11919 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(3) > #amount-0 > .el-input-number__increase > .el-icon-plus')
-        .click().click().click()
-    // cy.get('.modal-body > .table > tbody > tr > :nth-child(2)')
-    //     .should("contain.text", "47")
-    cy.get('#dotModal-11919 > .modal-dialog > .modal-content > .modal-footer > .btn-primary')
-        .click()
+  // ค้นหาสินค้า
+  cy.get("#trTireCatalog0 > .text-left").contains("เพิ่มยาง");
 
-    cy.get('.el-notification__closeBtn')
-        .click()
+  // เลือกสินค้า
+  cy.get("#dotM-11918").click();
+  cy.get(
+    "#dotModal-11918 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(1)"
+  ).should("contain.text", "0319");
+  cy.get(
+    "#dotModal-11918 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(3) > #amount-0 > .el-input-number__increase > .el-icon-plus"
+  )
+    .click()
+    .click()
+    .click();
+  // cy.get('.modal-body > .table > tbody > tr > :nth-child(2)')
+  //     .should("contain.text", "47")
+  cy.get(
+    "#dotModal-11918 > .modal-dialog > .modal-content > .modal-footer > .btn-primary"
+  ).click();
 
-    cy.get('#Product > .modal-dialog > .modal-content > .modal-header > .close')
-        .click()
+  cy.get(".el-notification__closeBtn").click();
 
-    // เช็ครายการที่เลือก
-    cy.get('#tiredata-0 > :nth-child(3)')
-        .contains("เพิ่มยาง")
+  cy.get(
+    "#Product > .modal-dialog > .modal-content > .modal-header > .close"
+  ).click();
 
-    // ราคาต่อหน่วย
-    cy.get('#tireendUserPriceList-0')
-        .click({ force: true }).clear({ force: true }).type("200", { force: true })
+  // เช็ครายการที่เลือก
+  cy.get("#tiredata-0 > :nth-child(3)").contains("เพิ่มยาง");
 
-    // เช็คราคาของรายการงานซ่อม
-    cy.get('#pricetotal')
-        .contains("600.00")
-    cy.get('#paymentPrice')
-        .contains("642.00 บาท")
+  // ราคาต่อหน่วย
+  //   cy.get("#tireendUserPriceList-0")
+  //     .click({ force: true })
+  //     .clear({ force: true })
+  //     .type("200", { force: true });
 
-    //  บันทึกรายากร
-    cy.get('#btncreateWalkInWorkshopJob')
-        .click()
+  // เช็คราคาของรายการงานซ่อม
+  cy.get("#pricetotal").contains("600.00");
+  cy.get("#paymentPrice").contains("642.00 บาท");
 
-    cy.get('.swal2-confirm')
-        .click()
-}
+  //  บันทึกรายากร
+  cy.get("#btncreateWalkInWorkshopJob").click();
+
+  cy.get(".swal2-confirm").click();
+};
 const JobWork1 = () => {
-    cy.get('#btnJobdetail-0')
-        .click({ force: true })
-}
+  cy.wait(1000);
+  cy.get("#btnJobdetail-0").click({ force: true });
+};
 // เพิ่มสินค้า รายละเอียดสินค้า
 const addCartiees = () => {
-    cy.get('#nav-item-7')
-        .click()
-    cy.get('#tab-inventory')
-        .click()
-    cy.get('#btn-addInventory')
-        .click({ force: true })
-    cy.get('#tab-TIRE').click({ force: true })
+  cy.get("#nav-item-7").click();
+  cy.get("#tab-inventory").click();
+  cy.get("#btn-addInventory").click({ force: true });
+  cy.get("#tab-TIRE").click({ force: true });
 
-    taxCartiees(getRandomNumberCartiees(0, 10))
-    taxCartiees1(getRandomNumberCartiees(0, 10))
-    taxCartiees2(getRandomNumberCartiees(0, 10))
-    taxCartiees3(getRandomNumberCartiees(0, 10))
-    taxCartiees4(getRandomNumberCartiees(0, 10))
+  taxCartiees(getRandomNumberCartiees(0, 10));
+  taxCartiees1(getRandomNumberCartiees(0, 10));
+  taxCartiees2(getRandomNumberCartiees(0, 10));
+  taxCartiees3(getRandomNumberCartiees(0, 10));
+  taxCartiees4(getRandomNumberCartiees(0, 10));
 
-    cy.get('#txtSelectWidth')
-        .click().type("185").type("{enter}")
-    cy.get('#txtSelectSeries')
-        .click().type("16").type("{enter}")
-    cy.get('#txtSelectRim')
-        .click().type("15").type("{enter}")
+  cy.get("#txtSelectWidth").click().type("185").type("{enter}");
+  cy.get("#txtSelectSeries").click().type("16").type("{enter}");
+  cy.get("#txtSelectRim").click().type("15").type("{enter}");
 
-    cy.get('#btnnextTirestep')
-        .click()
+  cy.get("#btnnextTirestep").click();
 
-    // รายละเอียดราคา
-    cy.get('#salesPriceTire')
-        .clear().type("100")
+  // รายละเอียดราคา
+  cy.get("#salesPriceTire").clear().type("100");
 
-    cy.get('#promotionTire')
-        .clear().type("50")
+  cy.get("#promotionTire").clear().type("50");
 
-    cy.get('#tiredot-0')
-        .clear().type("0319")
+  cy.get("#tiredot-0").clear().type("0319");
 
-    cy.get('#tireamount-0')
-        .clear().type("50")
+  cy.get("#tireamount-0").clear().type("50");
 
-    cy.get('#saveInventoryTire').click()
+  cy.get("#saveInventoryTire").click();
 
-    // ยืนยันเพิ่มสินค้า
-    cy.get('.swal2-confirm').click()
-    cy.get('#tab-TIRE').click({ force: true })
+  // ยืนยันเพิ่มสินค้า
+  cy.get(".swal2-confirm").click();
+  cy.get("#tab-TIRE").click({ force: true });
 
-    // เช็คสินค้าที่เพิ่ม
-    // cy.get('#pane-TIRE > #ordersTable > .d-none > .table > tbody > #inventorys-0 > :nth-child(6) > .btn-details')
-    //     .click()
-    // cy.get('.form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > #inventorys-0 > :nth-child(1)')
-    //     .should("contain.text", "0319")
-    // cy.get('#inventorytabletire > .modal-dialog > .modal-content > .modal-body > .form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > .font-weight-bold > :nth-child(2)')
-    //     .should("contain.text", "50")
+  // เช็คสินค้าที่เพิ่ม
+  // cy.get('#pane-TIRE > #ordersTable > .d-none > .table > tbody > #inventorys-0 > :nth-child(6) > .btn-details')
+  //     .click()
+  // cy.get('.form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > #inventorys-0 > :nth-child(1)')
+  //     .should("contain.text", "0319")
+  // cy.get('#inventorytabletire > .modal-dialog > .modal-content > .modal-body > .form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > .font-weight-bold > :nth-child(2)')
+  //     .should("contain.text", "50")
 
-    // cy.get('#inventorytabletire > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
-    //     .click({ force: true })
-}
+  // cy.get('#inventorytabletire > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
+  //     .click({ force: true })
+};
 
 const getRandomNumberCartiees = (min, max) => {
-    0, 0
-    return Math.random() * (max - min) + min;
-}
+  0, 0;
+  return Math.random() * (max - min) + min;
+};
 const taxCartiees = (textNo) => {
-    cy.get('#ItemCodeTire')
-        .type("เพิ่มยาง").type(textNo)
-}
+  cy.get("#ItemCodeTire").type("เพิ่มยาง").type(textNo);
+};
 const taxCartiees1 = (textNo) => {
-    cy.get('#brandTire')
-        .type("เพิ่มยาง").type(textNo)
-}
+  cy.get("#brandTire").type("เพิ่มยาง").type(textNo);
+};
 const taxCartiees2 = (textNo) => {
-    cy.get('#itemtagTire')
-        .type("เพิ่มยาง").type(textNo)
-}
+  cy.get("#itemtagTire").type("เพิ่มยาง").type(textNo);
+};
 const taxCartiees3 = (textNo) => {
-    cy.get('#skuTire')
-        .type("เพิ่มยาง").type(textNo)
-}
+  cy.get("#skuTire").type("เพิ่มยาง").type(textNo);
+};
 const taxCartiees4 = (textNo) => {
-    cy.get('#itemDescriptionTire')
-        .type("เพิ่มยาง").type(textNo)
-}
-
+  cy.get("#itemDescriptionTire").type("เพิ่มยาง").type(textNo);
+};
 
 // เข้าหน้าเพิ่มพนักงาน
 const AddTechincianOrWorkjob = () => {
-    cy.get('#nav-item-7').click()
-    cy.get('#tab-employee').click()
-    cy.get('#btn-addEmp')
-        .click()
+  cy.get("#nav-item-7").click();
+  cy.get("#tab-employee").click({ force: true });
+  cy.get("#btn-addEmp").click({ force: true });
 
-    // กรอกข้อมูลพนักงาน
-    taxAddEmployee(getRandomNumberAddEmployee(1, 3))
-    cy.get('#roleEmp').select("ช่างซ่อม")
-    cy.get('#state-password').type("password")
-    taxAddEmployee2(getRandomNumberAddEmployee(1, 5))
-    taxAddEmployee1(getRandomNumberAddEmployee(1, 2))
-    taxAddEmployee3(getRandomNumberAddEmployee(0, 10))
-    cy.get('[success=""]').click()
+  // กรอกข้อมูลพนักงาน
+  taxAddEmployee(getRandomNumberAddEmployee(1, 3));
+  cy.get("#roleEmp").select("ช่างซ่อม");
+  cy.get("#state-password").type("password");
+  taxAddEmployee2(getRandomNumberAddEmployee(1, 5));
+  taxAddEmployee1(getRandomNumberAddEmployee(1, 2));
+  taxAddEmployee3(getRandomNumberAddEmployee(0, 10));
+  cy.get('[success=""]').click();
 
-    cy.get('.swal2-confirm').click()
-
-}
+  cy.get(".swal2-confirm").click();
+};
 const getRandomNumberAddEmployee = (min, max) => {
-    0, 0
-    return Math.random() * (max - min) + min;
-}
+  0, 0;
+  return Math.random() * (max - min) + min;
+};
 const taxAddEmployee = (textNo) => {
-    cy.get('#state-nameEmp')
-        .type("เพิ่มช่างซ่อม").type(textNo)
-}
+  cy.get("#state-nameEmp").type("เพิ่มช่างซ่อม").type(textNo);
+};
 const taxAddEmployee1 = (textNo) => {
-    cy.get('#state-usernameEmp')
-        .type("เพิ่มช่างซ่อม").type(textNo)
-}
+  cy.get("#state-usernameEmp").type("เพิ่มช่างซ่อม").type(textNo);
+};
 const taxAddEmployee2 = (textNo) => {
-    cy.get('#state-emailEmp')
-        .type("เพิ่มช่างซ่อม").type(textNo).type("@gmail.com")
-
-}
+  cy.get("#state-emailEmp")
+    .type("เพิ่มช่างซ่อม")
+    .type(textNo)
+    .type("@gmail.com");
+};
 const taxAddEmployee3 = (textNo) => {
-    cy.get('#state-telEmp')
-        .type(textNo)
-}
+  cy.get("#state-telEmp").type(textNo);
+};
 // เข้าหน้าเพิ่มพนักงาน
 const AddSupplier = () => {
-    cy.get('#nav-item-6').click()
-    cy.get('#tab-supplier').click()
-}
+  cy.get("#nav-item-6").click();
+  cy.get("#tab-supplier").click({ force: true });
+};
 
 // เพิ่ม Customer
 const AddCustomerJob = () => {
-    cy.get('#nav-item-7').click()
-    cy.get('#tab-customer').click()
-    cy.get('#btn-addCustomer').click()
+  cy.get("#nav-item-7").click();
+  cy.get("#tab-customer").click({ force: true });
+  cy.get("#btn-addCustomer").click({ force: true });
 
-    cy.get('#txtIdCardNumber').type("1100201520688")
-    cy.get('#txtAddress').type("168/106")
-    cy.get('#txtDistrict > .vth-addr-input-container > .vth-addr-input')
-        .type("คลองถนน")
-    cy.get('#txtPostCode > .vth-addr-input-container > .vth-addr-input')
-        .clear().type("10220").type("{enter}")
-    taxAddCustomer(getRandomNumberAddCustomer(0, 12))
-    taxAddCustomer1(getRandomNumberAddCustomer(0, 2))
-    cy.get('#txtSubDistrict > .vth-addr-input-container > .vth-addr-input')
-        .clear().type("สายไหม").type("{enter}")
-    taxAddCustomer6(getRandomNumberAddCustomer(0, 10))
-    taxAddCustomer3(getRandomNumberAddCustomer(0, 3))
+  // กรอกข้อมูลลูกค้า
+  taxAddCustomer1(getRandomNumberAddCustomer(0, 2));
+  // taxAddCustomer3(getRandomNumberAddCustomer(0, 3))
+  cy.get("#txtIdCardNumber").click().type("1100201520688");
+  // taxAddCustomer(getRandomNumberAddCustomer(0, 12))
+  cy.get("#txtAddress").click().type("168/106");
+  cy.get("#txtDistrict > .vth-addr-input-container > .vth-addr-input")
+    .click()
+    .type("คลองถนน");
+  cy.get("#txtPostCode > .vth-addr-input-container > .vth-addr-input")
+    .clear()
+    .click()
+    .type("10220")
+    .type("{enter}");
+  cy.get("#txtSubDistrict > .vth-addr-input-container > .vth-addr-input")
+    .clear()
+    .click()
+    .type("สายไหม")
+    .type("{enter}");
+  taxAddCustomer6(getRandomNumberAddCustomer(0, 10));
+  cy.get("#step0 > .row > .step_row_footer > .btn-select").click();
 
-    cy.get('#btnNext-1').click({ force: true })
+  // กรอกข้อมูลรถยนต์
+  taxAddCustomer4(getRandomNumberAddCustomer(1, 3));
+  taxAddCustomer5(getRandomNumberAddCustomer(0, 5));
+  cy.get("#selCarBrand")
+    .click()
+    .type("{downarrow}{downarrow}{enter}", { force: true });
+  cy.get("#input_carModel")
+    .click()
+    .wait(500)
+    .type("{downarrow}{downarrow}{downarrow}{enter}", { force: true });
+  cy.get("#step2-province")
+    .click({ force: true })
+    .type("{downarrow}{downarrow}{downarrow}{enter}", { force: true });
 
-    // กรอกข้อมูลรถยนต์
-    taxAddCustomer4(getRandomNumberAddCustomer(1, 3))
-    taxAddCustomer5(getRandomNumberAddCustomer(0, 5))
-    cy.get('#selCarBrand')
-        .click().type("{downarrow}{downarrow}{enter}", { force: true })
-    cy.get('#input_carModel')
-        .click().wait(500).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
-    cy.get('#step2-province')
-        .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
+  cy.get("#selCartype")
+    .click({ force: true })
+    .type("{downarrow}{downarrow}{downarrow}{enter}", { force: true });
 
-    cy.get('#selCartype')
-        .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
+  cy.get("#selCarYear")
+    .click({ force: true })
+    .type("{downarrow}{downarrow}{downarrow}{enter}", { force: true });
+  cy.get("#selCarGear")
+    .click({ force: true })
+    .type("{downarrow}{downarrow}{downarrow}{enter}", { force: true });
+  cy.get("#latestMileages").type("500");
 
-    cy.get('#selCarYear')
-        .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
-    cy.get('#selCarGear')
-        .click({ force: true }).type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
-    cy.get('#latestMileages').type("500")
+  cy.get("#btnNext-2").click({ force: true });
 
-    cy.get('#btnNext-2').click({ force: true }).click()
+  // ชำระเงินสด
+  cy.wait(2000);
+  cy.get("#selPaymentType").click().type("{downarrow}{enter}", { force: true });
+  // โอนชำระ
+  // cy.get('#selPaymentType')
+  //  .click().type("{downarrow}{downarrow}{enter}", { force: true })
+  // // เช็ค
+  // cy.get('#selPaymentType')
+  //         .click().type("{downarrow}{downarrow}{downarrow}{downarrow}{enter}")
 
+  cy.get("#btnSubmit").click();
 
-    // ชำระเงินสด
-    cy.get('#selPaymentType')
-        .click().type("{downarrow}{downarrow}{downarrow}{enter}", { force: true })
-    // โอนชำระ
-    // cy.get('#selPaymentType')       
-    //  .click().type("{downarrow}{downarrow}{enter}", { force: true })
-    // // เช็ค
-    // cy.get('#selPaymentType')
-    //         .click().type("{downarrow}{downarrow}{downarrow}{downarrow}{enter}")
-
-    cy.get('#btnSubmit').click()
-
-    // ยืนยันเพิ่ม supplier
-    cy.get('.swal2-confirm')
-    cy.get('.swal2-confirm').click()
-
-}
+  // ยืนยันเพิ่ม supplier
+  cy.get(".swal2-confirm");
+  cy.get(".swal2-confirm").click();
+};
 const getRandomNumberAddCustomer = (min, max) => {
-    0, 0
-    return Math.random() * (max - min) + min;
-}
+  0, 0;
+  return Math.random() * (max - min) + min;
+};
 const taxAddCustomer = (textNo) => {
-    cy.get('#txtTelNo').type(textNo)
-}
+  cy.get("#txtTelNo").type(textNo);
+};
 const taxAddCustomer1 = (textNo) => {
-    cy.get('#txtName')
-        .type("เพิ่มลูกค้า").type(textNo)
-}
+  cy.get("#txtName")
+    .type("เพิ่มลูกค้า")
+    .type(textNo)
+    .tab()
+    .tab()
+    .tab()
+    .tab()
+    .wait(1000)
+    .type("0955915150");
+};
 const taxAddCustomer2 = (textNo) => {
-    cy.get('.bv-no-focus-ring > #idCardNumber')
-        .type("1100201520688")
-}
+  cy.get(".bv-no-focus-ring > #idCardNumber").type("1100201520688");
+};
 const taxAddCustomer3 = (textNo) => {
-    cy.get('#txtMobileNo')
-        .type(textNo)
-}
+  cy.get("#txtMobileNo").type(textNo);
+};
 const taxAddCustomer4 = (textNo) => {
-    cy.get('#txtCarRegistrationNumber')
-        .click().type("9กณ").type(textNo)
-}
+  cy.get("#txtCarRegistrationNumber").click().type("9กณ").type(textNo);
+};
 const taxAddCustomer5 = (textNo) => {
-    cy.get('#vinNos')
-        .click().type(textNo)
-}
+  cy.get("#vinNos").click().type(textNo);
+};
 const taxAddCustomer6 = (textNo) => {
-    cy.get('#email')
-        .click().type("test").type(textNo).type("@gmail.com")
-}
+  cy.get("#email").click().type("test").type(textNo).type("@gmail.com");
+};
 
 const jobwork = () => {
-    cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0004")
-    cy.get('.status-border').contains("รอซ่อมบำรุง")
-    cy.get('#podata-0 > :nth-child(3)')
-        .contains("เพิ่มยาง")
-    cy.get('#po-0 > :nth-child(4)')
-        .contains("200.00")
-    cy.get('#po-0 > :nth-child(5)')
-        .contains("600.00")
-    cy.get('#totalPriceFinal')
-        .contains("642.00 บาท")
-    cy.get('#paymentPrice')
-        .contains("642.00 บาท")
+  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0008");
+  cy.get(".status-border").contains("รอซ่อมบำรุง");
+  cy.get("#podata-0 > :nth-child(3)").contains("เพิ่มยาง");
+  cy.get("#po-0 > :nth-child(4)").contains("200.00");
+  cy.get("#po-0 > :nth-child(5)").contains("600.00");
+  cy.get("#totalPriceFinal").contains("642.00 บาท");
+  cy.get("#paymentPrice").contains("642.00 บาท");
 
-    cy.get('#btnrecheckConfirmstart')
-        .click()
-    cy.get('.swal2-confirm')
-        .click()
-    cy.wait(500)
-    cy.get('.swal2-confirm')
-        .click()
-}
+  cy.get("#btnrecheckConfirmstart").click();
+  cy.get(".swal2-confirm").click();
+  cy.wait(500);
+  cy.get(".swal2-confirm").click();
+};
 const checkStatus = () => {
-    cy.get('.status-border')
-        .contains("กำลังซ่อมบำรุง")
-    cy.get('#paymentPrice')
-        .contains("642.00 บาท")
-    cy.get('#paymentModal')
-        .click()
+  cy.get(".status-border").contains("กำลังซ่อมบำรุง");
+  cy.get("#paymentPrice").contains("642.00 บาท");
+  cy.get("#paymentModal").click();
 
-    cy.get('#paymentType')
-        .click().type("เงินสด").type("{downarrow}{enter}")
-    cy.get('#btnrecheckConfirmfinish')
-        .click()
+  cy.get("#paymentType").click().type("เงินสด").type("{downarrow}{enter}");
+  cy.get("#btnrecheckConfirmfinish").click();
 
-    cy.get('.swal2-confirm')
-        .click()
-    cy.wait(500)
-    cy.get('.swal2-confirm')
-        .click()
-}
+  cy.get(".swal2-confirm").click();
+  cy.wait(500);
+  cy.get(".swal2-confirm").click();
+};
 
 const checkStatus1 = () => {
-    cy.get('.status-border')
-        .contains("รายการเสร็จสิ้น")
-    cy.get('#btnBack')
-        .click()
-}
+  cy.get(".status-border").contains("รายการเสร็จสิ้น");
+  cy.get("#btnBack").click();
+};

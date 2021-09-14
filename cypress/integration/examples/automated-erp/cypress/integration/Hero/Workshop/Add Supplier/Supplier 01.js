@@ -127,7 +127,7 @@ const loginAdmin = (username, password) => {
 const Admin1 = () => {
     cy.get(':nth-child(2) > .nav-link > .row').click()
 
-    cy.get('#customer-0 > :nth-child(3) > a > .btn-details').click()
+    cy.get('#customer-0 > :nth-child(3) > a > .btn-details').click({ force: true })
 
 
     cy.get('[warning=""]').click({ force: true })
@@ -143,9 +143,9 @@ const Admin1 = () => {
 
     cy.get('.swal2-confirm').click()
 
-    cy.get('#customer-0 > :nth-child(3) > a > .btn-details').click()
+    cy.get('#customer-0 > :nth-child(3) > a > .btn-details').click({ force: true })
     cy.get('.the-enable').should("contain.text", "เปิดการใช้งาน")
-    cy.get('.mr-5').click()
+    cy.get('.mr-5').click({ force: true })
 
 }
 // ออกจากระบบ

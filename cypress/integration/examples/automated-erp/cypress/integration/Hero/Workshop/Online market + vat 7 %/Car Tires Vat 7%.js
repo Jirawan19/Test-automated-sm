@@ -1,4 +1,4 @@
-// ตลาดค้าส่งออนไลน์ ยาง/สินค้าส่งไม่ด่วน**
+// ตลาดค้าส่งออนไลน์ ยาง/สินค้าส่งไม่ด่วน
 
 /// <reference types="cypress" />
 
@@ -7,8 +7,8 @@ context("workshop-OnlineCar tires", () => {
     cy.login("empGrip01", "password");
     orderOnlineTires();
     orderOnlineTires1();
-    checkOrderOnlineTires();
-    logout();
+      checkOrderOnlineTires();
+      logout();
   });
 
   it("supplier receive", () => {
@@ -24,7 +24,7 @@ context("workshop-OnlineCar tires", () => {
     //   receiveSale()
     //   checkreceive()
 
-  //     // รับรายการยางรถยนต์ แบบบางชิ้น
+  // //     // รับรายการยางรถยนต์ แบบบางชิ้น
       receiveSale1()
       checkreceive1()
 
@@ -86,9 +86,14 @@ const orderOnlineTires1 = () => {
 
   cy.get(".total-price").contains("5,300.00 บาท");
 
+  cy.get(".two > .md-label-form > span").click();
+  cy.get(":nth-child(4) > .three").contains("346.73 บาท");
+  cy.get('div[style="cursor: pointer;"] > .three').contains("4,953.28 บาท");
+  cy.get(".total-price").contains("5,300.01 บาท");
+
   // ยืนยันการซื้อสินค้า
-//   cy.get(":nth-child(2) > .btn").click();
-//   cy.get(".swal2-confirm").click();
+  cy.get(":nth-child(2) > .btn").click();
+  cy.get(".swal2-confirm").click();
 };
 
 // เช็ครายการสินค้าที่พึ่งเปิด
@@ -99,7 +104,7 @@ const checkOrderOnlineTires = () => {
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
   ).contains("195 / 65 R 15");
-  cy.get("#totalNettd").contains("5,300.00 บาท");
+  cy.get("#totalNettd").contains("5,300.01 บาท");
 
   cy.get("#backtoindex").click();
 };
@@ -140,7 +145,7 @@ const supplierreceive = () => {
     ".table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(5)"
   ).contains("TOYO");
 
-  cy.get(":nth-child(1) > .text-right").contains("5,300.00 บาท");
+  cy.get(":nth-child(1) > .text-right").contains("4,953.28 บาท");
 
   // บันทึกรับรายการขาย
   cy.get(":nth-child(2) > span > .btn").click();
@@ -253,6 +258,7 @@ const checkreceive1 = () => {
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(5)"
   ).should("contain.text", "TOYO");
-  cy.get("tbody > :nth-child(1) > :nth-child(8)").contains("4,000.00");
+  cy.get("tbody > :nth-child(1) > :nth-child(8)").contains("3,738.32");
+  cy.get(':nth-child(4) > #discountsdatatd').contains("261.68 บาท");
   cy.get("#backtoindex").click();
 };

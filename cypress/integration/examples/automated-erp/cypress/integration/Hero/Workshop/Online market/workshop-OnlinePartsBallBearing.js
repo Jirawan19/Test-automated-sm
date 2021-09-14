@@ -13,23 +13,23 @@ context("workshop-OnlinePartsBallBearing", () => {
         logout()
     })
 
-    it("supplier receiveATP", () => {
-        cy.login("atp-member1", "atp16011986")
-        supplierreceive()
-        Supllierlogout()
-    })
+    // it("supplier receiveATP", () => {
+    //     cy.login("atp-member1", "atp16011986")
+    //     supplierreceive()
+    //     Supllierlogout()
+    // })
 
-    it("workshop receive", () => {
-        cy.login("empGrip01", "password")
+    // it("workshop receive", () => {
+    //     cy.login("empGrip01", "password")
 
-        // รับสินค้า อะไหล่ แบบทั้งหมด
-        receiveSaleparts()
-        checkreceiveparts()
+    //     // รับสินค้า อะไหล่ แบบทั้งหมด
+    //     receiveSaleparts()
+    //     checkreceiveparts()
 
         // รับสินค้า อะไหล่ แบบบางชิ้น
         // receiveSaleparts1()
         // checkreceiveparts1()
-    })
+    // })
 })
 
 // เข้าหน้าเพิ่มรายการซื้อ
@@ -44,17 +44,17 @@ const orderOnlineBallBearing = () => {
 // เพิ่มรายการซื้ออะไหล่ ระบบเบรก
 const orderOnlineBallBearing1 = () => {
     cy.get('#selSearchPart')
-        .wait(2000).click().type("ลูกปืนล้อ").type("{enter}")
+        .wait(2000).click({ force: true }).type("ลูกปืนล้อ").type("{enter}")
 
     cy.get('#vs12__combobox > .vs__selected-options > #selSearchPartBrands')
-        .wait(2000).click().type("GSP").type("{enter}")
+        .wait(2000).click({ force: true }).type("GSP").type("{enter}")
 
 
     cy.get('#btnAddCartById-29499')
-        .click()
+        .click({ force: true })
 
     cy.get('.el-notification__closeBtn')
-        .click()
+        .click({ force: true })
 
 
     // เข้าหน้ารายการซื้อ

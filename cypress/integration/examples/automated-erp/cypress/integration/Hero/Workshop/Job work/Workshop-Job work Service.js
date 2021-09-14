@@ -84,9 +84,7 @@ const JobWork = () => {
 
 }
 const JobWork1 = () => {
-    cy.get('table>tbody>tr:first>td:last>a').then(rs => {
-        cy.visit(Cypress.config().baseUrl + rs[0].getAttribute("href"))
-    })
+    cy.fixCanNotClickLink(cy.get('table>tbody>tr:first>td:last>a'))
 }
 
 // เพิ่มบริการ

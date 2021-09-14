@@ -1,4 +1,4 @@
-// อะไหล่ เบรก ไม่ด่วน**
+// อะไหล่ เบรก ไม่ด่วน
 
 /// <reference types="cypress" />
 
@@ -21,8 +21,8 @@ context("workshop-OnlinePartsBrake", () => {
     cy.login("empGrip01", "password");
 
     // รับสินค้า อะไหล่ แบบทั้งหมด
-    //   receiveSaleparts()
-    //   checkreceiveparts()
+    // receiveSaleparts();
+    // checkreceiveparts();
 
     //   รับสินค้า อะไหล่ แบบบางชิ้น
     receiveSaleparts1();
@@ -74,6 +74,10 @@ const orderOnlineBrake1 = () => {
     "593.85"
   );
 
+  cy.get(".total-price").contains("1,781.55 บาท");
+  cy.get(".two > .md-label-form > span").click();
+  cy.get(":nth-child(4) > .three").contains("116.55 บาท");
+  cy.get('div[style="cursor: pointer;"] > .three').contains("1,665.00 บาท");
   cy.get(".total-price").contains("1,781.55 บาท");
 
   cy.get(":nth-child(2) > .btn").click();
@@ -127,7 +131,7 @@ const supplierreceive = () => {
     ".table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(4)"
   ).contains("ผ้าดิสเบรค หลัง");
 
-  cy.get(":nth-child(1) > .text-right").contains("1,781.55 บาท");
+  cy.get(":nth-child(1) > .text-right").contains("1,665.00 บาท");
 
   // บันทึกรับรายการขาย
   cy.get(":nth-child(2) > span > .btn").click();
@@ -154,7 +158,7 @@ const receiveSaleparts = () => {
     .clear()
     .type("3");
 
-  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("1,781.55");
+  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("1,665.00");
 
   cy.get("#totalNettd").contains("1,781.55 บาท");
 
@@ -203,7 +207,7 @@ const receiveSaleparts1 = () => {
     .clear()
     .type("2");
 
-  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("1,781.55");
+  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("1,665.00");
 
   cy.get("#totalNettd").contains("1,781.55 บาท");
 

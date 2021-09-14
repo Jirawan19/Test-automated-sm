@@ -1,43 +1,42 @@
-// ตลาดค้าส่งออนไลน์ ยาง/สินค้าส่งไม่ด่วน**
+// ตลาดค้าส่งออนไลน์ แม็ก/// ไม่มีสินค้า
 
 /// <reference types="cypress" />
 
-context("workshop-OnlineCar tires", () => {
-  it("workshop-OnlineCar tires", () => {
+context("workshop-OnlineMag", () => {
+  it("workshop-OnlineMag", () => {
     cy.login("empGrip01", "password");
-    orderOnlineTires();
-    orderOnlineTires1();
-    checkOrderOnlineTires();
-    logout();
+    orderOnlineMag();
+    // orderOnlineMag1();
+    // checkOrderOnlineMag();
+    // logout();
   });
 
-  it("supplier receive", () => {
-    cy.login("grip-member1", "password");
-    supplierreceive();
-    Supllierlogout();
-  });
+  // it("supplier receive", () => {
+  //   cy.login("grip-member1", "password");
+  //   supplierreceive();
+  //   Supllierlogout();
+  // });
 
-  it("workshop receive ", () => {
-      cy.login("empGrip01", "password")
+  // it("workshop receive ", () => {
+  //   cy.login("empGrip01", "password");
 
-      // รับรายการยางรถยนต์ แบบทั้งหมด
+    // รับรายการยางรถยนต์ แบบทั้งหมด
     //   receiveSale()
     //   checkreceive()
 
-  //     // รับรายการยางรถยนต์ แบบบางชิ้น
-      receiveSale1()
-      checkreceive1()
-
-  })
+    //     // รับรายการยางรถยนต์ แบบบางชิ้น
+  //   receiveSale1();
+  //   checkreceive1();
+  // });
 });
 // เข้าหน้าเพิ่มรายการซื้อ
-const orderOnlineTires = () => {
+const orderOnlineMag = () => {
   cy.get("#nav-item-0").click();
-
-  cy.get("#btnMenu-0").click();
+  cy.get(".swiper-button-next").click();
+  cy.get("#btnMenu-12").click();
 };
 // เพิ่มรายการซื้อ ยาง
-const orderOnlineTires1 = () => {
+const orderOnlineMag1 = () => {
   // หน้ากว้าง
   cy.get("#txtSelectWidth")
     .click({ force: true })
@@ -87,12 +86,12 @@ const orderOnlineTires1 = () => {
   cy.get(".total-price").contains("5,300.00 บาท");
 
   // ยืนยันการซื้อสินค้า
-//   cy.get(":nth-child(2) > .btn").click();
-//   cy.get(".swal2-confirm").click();
+  //   cy.get(":nth-child(2) > .btn").click();
+  //   cy.get(".swal2-confirm").click();
 };
 
 // เช็ครายการสินค้าที่พึ่งเปิด
-const checkOrderOnlineTires = () => {
+const checkOrderOnlineMag = () => {
   cy.get(":nth-child(1) > :nth-child(1) > a > .primary-blue").click();
 
   cy.get(".status-border").contains("รอยืนยันรายการ");

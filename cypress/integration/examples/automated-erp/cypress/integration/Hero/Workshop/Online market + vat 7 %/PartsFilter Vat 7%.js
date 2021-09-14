@@ -1,13 +1,13 @@
-// อะไหล่ เบรก ไม่ด่วน**
+// อะไหล่ ใส้กรอง ไม่ด่วน
 
 /// <reference types="cypress" />
 
-context("workshop-OnlinePartsBrake", () => {
+context("workshop-OnlinePartsFilter", () => {
   it("Add order-parts", () => {
     cy.login("empGrip01", "password");
-    orderOnlineBrake();
-    orderOnlineBrake1();
-    checkorderOnlineBrake();
+    orderOnlineFilter();
+    orderOnlineFilter1();
+    checkorderOnlineFilter();
     logout();
   });
 
@@ -21,60 +21,57 @@ context("workshop-OnlinePartsBrake", () => {
     cy.login("empGrip01", "password");
 
     // รับสินค้า อะไหล่ แบบทั้งหมด
-    //   receiveSaleparts()
-    //   checkreceiveparts()
+    receiveSaleparts();
+    checkreceiveparts();
 
-    //   รับสินค้า อะไหล่ แบบบางชิ้น
-    receiveSaleparts1();
-    checkreceiveparts1();
+    // รับสินค้า อะไหล่ แบบบางชิ้น
+    // receiveSaleparts1();
+    // checkreceiveparts1();
   });
 });
 
 // เข้าหน้าเพิ่มรายการซื้อ
-const orderOnlineBrake = () => {
+const orderOnlineFilter = () => {
   cy.get("#nav-item-0").click();
 
-  cy.get("#btnMenu-1").click();
-  cy.wait(2000);
+  cy.get("#btnMenu-5").click().wait(1000);
 };
 
 // เพิ่มรายการซื้ออะไหล่ ระบบเบรก
-const orderOnlineBrake1 = () => {
+const orderOnlineFilter1 = () => {
   cy.get("#selSearchPart")
     .wait(2000)
     .click({ force: true })
-    .type("ผ้าดิสเบรค{enter}");
-
-  cy.get("#selSearchPartPositions")
-    .wait(2000)
-    .click({ force: true })
-    .type("หลัง", { force: true })
+    .type("ไส้กรองแอร์")
     .type("{enter}");
 
   cy.get("#selSearchPartBrands")
     .wait(2000)
     .click({ force: true })
-    .type("TRW", { force: true })
+    .type("FAME")
     .type("{enter}");
 
-  cy.get("#btnAddCartById-2077").click({ force: true });
+  cy.get("#btnAddCartById-8699").click({ force: true });
 
-  cy.get(".el-notification__closeBtn").click();
+  cy.get(".el-notification__closeBtn").click({ force: true });
 
   // เข้าหน้ารายการซื้อ
   cy.get(".input-group > #btnTopbar_Icon_Cart > img").click();
 
   // เช็ครายการสินค้า
-  cy.get(".td-list-text > :nth-child(1)").contains("ผ้าดิสเบรค หลัง");
+  cy.get(".td-list-text > :nth-child(1)").contains("ไส้กรองแอร์ (27277-1H0A)");
 
   // จำนวน
   cy.get("#txtQtyReciveBySupplyIndex-0-0").clear().type("3");
   // ราคา
   cy.get('thead > [style="cursor: pointer;"] > :nth-child(4)').contains(
-    "593.85"
+    "80.00"
   );
 
-  cy.get(".total-price").contains("1,781.55 บาท");
+  cy.get(".total-price").contains("240.00 บาท");
+  cy.get(".two > .md-label-form > span").click();
+  cy.get(":nth-child(4) > .three").contains("16.80 บาท");
+  cy.get(".total-price").contains("256.80 บาท");
 
   cy.get(":nth-child(2) > .btn").click();
 
@@ -82,14 +79,20 @@ const orderOnlineBrake1 = () => {
 };
 
 // เช็ครายการสินค้าที่พึ่งเปิด
-const checkorderOnlineBrake = () => {
+const checkorderOnlineFilter = () => {
   cy.get(":nth-child(1) > :nth-child(1) > a > .primary-blue").click();
 
-  cy.get(".status-border").contains("รอยืนยันรายการ");
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).contains("GDB101(COTEC)");
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  ).contains("27277-1H0A");
+
+  cy.get(
+    ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
+  ).contains("ไส้กรองแอร์");
+
+  cy.get(".status-border").contains("รอยืนยันรายการ");
+
+  cy.get("#totalNettd").contains("256.80 บาท");
 
   cy.get("#backtoindex").click();
 };
@@ -104,14 +107,6 @@ const Supllierlogout = () => {
   cy.get("#dropdownMenuOffset").click();
   cy.get(".dropdown-menu > :nth-child(2)").click();
 };
-
-const loginsupplierATP = (username, password) => {
-  cy.get(".my-4 > .text-left > span").should("contain.text", "ชื่อผู้ใช้งาน");
-  cy.get("#username").type(username);
-  cy.get(".mb-3 > .text-left > span").should("contain.text", "รหัสผ่าน");
-  cy.get("#password").type(password);
-  cy.get(".btn-global").click();
-};
 const supplierreceive = () => {
   // เข้าหน้ารับรายการขาย
   cy.get("#nav-item-0").click();
@@ -122,12 +117,12 @@ const supplierreceive = () => {
 
   cy.get(
     ".table-order-wrappe > .table > tbody > tr > .text-left > .primary-blue"
-  ).contains("GDB101(COTEC)");
+  ).contains("27277-1H0A");
   cy.get(
     ".table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(4)"
-  ).contains("ผ้าดิสเบรค หลัง");
+  ).contains("ไส้กรองแอร์");
 
-  cy.get(":nth-child(1) > .text-right").contains("1,781.55 บาท");
+  cy.get(":nth-child(1) > .text-right").contains("240.00 บาท");
 
   // บันทึกรับรายการขาย
   cy.get(":nth-child(2) > span > .btn").click();
@@ -145,18 +140,16 @@ const receiveSaleparts = () => {
 
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).contains("GDB101(COTEC)");
+  ).contains("27277-1H0A");
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
-  ).contains("ผ้าดิสเบรค หลัง");
+  ).contains("ไส้กรองแอร์");
 
   cy.get("#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0")
     .clear()
     .type("3");
 
-  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("1,781.55");
-
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  cy.get("#totalNettd").contains("256.80 บาท");
 
   // บันทึกรายการ
   cy.get(".d-xl-flex > :nth-child(2) > .btn").click();
@@ -172,12 +165,13 @@ const checkreceiveparts = () => {
 
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).should("contain.text", "GDB101(COTEC)");
+  ).should("contain.text", "27277-1H0A");
+
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
-  ).should("contain.text", "ผ้าดิสเบรค");
+  ).contains("ไส้กรองแอร์");
 
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  cy.get("#totalNettd").contains("256.80 บาท");
 
   cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("ยืนยันการส่ง");
 
@@ -194,18 +188,18 @@ const receiveSaleparts1 = () => {
 
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).contains("GDB101(COTEC)");
+  ).contains("27277-1H0A");
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
-  ).contains("ผ้าดิสเบรค หลัง");
+  ).contains("ไส้กรองแอร์");
 
   cy.get("#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0")
     .clear()
     .type("2");
 
-  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("1,781.55");
+  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("240.00");
 
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  cy.get("#totalNettd").contains("256.80 บาท");
 
   // บันทึกรายการ
   cy.get(".d-xl-flex > :nth-child(2) > .btn").click();
@@ -221,12 +215,12 @@ const checkreceiveparts1 = () => {
 
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).should("contain.text", "GDB101(COTEC)");
+  ).should("contain.text", "27277-1H0A");
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
-  ).should("contain.text", "ผ้าดิสเบรค");
+  ).contains("ไส้กรองแอร์");
 
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  cy.get("#totalNettd").contains("256.80 บาท");
 
   cy.get("#backtoindex").click();
 };

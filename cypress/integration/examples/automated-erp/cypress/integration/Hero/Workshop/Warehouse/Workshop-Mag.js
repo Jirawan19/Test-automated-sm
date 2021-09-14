@@ -17,11 +17,11 @@ context("Warehouse", () => {
 
 const Mag = () => {
     cy.get('#nav-item-7')
-        .click()
+        .click({ force: true })
     cy.get('#tab-inventory')
-        .click()
+        .click({ force: true })
     cy.get('#btn-addInventory')
-        .click()
+        .click({ force: true })
     cy.get('#tab-MAG')
         .click({ force: true })
 
@@ -75,6 +75,6 @@ const Mag2 = () => {
 // ยืนยันเพิ่มสินค้า
 const confimeMag = () => {
     cy.get('.swal2-confirm').click()
-    cy.get('#tab-MAG').click()
+    cy.get('#tab-MAG').click({ force: true })
 }
 

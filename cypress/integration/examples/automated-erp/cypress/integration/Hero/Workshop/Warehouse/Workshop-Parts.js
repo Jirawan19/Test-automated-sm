@@ -13,11 +13,11 @@ context("Warehouse", () => {
 // กรอกรายละเอียดสินค้า
 const Parts = () => {
     cy.get('#nav-item-7')
-        .click()
+        .click({ force: true })
     cy.get('#tab-inventory')
-        .click()
+        .click({ force: true })
     cy.get('#btn-addInventory')
-        .click()
+        .click({ force: true })
     cy.get('#tab-PART').click({ force: true })
 
 
@@ -73,5 +73,5 @@ const Parts1 = () => {
 // ยืนยันเพิ่มสินค้า
 const confimeParts = () => {
     cy.get('.swal2-confirm').click()
-    cy.get('#tab-PART').click()
+    cy.get('#tab-PART').click({ force: true })
 }

@@ -15,12 +15,12 @@ context("Warehouse", () => {
 // รายละเอียดสินค้า
 const Cartiees = () => {
     cy.get('#nav-item-7')
-        .click()
+        .click({ force: true })
     cy.get('#tab-inventory')
-        .click()
+        .click({ force: true })
     cy.wait(2000)
     cy.get('#btn-addInventory')
-        .click()
+        .click({ force: true })
     cy.get('#tab-TIRE').click({ force: true })
 
     taxCartiees(getRandomNumberCartiees(0, 10))
@@ -85,6 +85,6 @@ const Cartiees1 = () => {
 // ยืนยันเพิ่มสินค้า
 const confimeCartiees = () => {
     cy.get('.swal2-confirm').click()
-    cy.get('#tab-TIRE').click()
+    cy.get('#tab-TIRE').click({ force: true })
 }
 
