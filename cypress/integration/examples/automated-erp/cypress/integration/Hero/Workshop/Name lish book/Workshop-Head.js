@@ -58,7 +58,7 @@ const taxAddEmployee3 = (textNo) => {
 
 const checkHead = () => {
     cy.get('#nav-item-7').click()
-    cy.get('#tab-employee').click()
+    cy.get('#tab-employee').click( { force: true })
 
     cy.get('.table-responsive > .table > tbody > :nth-child(1) > :nth-child(4) > .btn')
         .click()

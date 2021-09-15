@@ -6,23 +6,23 @@ context("Workshop Add Repair work", () => {
   // เปิดงานซ่อม
   it("Add job work", () => {
     cy.login("empGrip01", "password");
-    // AddCustomerJob();
-    // AddTechincianOrWorkjob();
-    // addCartiees();
+    AddCustomerJob();
+    AddTechincianOrWorkjob();
+    addCartiees();
 
     JobWork();
     JobWork1();
   });
 
   //   ซ่อมบำรุง นำเลขออเดอร์ที่พึ่งเปิดงานซ่อมมาใส่ทุกครั้ง
-    it("job work", () => {
-      cy.login("empGrip01", "password");
-      cy.wait(2000);
-      jobwork();
-      cy.wait(2000);
-      checkStatus();
-      checkStatus1();
-    });
+  it("job work", () => {
+    cy.login("empGrip01", "password");
+    cy.wait(2000);
+    jobwork();
+    cy.wait(2000);
+    checkStatus();
+    checkStatus1();
+  });
 });
 
 const JobWork = () => {
@@ -119,7 +119,7 @@ const JobWork1 = () => {
 // เพิ่มสินค้า รายละเอียดสินค้า
 const addCartiees = () => {
   cy.get("#nav-item-7").click();
-  cy.get("#tab-inventory").click();
+  cy.get("#tab-inventory").click({ force: true });
   cy.get("#btn-addInventory").click({ force: true });
   cy.get("#tab-TIRE").click({ force: true });
 
@@ -149,17 +149,6 @@ const addCartiees = () => {
   // ยืนยันเพิ่มสินค้า
   cy.get(".swal2-confirm").click();
   cy.get("#tab-TIRE").click({ force: true });
-
-  // เช็คสินค้าที่เพิ่ม
-  // cy.get('#pane-TIRE > #ordersTable > .d-none > .table > tbody > #inventorys-0 > :nth-child(6) > .btn-details')
-  //     .click()
-  // cy.get('.form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > #inventorys-0 > :nth-child(1)')
-  //     .should("contain.text", "0319")
-  // cy.get('#inventorytabletire > .modal-dialog > .modal-content > .modal-body > .form-row.mt-4 > :nth-child(2) > .table-responsive > .table > tbody > .font-weight-bold > :nth-child(2)')
-  //     .should("contain.text", "50")
-
-  // cy.get('#inventorytabletire > .modal-dialog > .modal-content > .modal-footer > .btn-reset')
-  //     .click({ force: true })
 };
 
 const getRandomNumberCartiees = (min, max) => {
@@ -294,6 +283,7 @@ const AddCustomerJob = () => {
 
   // ยืนยันเพิ่ม supplier
   cy.get(".swal2-confirm");
+  cy.wait(500);
   cy.get(".swal2-confirm").click();
 };
 const getRandomNumberAddCustomer = (min, max) => {
@@ -331,7 +321,7 @@ const taxAddCustomer6 = (textNo) => {
 };
 
 const jobwork = () => {
-  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0008");
+  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0010");
   cy.get(".status-border").contains("รอซ่อมบำรุง");
   cy.get("#podata-0 > :nth-child(3)").contains("เพิ่มยาง");
   cy.get("#po-0 > :nth-child(4)").contains("200.00");

@@ -21,12 +21,12 @@ context("workshop-OnlineCar tires", () => {
       cy.login("empGrip01", "password")
 
       // รับรายการยางรถยนต์ แบบทั้งหมด
-    //   receiveSale()
-    //   checkreceive()
+      receiveSale()
+      checkreceive()
 
   // //     // รับรายการยางรถยนต์ แบบบางชิ้น
-      receiveSale1()
-      checkreceive1()
+      // receiveSale1()
+      // checkreceive1()
 
   })
 });

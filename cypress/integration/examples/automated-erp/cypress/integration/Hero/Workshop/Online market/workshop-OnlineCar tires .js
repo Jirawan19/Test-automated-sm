@@ -21,12 +21,12 @@ context("workshop-OnlineCar tires", () => {
       cy.login("empGrip01", "password")
 
       // รับรายการยางรถยนต์ แบบทั้งหมด
-    //   receiveSale()
-    //   checkreceive()
+      receiveSale()
+      checkreceive()
 
   //     // รับรายการยางรถยนต์ แบบบางชิ้น
-      receiveSale1()
-      checkreceive1()
+      // receiveSale1()
+      // checkreceive1()
 
   })
 });
@@ -87,8 +87,8 @@ const orderOnlineTires1 = () => {
   cy.get(".total-price").contains("5,300.00 บาท");
 
   // ยืนยันการซื้อสินค้า
-//   cy.get(":nth-child(2) > .btn").click();
-//   cy.get(".swal2-confirm").click();
+  cy.get(":nth-child(2) > .btn").click();
+  cy.get(".swal2-confirm").click();
 };
 
 // เช็ครายการสินค้าที่พึ่งเปิด

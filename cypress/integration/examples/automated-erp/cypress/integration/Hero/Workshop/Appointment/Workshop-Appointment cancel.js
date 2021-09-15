@@ -93,14 +93,10 @@ const AddAppointment = () => {
 
   cy.get("#car-id").click().type("9กณ").wait(2000).type("{downarrow}{enter}");
   cy.get("#date-1").click();
-  cy.get(":nth-child(6) > :nth-child(4) > div").click();
+  cy.get(":nth-child(4) > :nth-child(3) > div").click();
   // cy.get('.el-date-table > tbody > :nth-child(3) > :nth-child(3) > div')
   //     .click()
-  cy.get("#time")
-    .click()
-    .type(
-      "{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}"
-    );
+  cy.get("#time").click().type("{downarrow}{enter}");
   cy.get("#customer-story").type("test");
   cy.get(".el-textarea__inner").type("test");
 
@@ -154,9 +150,10 @@ const checkAppointment = () => {
     { force: true }
   );
   cy.get(".md-btn-inactive").click({ force: true });
-  cy.get(".swal2-confirm").click();
-  cy.get(".swal2-confirm").click();
-  cy.get("#calendar_tb_btn").click();
+  cy.get(".swal2-confirm").click({ force: true });
+  cy.wait(500);
+  cy.get(".swal2-confirm").click({ force: true });
+  cy.get("#calendar_tb_btn").click({ force: true });
   cy.get("tbody > :nth-child(1) > .text-left").contains("9กณ");
   cy.get(".table > tbody > :nth-child(1) > :nth-child(4)").contains("test");
   cy.get(':nth-child(1) > [style="width: 12rem;"] > .status-border').contains(

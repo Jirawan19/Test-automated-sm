@@ -3,15 +3,15 @@
 /// <reference types="cypress" />
 
 context("Workshop Add Repair work", () => {
-  it("Add job work", () => {
-    cy.login("empGrip01", "password");
-    //     // AddCustomerJob()
-    //     // AddTechincianOrWorkjob()
-    addParts();
+    it("Add job work", () => {
+  cy.login("empGrip01", "password");
+  // AddCustomerJob()
+  // AddTechincianOrWorkjob()
+  // addService();
 
-    JobWork();
-    JobWork1();
-  });
+      JobWork();
+      JobWork1();
+    });
   // ซ่อมบำรุง นำเลขออเดอร์ที่พึ่งเปิดงานซ่อมมาใส่ทุกครั้ง
   it("job work", () => {
     cy.login("empGrip01", "password");
@@ -19,10 +19,23 @@ context("Workshop Add Repair work", () => {
     jobwork();
     cy.wait(2000);
     checkStatus();
-    checkStatus1();
+    // checkStatus1();
   });
 });
+const jobwork = () => {
+  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0025");
+  cy.get(".status-border").contains("รอซ่อมบำรุง");
+  cy.get('#servicepodata-0').contains("เพิ่มบริการ");
+  cy.get('#servicepo-0 > :nth-child(4)').contains("150.00");
+  cy.get('#servicepo-0 > :nth-child(5)').contains("450.00");
+  cy.get("#totalPriceFinal").contains("481.50 บาท");
+  cy.get("#paymentPrice").contains("481.50 บาท");
 
+  cy.get("#btnrecheckConfirmstart").click();
+  cy.get(".swal2-confirm").click();
+  cy.wait(500);
+  cy.get(".swal2-confirm").click();
+};
 const JobWork = () => {
   cy.get("#nav-item-2").click();
 
@@ -31,43 +44,36 @@ const JobWork = () => {
   // เลือกลูกค้าและพนักงานซ่อม
   cy.get("#selSelectCar")
     .click({ force: true })
-    .type("9กณ", { force: true })
+    .type("9กณ")
     .type("{downarrow}{enter}");
+
   cy.get("#selSelectmechanicId")
     .click({ force: true })
     .type("เพิ่มช่างซ่อม")
-    .type("{downarrow}{enter}");
-  cy.get("#selSelectSales")
-    .click({ force: true })
-    .type("เพิ่มพนักงาน")
     .type("{downarrow}{enter}");
 
   cy.get("#btnAddProduct").click({ force: true });
 
   // ค้นหาสินค้า
-  cy.wait(1000);
+  cy.wait(500);
 
-  cy.get("#tab-PART").click({ force: true });
+  cy.get("#tab-SERVICE").click({ force: true });
 
-  cy.wait(1000);
+  cy.wait(500);
 
-  cy.get("#inputSearchParts")
+  cy.get("#serviceName")
     .click({ force: true })
-    .type("เพิ่มอะไหล่", { force: true })
+    .type("เพิ่มบริการ")
     .type("{enter}");
 
-  cy.wait(1000);
+  cy.wait(500);
 
   // เลือกสินค้า,ค้นหาสินค้า
-  cy.get('[style="font-size: 1.1rem;"] > .btn-search').click({ force: true });
+  cy.get("#serviceSearch").click({ force: true });
 
-  cy.wait(1000);
+  // cy.wait(1000)
 
-  cy.get(
-    "#pane-PART > .d-xl-block > .table > tbody > :nth-child(1) > :nth-child(1)"
-  ).contains("เพิ่มอะไหล่");
-
-  cy.get(":nth-child(1) > :nth-child(6) > .btn").click({ force: true });
+  cy.get("#addservicePo-NF-254").click({ force: true });
 
   cy.get(".el-notification__closeBtn").click({ force: true });
 
@@ -75,72 +81,46 @@ const JobWork = () => {
     "#Product > .modal-dialog > .modal-content > .modal-header > .close"
   ).click({ force: true });
 
-  // ตรวจเช็ครายละเอียดสินค้า
-  cy.get("#datapart-0 > .secondary-blue").contains("เพิ่มอะไหล่");
+  cy.get("#poservicedata-0").contains("เพิ่มบริการ");
 
-  cy.get("#partdescription-0").contains("test");
+  cy.get("#poserviceamount-0")
+    .click({ force: true })
+    .clear({ force: true })
+    .type("3", { force: true });
+  cy.get(":nth-child(3) > .th-retail-style").click();
 
-  // ราคาต่อหน่วย
-  cy.get("#partproductlatestSalePricetotalend-0").contains("200.00");
+  cy.get("#poservicetotalprice-0").contains("450.00");
 
-  // ราคาสุทธิ
-  cy.get("#paymentPrice").contains("214.00 บาท");
+  cy.get("#paymentPrice").contains("481.50 บาท");
 
-  cy.get("#txtNote").click().type("test");
-
-  //  เปิดรายการซ่อม
   cy.get("#btncreateWalkInWorkshopJob").click();
 
   cy.get(".swal2-confirm").click();
 };
 
-const JobWork1 = () => {
-  cy.get("#btnJobdetail-0").click({ force: true });
-};
+// เพิ่มบริการ
+const addService = () => {
+  cy.get("#nav-item-5").click();
+  cy.get(".el-button").click({ force: true });
 
-// เพิ่มสินค้า รายละเอียดสินค้า
-const addParts = () => {
-  cy.get("#nav-item-7").click();
-  cy.get("#tab-inventory").click({ force: true });
-  cy.get("#btn-addInventory").click({ force: true });
-  cy.get("#tab-PART").click({ force: true });
+  taxAddService(getRandomAddService(1, 3));
+  cy.get("#price").type("150");
+  taxAddService1(getRandomAddService(1, 3));
 
-  taxParts(getRandomNumberParts(1, 10));
-  cy.get("#fitmentDetail").click({ force: true }).type("{downarrow}{enter}");
-  taxParts1(getRandomNumberParts(1, 10));
-  taxParts2(getRandomNumberParts(1, 10));
-  taxParts3(getRandomNumberParts(1, 10));
-  cy.get("#itemDescription").type("test");
+  cy.get('[success=""]').click();
 
-  cy.get("#btnNextPart").click();
-
-  // รายละเอียดราคา
-  cy.get("#amountRemainStock").clear().type("10");
-  cy.get("#unit").click().type("{downarrow}{enter}");
-  cy.get(":nth-child(3) > .mt-2 > #salesPricePart").clear().type("200");
-  cy.get(":nth-child(4) > .mt-2 > #salesPricePart").clear().type("150");
-  cy.get("#btnsaveInventoryPart").click();
-
-  // ยืนยันเพิ่มสินค้า
   cy.get(".swal2-confirm").click();
-  cy.get("#tab-TIRE").click({ force: true });
 };
 
-const getRandomNumberParts = (min, max) => {
+const getRandomAddService = (min, max) => {
   0, 0;
   return Math.random() * (max - min) + min;
 };
-const taxParts = (textNo) => {
-  cy.get("#itemName").type("เพิ่มอะไหล่").type(textNo);
+const taxAddService = (textNo) => {
+  cy.get("#state-name").type("เพิ่มบริการ").type(textNo);
 };
-const taxParts1 = (textNo) => {
-  cy.get("#brand").type("เพิ่มอะไหล่").type(textNo);
-};
-const taxParts2 = (textNo) => {
-  cy.get("#manufacturerNo").type("เพิ่มอะไหล่").type(textNo);
-};
-const taxParts3 = (textNo) => {
-  cy.get("#oeNo").type("เพิ่มอะไหล่").type(textNo);
+const taxAddService1 = (textNo) => {
+  cy.get("#description").type("เพิ่มบริการ").type(textNo);
 };
 
 // เข้าหน้าเพิ่มพนักงาน
@@ -282,35 +262,23 @@ const taxAddCustomer6 = (textNo) => {
   cy.get("#email").click().type("test").type(textNo).type("@gmail.com");
 };
 
-const jobwork = () => {
-  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0016");
-  cy.get(".status-border").contains("รอซ่อมบำรุง");
-  cy.get("#podata-0 > :nth-child(4)").contains("เพิ่มอะไหล่");
-  cy.get("#po-0 > :nth-child(4)").contains("200.00");
-  cy.get("#po-0 > :nth-child(5)").contains("200.00");
-  cy.get("#totalPriceFinal").contains("214.00 บาท");
-  cy.get("#paymentPrice").contains("214.00 บาท");
-
-  cy.get("#btnrecheckConfirmstart").click();
-  cy.get(".swal2-confirm").click();
-  cy.wait(500);
-  cy.get(".swal2-confirm").click();
+const JobWork1 = () => {
+  cy.get("#btnJobdetail-0").click({ force: true });
 };
-
 const checkStatus = () => {
-  cy.get(".status-border").contains("กำลังซ่อมบำรุง");
-  cy.get("#paymentPrice").contains("214.00 บาท");
-  cy.get("#paymentModal").click();
-
-  cy.get("#paymentType").click().type("เงินสด").type("{downarrow}{enter}");
-  cy.get("#btnrecheckConfirmfinish").click();
-
-  cy.get(".swal2-confirm").click();
-  cy.wait(500);
-  cy.get(".swal2-confirm").click();
-};
-
-const checkStatus1 = () => {
-  cy.get(".status-border").contains("รายการเสร็จสิ้น");
-  cy.get("#btnBack").click();
-};
+    cy.get(".status-border").contains("กำลังซ่อมบำรุง");
+    cy.get("#paymentPrice").contains("481.50 บาท");
+    cy.get("#paymentModal").click();
+  
+    cy.get("#paymentType").click().type("เงินสด").type("{downarrow}{enter}");
+    cy.get("#btnrecheckConfirmfinish").click();
+  
+    cy.get(".swal2-confirm").click();
+    cy.wait(500);
+    cy.get(".swal2-confirm").click();
+  };
+  
+  const checkStatus1 = () => {
+    cy.get(".status-border").contains("รายการเสร็จสิ้น");
+    cy.get("#btnBack").click();
+  };

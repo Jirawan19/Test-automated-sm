@@ -1,182 +1,202 @@
 /// <reference types="cypress" />
 
+context("Finance ATP", () => {
+  //   it("Finance ATP", () => {
+  //     cy.login("empGrip01", "password");
+  //     orderOnlineBrake();
+  //     orderOnlineBrake1();
+  //     checkorderOnlineBrake();
+  //     logout();
+  //   });
 
-context("finance", () => {
+  //   it("supplier receiveATP", () => {
+  //     cy.login("atp-member1", "atp16011986");
+  //     supplierreceive();
+  //     Supllierlogout();
+  //   });
 
-    it("financeATP", () => {
-        cy.login("empGrip01", "password")
-        ShopATP()
+  it("workshop receive", () => {
+    cy.login("empGrip01", "password");
 
-        // cy.login("grip-member1", "password")
-        // ATPReceive()
+    // รับสินค้า อะไหล่ แบบทั้งหมด
+    // receiveSaleparts();
+    // checkreceiveparts();
 
-        // cy.login("empGrip01", "password")
-        // receiveSale()
-        // checkFinance()
+    Finance();
+  });
+});
 
-    })
-})
+// เข้าหน้าเพิ่มรายการซื้อ
+const orderOnlineBrake = () => {
+  cy.get("#nav-item-0").click();
 
-const ShopATP = () => {
-    cy.get('#nav-item-0')
-        .click()
+  cy.get("#btnMenu-1").click();
+  cy.wait(2000);
+};
 
-    cy.get('#btnMenu-2')
-        .click()
-    cy.wait(3000)
+// เพิ่มรายการซื้ออะไหล่ ระบบเบรก
+const orderOnlineBrake1 = () => {
+  cy.get("#selSearchPart")
+    .wait(2000)
+    .click({ force: true })
+    .type("ผ้าดิสเบรค{enter}");
 
-    // เลือกสินค้า
-    cy.get('#selSearchPart')
-        .click().type("โช๊คอัพ").type("{enter}")
+  cy.get("#selSearchPartPositions")
+    .wait(2000)
+    .click({ force: true })
+    .type("หลัง", { force: true })
+    .type("{enter}");
 
-    // cy.get('#selSearchPartPositions')
-    //     .click().wait(500).type("หลัง").type("{enter}")
+  cy.get("#selSearchPartBrands")
+    .wait(2000)
+    .click({ force: true })
+    .type("TRW", { force: true })
+    .type("{enter}");
 
+  cy.get("#btnAddCartById-2077").click({ force: true });
 
-    // cy.get('#selSearchPartBrands')
-    //     .click().wait(500).type("TOKICO").type("{enter}")
+  cy.get(".el-notification__closeBtn").click();
 
+  // เข้าหน้ารายการซื้อ
+  cy.get(".input-group > #btnTopbar_Icon_Cart > img").click();
 
-    // cy.get('#btnAddCartById-6364')
-    //     .click()
+  // เช็ครายการสินค้า
+  cy.get(".td-list-text > :nth-child(1)").contains("ผ้าดิสเบรค หลัง");
 
-    // cy.get('.el-notification__closeBtn')
-    //     .click()
+  // จำนวน
+  cy.get("#txtQtyReciveBySupplyIndex-0-0").clear().type("3");
+  // ราคา
+  cy.get('thead > [style="cursor: pointer;"] > :nth-child(4)').contains(
+    "593.85"
+  );
 
+  cy.get(".total-price").contains("1,781.55 บาท");
 
-    // // เข้าหน้ารายการซื้อ
-    // cy.get('.input-group > #btnTopbar_Icon_Cart > img')
-    //     .click()
+  cy.get(":nth-child(2) > .btn").click();
 
-    // // เช็ครายการสินค้า
-    // cy.get('.td-list-text > :nth-child(1)')
-    //     .contains("โช้คอัพ หลัง (2771)")
+  cy.get(".swal2-confirm").click();
+};
 
-    // // จำนวน
-    // cy.get('#txtQtyReciveBySupplyIndex-0-0')
-    //     .clear().type("3")
-    // // ราคา
-    // cy.get('thead > [style="cursor: pointer;"] > :nth-child(4)')
-    //     .contains("399.91")
+// เช็ครายการสินค้าที่พึ่งเปิด
+const checkorderOnlineBrake = () => {
+  cy.get(":nth-child(1) > :nth-child(1) > a > .primary-blue").click();
 
-    // cy.get('.total-price')
-    //     .contains("1,199.74 บาท")
+  cy.get(".status-border").contains("รอยืนยันรายการ");
+  cy.get(
+    ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
+  ).contains("GDB101(COTEC)");
+  cy.get("#totalNettd").contains("1,781.55 บาท");
 
-    // cy.get(':nth-child(2) > .btn')
-    //     .click()
+  cy.get("#backtoindex").click();
+};
 
-    // cy.get('.swal2-confirm')
-    //     .click()
+// ออกจากระบบ
+const logout = () => {
+  cy.get("#dropdownMenuOffset").click();
+  cy.get(".btn-group > .dropdown-menu > :nth-child(2)").click();
+};
+// ออกจากระบบ
+const Supllierlogout = () => {
+  cy.get("#dropdownMenuOffset").click();
+  cy.get(".dropdown-menu > :nth-child(2)").click();
+};
 
-    // // เช็ครายการสินค้าที่พึ่งเปิด
-    // cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
-    //     .click()
+const loginsupplierATP = (username, password) => {
+  cy.get(".my-4 > .text-left > span").should("contain.text", "ชื่อผู้ใช้งาน");
+  cy.get("#username").type(username);
+  cy.get(".mb-3 > .text-left > span").should("contain.text", "รหัสผ่าน");
+  cy.get("#password").type(password);
+  cy.get(".btn-global").click();
+};
+const supplierreceive = () => {
+  // เข้าหน้ารับรายการขาย
+  cy.get("#nav-item-0").click();
+  cy.get(":nth-child(1) > :nth-child(1) > a > .primary-blue").click();
 
-    // cy.get('.status-border')
-    //     .contains("รอยืนยันรายการ")
-    // cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-    //     .contains("2771")
-    // cy.get('#totalNettd')
-    //     .contains("1,199.74 บาท")
+  // เช็คสินค้าและราคา
+  cy.get(".status-border").contains("รอยืนยันรายการ");
 
-    // cy.get('#backtoindex')
-    //     .click()
+  cy.get(
+    ".table-order-wrappe > .table > tbody > tr > .text-left > .primary-blue"
+  ).contains("GDB101(COTEC)");
+  cy.get(
+    ".table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(4)"
+  ).contains("ผ้าดิสเบรค หลัง");
 
-    // // ออกจากระบบ
-    // cy.get('#dropdownMenuOffset').click()
-    // cy.get('.dropdown-menu > :nth-child(2)')
-    //     .click()
-}
-const ATPReceive = () => {
-    // เข้าหน้ารับรายการขาย
-    cy.get(':nth-child(1) > .nav-link > .row > h6').click()
-    cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue').click()
+  cy.get(":nth-child(1) > .text-right").contains("1,781.55 บาท");
 
-    // เช็คสินค้าและราคา
-    cy.get('.status-border').contains("รอยืนยันรายการ")
+  // บันทึกรับรายการขาย
+  cy.get(":nth-child(2) > span > .btn").click();
+  cy.get(".swal2-confirm").click();
+  cy.wait(1000);
+  cy.get(".swal2-confirm").click();
+};
+// workshop รับรายการอะไหล่ แบบทั้งหมด
+const receiveSaleparts = () => {
+  cy.get("#nav-item-3").click();
 
-    cy.get('.table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(4)')
-        .contains("โช้คอัพ หลัง")
+  cy.get(":nth-child(1) > :nth-child(1) > a > .primary-blue").click();
+  // ตรวจเช็ครายการสินค้า
+  cy.get(".status-border").contains("รอรับสินค้า");
 
-    cy.get('.the-footer > :nth-child(3) > :nth-child(2)')
-        .contains("1,199.74 บาท")
+  cy.get(
+    ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
+  ).contains("GDB101(COTEC)");
+  cy.get(
+    ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
+  ).contains("ผ้าดิสเบรค หลัง");
 
-    // บันทึกรับรายการขาย
-    cy.get(':nth-child(2) > span > .btn').click()
-    cy.get('.swal2-confirm').click()
-    cy.wait(1000)
-    cy.get('.swal2-confirm').click()
-}
-// รับสินค้าทั้งหมด
-const receiveSale = () => {
-    cy.get('#nav-item-3')
-        .click()
+  cy.get("#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0")
+    .clear()
+    .type("3");
 
-    cy.get(':nth-child(1) > :nth-child(1) > a > .primary-blue')
-        .click()
-    // ตรวจเช็ครายการสินค้า
-    cy.get('.status-border').contains("รอรับสินค้า")
+  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("1,781.55");
 
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .contains("2771")
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("โช้คอัพ หลัง")
+  cy.get("#totalNettd").contains("1,781.55 บาท");
 
-    cy.get('#nbrPurchaseOrderItemQtyReceivedDots_QtyReceived_0')
-        .clear().type("3")
+  // บันทึกรายการ
+  cy.get(".d-xl-flex > :nth-child(2) > .btn").click();
+  cy.get(".swal2-confirm").click();
 
-    cy.get('tbody > :nth-child(1) > :nth-child(7)')
-        .contains("1,199.74")
+  cy.wait(500);
 
-    cy.get('#totalNettd')
-        .contains("1,199.74 บาท")
+  cy.get(".swal2-confirm").click();
+};
 
+const checkreceiveparts = () => {
+  cy.get(".status-border").contains("รายการเสร็จสิ้น");
 
-    // บันทึกรายการ
-    cy.get('.d-xl-flex > :nth-child(2) > .btn').click()
-    cy.get('.swal2-confirm').click()
+  cy.get(
+    ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
+  ).should("contain.text", "GDB101(COTEC)");
+  cy.get(
+    ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
+  ).should("contain.text", "ผ้าดิสเบรค");
 
-    cy.wait(500)
+  cy.get("#totalNettd").contains("1,781.55 บาท");
 
-    cy.get('.swal2-confirm').click()
+  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("ยืนยันการส่ง");
 
-    // เช็คสถานะ
-    cy.get('.status-border').contains("รายการเสร็จสิ้น")
+  cy.get("#backtoindex").click();
+};
+const Finance = () => {
+  cy.get("#nav-item-6").click();
+  cy.get("#btnShowBy-1 > img").click({ force: true });
 
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue')
-        .should("contain.text", "2771")
+  cy.get("#txtFindOrderPo").click({ force: true }).type("POATP").wait(500);
 
-    cy.get('.table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)')
-        .contains("โช้คอัพ หลัง")
+  cy.get("#txtSelectMonth")
+    .click()
+    .type(
+      "{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}"
+    );
+  cy.get("#btnFind").click({ force: true });
 
-    cy.get('#totalNettd')
-        .contains("1,199.74 บาท")
-
-    cy.get('tbody > :nth-child(1) > :nth-child(7)')
-        .contains("ยืนยันการส่ง")
-
-    cy.get('#backtoindex').click()
-}
-const checkFinance = () => {
-    cy.get('#nav-item-6').click()
-
-    cy.get('#txtSelectSupplier')
-        .type("ต.สยาม คอมเมอร์เชียล จำกัด").type("{enter}")
-    cy.get('#txtSelectMonth')
-        .type("สิงหาคม").type("{enter}")
-
-    cy.get('.dashboards > :nth-child(1) > h3')
-        .contains("ยอดซื้อรวมในเดือน ส.ค.")
-    cy.get('.dashboards > :nth-child(2) > h3')
-        .contains("ยอดชำระรวมในเดือน ส.ค.")
-    cy.get(':nth-child(3) > h3')
-        .contains("ภาษีซื้อในเดือน ส.ค.")
-
-    cy.get('tbody > tr > :nth-child(1)')
-        .contains("ต.สยาม คอมเมอร์เชียล จำกัด")
-
-    cy.get('#btnShowBy-undefined > img')
-
-        .click()
-
-}
+  cy.get("#btnOpenModal").click({ force: true });
+  cy.get("#txtFindOrderPo").click({ force: true }).type("POATP").wait(500);
+  cy.get("#txtSelectMonth")
+    .click()
+    .type(
+      "{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}"
+    );
+};

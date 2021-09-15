@@ -8,7 +8,7 @@ context("Service", () => {
     addcustomer00();
     AddAppointment();
 
-    checkAppointment()
+    checkAppointment();
   });
 });
 
@@ -93,7 +93,7 @@ const AddAppointment = () => {
 
   cy.get("#car-id").click().type("9กณ").wait(2000).type("{downarrow}{enter}");
   cy.get("#date-1").click();
-  cy.get(":nth-child(4) > :nth-child(2) > div").click();
+  cy.get(":nth-child(4) > .today > div").click();
   // cy.get('.el-date-table > tbody > :nth-child(3) > :nth-child(3) > div')
   //     .click()
   cy.get("#time")
@@ -147,10 +147,10 @@ const taxAddCustomer6 = (textNo) => {
 const checkAppointment = () => {
   cy.get("tbody > :nth-child(1) > .text-left").contains("9กณ");
   cy.get(".table > tbody > :nth-child(1) > :nth-child(4)").contains("test");
-  cy.get(
-    ':nth-child(1) > [style="width: 10rem;"] > .row > .btn-details'
-  ).click({ force: true });
-//   cy.get("#car-id").contains("9กณ");
-//   cy.get("#customer-name").contains("เพิ่มลูกค้า");
+  cy.get(':nth-child(1) > [style="width: 10rem;"] > .row > .btn-details').click(
+    { force: true }
+  );
+  //   cy.get("#car-id").contains("9กณ");
+  //   cy.get("#customer-name").contains("เพิ่มลูกค้า");
   cy.get(".mr-5").click();
 };

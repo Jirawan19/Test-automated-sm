@@ -21,12 +21,12 @@ context("workshop-OnlinePartsFilter", () => {
     cy.login("empGrip01", "password");
 
     // รับสินค้า อะไหล่ แบบทั้งหมด
-    receiveSaleparts();
-    checkreceiveparts();
+    // receiveSaleparts();
+    // checkreceiveparts();
 
     // รับสินค้า อะไหล่ แบบบางชิ้น
-    // receiveSaleparts1();
-    // checkreceiveparts1();
+    receiveSaleparts1();
+    checkreceiveparts1();
   });
 });
 
