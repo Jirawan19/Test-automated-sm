@@ -1,28 +1,29 @@
 /// <reference types="cypress" />
 
 context("Finance ATP", () => {
-  //   it("Finance ATP", () => {
-  //     cy.login("empGrip01", "password");
-  //     orderOnlineBrake();
-  //     orderOnlineBrake1();
-  //     checkorderOnlineBrake();
-  //     logout();
-  //   });
+  it("Finance ATP", () => {
+    cy.login("empGrip01", "password");
+    orderOnlineBrake();
+    orderOnlineBrake1();
+    checkorderOnlineBrake();
+    logout();
+  });
 
-  //   it("supplier receiveATP", () => {
-  //     cy.login("atp-member1", "atp16011986");
-  //     supplierreceive();
-  //     Supllierlogout();
-  //   });
+  it("supplier receiveATP", () => {
+    cy.login("atp-member1", "atp16011986");
+    supplierreceive();
+    Supllierlogout();
+  });
 
   it("workshop receive", () => {
     cy.login("empGrip01", "password");
 
     // รับสินค้า อะไหล่ แบบทั้งหมด
-    // receiveSaleparts();
-    // checkreceiveparts();
+    receiveSaleparts();
+    checkreceiveparts();
 
     Finance();
+    checkFinance();
   });
 });
 
@@ -183,20 +184,40 @@ const Finance = () => {
   cy.get("#nav-item-6").click();
   cy.get("#btnShowBy-1 > img").click({ force: true });
 
-  cy.get("#txtFindOrderPo").click({ force: true }).type("POATP").wait(500);
-
-  cy.get("#txtSelectMonth")
-    .click()
-    .type(
-      "{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}"
-    );
-  cy.get("#btnFind").click({ force: true });
-
   cy.get("#btnOpenModal").click({ force: true });
-  cy.get("#txtFindOrderPo").click({ force: true }).type("POATP").wait(500);
-  cy.get("#txtSelectMonth")
-    .click()
-    .type(
-      "{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}"
-    );
+  cy.get("#txtFindOrder").click({ force: true }).type("POATP").wait(500);
+  cy.get("#selModalForMonth").type("ตุลาคม").type("{enter}");
+  cy.get("#btnModalFind").click();
+
+  //   เช็ครายการที่ต้องการจ่าย
+  cy.get("tbody > :nth-child(1) > :nth-child(2)").contains("POATP");
+  cy.get("tbody > :nth-child(1) > :nth-child(5)").contains("1,781.55");
+  cy.get(":nth-child(1) > :nth-child(1) > .md-label-form > span").click();
+  cy.get(
+    '.fc-modal > [data-v-6f3531d5=""] > .form-group > #exampleFormControlTextarea1'
+  )
+    .click({ force: true })
+    .type("Test");
+  cy.get("#btnSubmit").click({ force: true });
+
+  cy.get(".swal2-confirm").click();
+  cy.wait(500);
+  cy.get("#swal2-title").contains("บันทึกการชำระเสร็จสิ้น");
+  cy.get(".swal2-confirm").click();
+};
+
+const checkFinance = () => {
+  cy.get("#tab-1").click({ force: true });
+  cy.get("tbody > :nth-child(1) > :nth-child(2)").contains("POATP");
+  cy.get("tbody > :nth-child(1) > :nth-child(5)").contains("1,781.55");
+
+  cy.get("tbody > :nth-child(1) > :nth-child(1) > .link").click({
+    force: true,
+  });
+  //   cy.get("tbody > :nth-child(1) > :nth-child(1)").contains("POATP");
+  //   cy.get("tbody > :nth-child(1) > :nth-child(2)").contains(
+  //     "บริษัท ออโต้แพร์ จำกัด"
+  //   );
+  cy.get(":nth-child(2) > .text-right").contains("1,781.55 บาท");
+  cy.get("#btnฺMobileBack").click({ force: true });
 };
