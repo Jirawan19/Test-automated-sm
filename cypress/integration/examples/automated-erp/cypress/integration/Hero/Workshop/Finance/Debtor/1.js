@@ -22,6 +22,9 @@ context("Workshop Add Repair work", () => {
     cy.wait(2000);
     checkStatus();
     checkStatus1();
+
+    Finance();
+    // checkFinance();
   });
 });
 
@@ -72,12 +75,12 @@ const JobWork = () => {
   cy.get("#trTireCatalog0 > .text-left").contains("เพิ่มยาง");
 
   // เลือกสินค้า
-  cy.get("#dotM-11918").click();
+  cy.get("#dotM-11953").click();
   cy.get(
-    "#dotModal-11918 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(1)"
+    "#dotModal-11953 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(1)"
   ).should("contain.text", "0319");
   cy.get(
-    "#dotModal-11918 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(3) > #amount-0 > .el-input-number__increase > .el-icon-plus"
+    "#dotModal-11953 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(3) > #amount-0 > .el-input-number__increase > .el-icon-plus"
   )
     .click()
     .click()
@@ -85,7 +88,7 @@ const JobWork = () => {
   // cy.get('.modal-body > .table > tbody > tr > :nth-child(2)')
   //     .should("contain.text", "47")
   cy.get(
-    "#dotModal-11918 > .modal-dialog > .modal-content > .modal-footer > .btn-primary"
+    "#dotModal-11953 > .modal-dialog > .modal-content > .modal-footer > .btn-primary"
   ).click();
 
   cy.get(".el-notification__closeBtn").click();
@@ -98,10 +101,10 @@ const JobWork = () => {
   cy.get("#tiredata-0 > :nth-child(3)").contains("เพิ่มยาง");
 
   // ราคาต่อหน่วย
-  cy.get("#tirelatestSalePrice-0")
-    .click({ force: true })
-    .clear({ force: true })
-    .type("5000", { force: true });
+  // cy.get("#tirelatestSalePrice-0")
+  //   .click({ force: true })
+  //   .clear({ force: true })
+  //   .type("5000", { force: true });
 
   // เช็คราคาของรายการงานซ่อม
   cy.get("#pricetotal").contains("15,000.00");
@@ -322,7 +325,7 @@ const taxAddCustomer6 = (textNo) => {
 
 const jobwork = () => {
   cy.get("#nav-item-2").click();
-  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0041");
+  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0070");
   cy.get(".status-border").contains("รอซ่อมบำรุง");
   cy.get("#podata-0 > :nth-child(3)").contains("เพิ่มยาง");
   cy.get("#po-0 > :nth-child(4)").contains("5,000.00");
@@ -340,7 +343,8 @@ const checkStatus = () => {
   cy.get("#paymentPrice").contains("16,050.00 บาท");
   cy.get("#paymentModal").click();
 
-  cy.get("#paymentType").click().type("เงินสด").type("{downarrow}{enter}");
+  cy.get("#paymentType").click().type("เครดิต").type("{downarrow}{enter}");
+  cy.get("#creditValue").click().type("30").type("{enter}");
   cy.get("#btnrecheckConfirmfinish").click();
 
   cy.get(".swal2-confirm").click();
@@ -351,4 +355,47 @@ const checkStatus = () => {
 const checkStatus1 = () => {
   cy.get(".status-border").contains("รายการเสร็จสิ้น");
   cy.get("#btnBack").click();
+};
+
+const Finance = () => {
+  cy.get("#nav-item-6").click();
+  cy.wait(2000);
+  cy.get("#tab-0").click({ force: true });
+
+  cy.get("#selCustomer").click({ force: true }).type("จิรา").type("{enter}");
+  cy.get("tbody > tr > :nth-child(1)").contains("จิรา");
+  cy.wait(500);
+  cy.get(".fc-action > #btnMobileShowBy-0 > img").click({ force: true });
+
+  cy.get(".for-destop").click({ force: true });
+  // cy.get("#txtFindOrder").click({ force: true }).type("GRIP").type("{enter}");
+  cy.get("#selModalForMonth").type("ตุลาคม").type("{enter}").wait(500);
+  cy.get("#btnModalFind").click({ force: true });
+
+  cy.get(
+    '[data-v-15d1ab5a=""] > .mt-5 > .table > tbody > :nth-child(1) > :nth-child(2)'
+  ).contains("GRIP");
+  cy.get("tbody > :nth-child(1) > :nth-child(5)").contains("16,050.00");
+  cy.get(":nth-child(1) > :nth-child(1) > .md-label-form > span").click();
+  cy.get(".text-right").contains("16,050.00 บาท");
+  cy.get("#btnSubmit").click();
+
+  cy.get(".swal2-confirm").click();
+  cy.wait(500);
+  cy.get(".swal2-confirm").click();
+};
+
+const checkFinance = () => {
+  cy.get("#tab-show").click({ force: true });
+  cy.wait(2000);
+  cy.get("#txtFindOrderPo").type("DTGRIP-01-0921-0014");
+  cy.wait(500);
+
+  cy.get('.header-col-find > .btn').click();
+
+  cy.get("tr > :nth-child(1) > .primary-blue").click({
+    force: true,
+  });
+  cy.get(".text-right").contains("16,050.00");
+  cy.get("#btnฺMobileBack").click();
 };
