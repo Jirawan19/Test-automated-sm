@@ -99,7 +99,7 @@ const AddAppointment = () => {
   cy.get("#time")
     .click()
     .type(
-      "{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}"
+      "{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}"
     );
   cy.get("#customer-story").type("test");
   cy.get(".el-textarea__inner").type("test");

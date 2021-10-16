@@ -126,15 +126,20 @@ const Addorder = () => {
 
   // รายละเอียดสินค้า
   cy.get("#tab-TIRE").click();
+
+  cy.wait(500);
   cy.get("#txtSelectSeries")
     .click()
-    .type("11.5")
-    .type("{downarrow}{downarrow}{enter}", { force: true });
-  cy.get("#txtSelectRim")
-    .click()
-    .type("13")
+    .type("45")
     .type("{downarrow}{downarrow}{enter}", { force: true });
 
+  cy.wait(500);
+  cy.get("#txtSelectRim")
+    .click()
+    .type("15")
+    .type("{downarrow}{downarrow}{enter}", { force: true });
+
+  cy.wait(500);
   cy.get("#btnsearchTire").click();
 
   // เลือกสินค้า

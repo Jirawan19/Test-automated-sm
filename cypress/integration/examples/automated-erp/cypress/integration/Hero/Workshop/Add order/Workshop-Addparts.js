@@ -3,8 +3,8 @@
 context("Warehouse", () => {
   it("Parts", () => {
     cy.login("empGrip01", "password");
-    addParts();
-    supplier();
+    // addParts();
+    // supplier();
 
     Addorderparts();
     checkorderparts();

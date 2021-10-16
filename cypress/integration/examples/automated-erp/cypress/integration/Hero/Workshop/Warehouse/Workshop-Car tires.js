@@ -74,14 +74,19 @@ const confimeCartiees = () => {
 };
 
 const check = () => {
+  cy.wait(1000);
+  cy.get("#txtSelectWidth")
+    .click({ force: true })
+    .type("{downarrow}{enter}");
+  cy.wait(500);
   cy.get("#txtSelectSeries")
     .click({ force: true })
-    .type("{downarrow}{downarrow}{enter}");
+    .type("{downarrow}{enter}");
   cy.wait(500);
   cy.get("#txtSelectRim")
     .click({ force: true })
-    .type("{downarrow}{downarrow}{enter}");
-  cy.wait(500);
+    .type("{downarrow}{enter}");
+    
   cy.get(".row.mt-4 > :nth-child(1) > .btn-search").click({ force: true });
   cy.wait(500);
   cy.get(

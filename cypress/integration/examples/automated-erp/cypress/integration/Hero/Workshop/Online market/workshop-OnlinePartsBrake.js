@@ -21,8 +21,8 @@ context("workshop-OnlinePartsBrake", () => {
     cy.login("empGrip01", "password");
 
     // รับสินค้า อะไหล่ แบบทั้งหมด
-      receiveSaleparts()
-      checkreceiveparts()
+    receiveSaleparts();
+    checkreceiveparts();
 
     //   รับสินค้า อะไหล่ แบบบางชิ้น
     // receiveSaleparts1();
@@ -57,7 +57,7 @@ const orderOnlineBrake1 = () => {
     .type("TRW", { force: true })
     .type("{enter}");
 
-  cy.get("#btnAddCartById-2077").click({ force: true });
+  cy.get("#btnAddCartById-177").click({ force: true });
 
   cy.get(".el-notification__closeBtn").click();
 
@@ -71,10 +71,10 @@ const orderOnlineBrake1 = () => {
   cy.get("#txtQtyReciveBySupplyIndex-0-0").clear().type("3");
   // ราคา
   cy.get('thead > [style="cursor: pointer;"] > :nth-child(4)').contains(
-    "593.85"
+    "780.00"
   );
 
-  cy.get(".total-price").contains("1,781.55 บาท");
+  cy.get(".total-price").contains("2,340.00 บาท");
 
   cy.get(":nth-child(2) > .btn").click();
 
@@ -88,8 +88,8 @@ const checkorderOnlineBrake = () => {
   cy.get(".status-border").contains("รอยืนยันรายการ");
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).contains("GDB101(COTEC)");
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  ).contains("GDB986(COTEC)");
+  cy.get("#totalNettd").contains("2,340.00 บาท");
 
   cy.get("#backtoindex").click();
 };
@@ -122,12 +122,12 @@ const supplierreceive = () => {
 
   cy.get(
     ".table-order-wrappe > .table > tbody > tr > .text-left > .primary-blue"
-  ).contains("GDB101(COTEC)");
+  ).contains("GDB986(COTEC)");
   cy.get(
     ".table-order-wrappe > .table > tbody > tr > .text-left > :nth-child(4)"
   ).contains("ผ้าดิสเบรค หลัง");
 
-  cy.get(":nth-child(1) > .text-right").contains("1,781.55 บาท");
+  cy.get(":nth-child(1) > .text-right").contains("2,340.00 บาท");
 
   // บันทึกรับรายการขาย
   cy.get(":nth-child(2) > span > .btn").click();
@@ -145,7 +145,7 @@ const receiveSaleparts = () => {
 
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).contains("GDB101(COTEC)");
+  ).contains("GDB986(COTEC)");
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
   ).contains("ผ้าดิสเบรค หลัง");
@@ -154,9 +154,9 @@ const receiveSaleparts = () => {
     .clear()
     .type("3");
 
-  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("1,781.55");
+  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("2,340.00");
 
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  cy.get("#totalNettd").contains("2,340.00 บาท");
 
   // บันทึกรายการ
   cy.get(".d-xl-flex > :nth-child(2) > .btn").click();
@@ -172,12 +172,12 @@ const checkreceiveparts = () => {
 
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).should("contain.text", "GDB101(COTEC)");
+  ).should("contain.text", "GDB986(COTEC)");
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
   ).should("contain.text", "ผ้าดิสเบรค");
 
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  cy.get("#totalNettd").contains("2,340.00 บาท");
 
   cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("ยืนยันการส่ง");
 
@@ -194,7 +194,7 @@ const receiveSaleparts1 = () => {
 
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).contains("GDB101(COTEC)");
+  ).contains("GDB986(COTEC)");
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
   ).contains("ผ้าดิสเบรค หลัง");
@@ -203,9 +203,9 @@ const receiveSaleparts1 = () => {
     .clear()
     .type("2");
 
-  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("1,781.55");
+  cy.get("tbody > :nth-child(1) > :nth-child(7)").contains("2,340.00");
 
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  cy.get("#totalNettd").contains("2,340.00 บาท");
 
   // บันทึกรายการ
   cy.get(".d-xl-flex > :nth-child(2) > .btn").click();
@@ -221,12 +221,12 @@ const checkreceiveparts1 = () => {
 
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > .primary-blue"
-  ).should("contain.text", "GDB101(COTEC)");
+  ).should("contain.text", "GDB986(COTEC)");
   cy.get(
     ".table-order-wrapper.d-none > .table > tbody > :nth-child(1) > .text-left > :nth-child(4)"
   ).should("contain.text", "ผ้าดิสเบรค");
 
-  cy.get("#totalNettd").contains("1,781.55 บาท");
+  cy.get("#totalNettd").contains("2,340.00 บาท");
 
   cy.get("#backtoindex").click();
 };

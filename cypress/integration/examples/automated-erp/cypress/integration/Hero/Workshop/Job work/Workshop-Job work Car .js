@@ -6,23 +6,23 @@ context("Workshop Add Repair work", () => {
   // เปิดงานซ่อม
   it("Add job work", () => {
     cy.login("empGrip01", "password");
-    AddCustomerJob();
-    AddTechincianOrWorkjob();
-    addCartiees();
+    // AddCustomerJob();
+    // AddTechincianOrWorkjob();
+    // addCartiees();
 
     JobWork();
     JobWork1();
   });
 
   //   ซ่อมบำรุง นำเลขออเดอร์ที่พึ่งเปิดงานซ่อมมาใส่ทุกครั้ง
-  it("job work", () => {
-    cy.login("empGrip01", "password");
-    cy.wait(2000);
-    jobwork();
-    cy.wait(2000);
-    checkStatus();
-    checkStatus1();
-  });
+  // it("job work", () => {
+  //   cy.login("empGrip01", "password");
+  //   cy.wait(2000);
+  //   jobwork();
+  //   cy.wait(2000);
+  //   checkStatus();
+  //   checkStatus1();
+  // });
 });
 
 const JobWork = () => {
@@ -72,21 +72,16 @@ const JobWork = () => {
   cy.get("#trTireCatalog0 > .text-left").contains("เพิ่มยาง");
 
   // เลือกสินค้า
-  cy.get("#dotM-11918").click();
-  cy.get(
-    "#dotModal-11918 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(1)"
-  ).should("contain.text", "0319");
-  cy.get(
-    "#dotModal-11918 > .modal-dialog > .modal-content > .modal-body > .table > tbody > tr > :nth-child(3) > #amount-0 > .el-input-number__increase > .el-icon-plus"
-  )
-    .click()
-    .click()
-    .click();
+  cy.get("#dotM-10604").click();
+  cy.get(".modal-body > .table > tbody > tr > :nth-child(1)").should(
+    "contain.text",
+    "0319"
+  );
+  cy.get(".el-icon-plus").click().click().click();
+
   // cy.get('.modal-body > .table > tbody > tr > :nth-child(2)')
   //     .should("contain.text", "47")
-  cy.get(
-    "#dotModal-11918 > .modal-dialog > .modal-content > .modal-footer > .btn-primary"
-  ).click();
+  cy.get(".btn-primary").click();
 
   cy.get(".el-notification__closeBtn").click();
 
@@ -98,10 +93,10 @@ const JobWork = () => {
   cy.get("#tiredata-0 > :nth-child(3)").contains("เพิ่มยาง");
 
   // ราคาต่อหน่วย
-  //   cy.get("#tireendUserPriceList-0")
-  //     .click({ force: true })
-  //     .clear({ force: true })
-  //     .type("200", { force: true });
+  cy.get("#tireendUserPriceList-0")
+    .click({ force: true })
+    .clear({ force: true })
+    .type("200", { force: true });
 
   // เช็คราคาของรายการงานซ่อม
   cy.get("#pricetotal").contains("600.00");
@@ -321,7 +316,7 @@ const taxAddCustomer6 = (textNo) => {
 };
 
 const jobwork = () => {
-  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0010");
+  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-1021-0003");
   cy.get(".status-border").contains("รอซ่อมบำรุง");
   cy.get("#podata-0 > :nth-child(3)").contains("เพิ่มยาง");
   cy.get("#po-0 > :nth-child(4)").contains("200.00");

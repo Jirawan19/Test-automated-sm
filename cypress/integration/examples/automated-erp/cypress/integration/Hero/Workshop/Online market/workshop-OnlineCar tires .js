@@ -65,7 +65,7 @@ const orderOnlineTires1 = () => {
     .type("{enter}");
 
   // เลือกสินค้า
-  cy.get("#btnAddCartById-333").click();
+  cy.get('#btnAddCartById-49').click();
 
   cy.get(".el-notification__closeBtn").click();
 

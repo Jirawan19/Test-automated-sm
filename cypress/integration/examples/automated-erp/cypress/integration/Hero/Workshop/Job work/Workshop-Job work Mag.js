@@ -62,7 +62,7 @@ const JobWork = () => {
     ".d-xl-block > .table > tbody > tr > .text-left > .primary-blue"
   ).contains("40");
 
-  cy.get("#addMagPo-11924").click();
+  cy.get('#addMagPo-10612').click();
 
   cy.get(".el-notification__closeBtn").click();
 
@@ -272,7 +272,7 @@ const taxAddCustomer6 = (textNo) => {
   cy.get("#email").click().type("test").type(textNo).type("@gmail.com");
 };
 const jobwork = () => {
-  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-0921-0011");
+  cy.visit("https://herodemo.autopair.co/workshop/jobs/GRIP-01-1021-0004");
   cy.get(".status-border").contains("รอซ่อมบำรุง");
   cy.get("#podata-0 > :nth-child(4)").contains("เพิ่มแม็ก");
   cy.get("#po-0 > :nth-child(4)").contains("30.00");
