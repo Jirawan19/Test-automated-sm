@@ -31,7 +31,7 @@ const SettingTransport1 = () => {
         .click()
     cy.get('#swal2-title').should("contain.text", "สำเร็จ")
     cy.get('#swal2-content').should("contain.text", "เพิ่มข้อมูลการขนส่งเรียบร้อย")
-    cy.get('.swal2-confirm').should("contain.text", "OK")
+    cy.get('.swal2-confirm').should("contain.text", "ตกลง")
     cy.get('.swal2-confirm').click()
 }
 const getRandomNumberSettingTransport = (min, max) => {
