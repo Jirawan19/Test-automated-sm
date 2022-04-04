@@ -43,3 +43,9 @@ Cypress.on("uncaught:exception", (err, runnable) => {
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add("loginMNY", (username, password) => {
+  cy.visit("https://smdevdemo.autocareth.com/");
+  cy.get('#input_username').click().type(username);
+  cy.get('#input_password').click().type(password);
+  cy.get('.btn').click();
+});
